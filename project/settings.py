@@ -76,9 +76,9 @@ TEMPLATES = [
 ]
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'hajencmzq',
-    'API_KEY': '162125384956411',
-    'API_SECRET': 'cUshnxQxrDMfvRCbr4RWV8NrOHE'
+    'CLOUD_NAME': 'hvajqr9vx',
+    'API_KEY': '693977391477188',
+    'API_SECRET': 'ztXO9DyVb0dU6MXJ7G5xIPckFe8'
 }
 
 
