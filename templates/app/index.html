@@ -1,0 +1,41 @@
+
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+    <div>
+      <h1>共有日報一覧</h1>
+    </div>
+  </div>
+
+<form method="GET" action="{% url 'app:index' %}" class="search-form">
+  <input class="search-input" type="text" name="keyword" placeholder="学んだことで検索する">
+  <button type="submit" class="fb"><i class="fas fa-search"></i></button>
+</form>
+
+  <div class="fb indexFb">
+    {% for memo in memos %}
+    {% if user.id == memo.create_user_id  %}
+    <div class="card my">
+      <a href="{% url 'app:detail' memo.id %}">
+        <div class="fb">
+          <p class="title">{{ memo.dateData }}</p>
+          <p class="text">{{ memo.discovery }}</p>
+        </div>
+      </a>
+    </div>
+    {% else %}
+      <div class="card">
+        <a href="{% url 'app:detail' memo.id %}">
+          <div class="fb">
+            <p class="title">{{ memo.dateData }}</p>
+            <p class="text">{{ memo.discovery }}</p>
+          </div>
+        </a>
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+{% endblock %}

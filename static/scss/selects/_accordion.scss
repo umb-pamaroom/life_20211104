@@ -1,0 +1,97 @@
+.accordion.jsBtn{
+  & + .panel{
+    display: none;
+  }
+  &.is-active{
+    &+.panel{
+      display: block;
+    }
+  }
+}
+
+.simple-accodion-btn{
+  background: var(--btn-success);
+  padding: 1em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2em;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  position: relative;
+
+  &:after {
+    content: '＋';
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    right: 1.2em;
+    font-size: 1.1em;
+    display: inline-block;
+    transition-duration: 0.2s;
+  }
+
+  &.is-active {
+    &:after {
+      content: "ー";
+    }
+
+    &+.panel {
+      display: block;
+    }
+  }
+  >*{
+    margin: 0 !important;
+  }
+}
+
+ul.accordion-ul {
+  li {
+    margin-bottom: 3em;
+
+    // アコーディオン
+    .accordion {
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      outline: none;
+      transition: 0.4s;
+      position: relative;
+      transition-duration: 0.2s;
+      background: rgb(65, 65, 65);
+
+      &:after {
+        content: '＋';
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        right: 1.2em;
+        font-size: 1.1em;
+        display: inline-block;
+        transition-duration: 0.2s;
+      }
+
+      &.is-active {
+        &:after {
+          content: "ー";
+        }
+        & + .panel{
+          display: block;
+        }
+      }
+    }
+
+    .panel {
+      display: none;
+background: rgb(56, 56, 56);
+    }
+  }
+}

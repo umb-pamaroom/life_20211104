@@ -1,0 +1,85 @@
+.login-wrapper{
+  max-width: 1100px;
+  margin: 150px auto 0;
+  border-radius: 5 px;
+  box-shadow: 0px 10px 34px -15px rgba(0,0,0,.25);
+  background: #fff;
+  >.fb{
+    align-items: stretch;
+  }
+  .block-left{
+    padding: 3em;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center center;
+    position: relative;
+    z-index: 0;
+    &::after{
+      background: #1379ff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: '';
+      opacity: .6;
+      z-index: -1;
+    }
+  }
+  .block-right{
+    padding: 3em;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    .content{
+      max-width: 400px;
+    }
+  }
+  .content{
+    width: 100%;
+  }
+  form{
+    input{
+margin-bottom: 1em;
+    }
+  }
+}
+/*  --------------------------------------------------------------- 
+  960以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 960px) {
+  .login-wrapper {
+
+    .block-left {
+      padding: 1.5em;
+    }
+
+    .block-right {
+      padding: 1.5em;
+    }
+  }
+}
+
+/*  --------------------------------------------------------------- 
+  600以下（480pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .login-wrapper {
+    margin-top: 100px;
+    >.fb {
+      flex-wrap: wrap;
+    }
+
+    .block-left {
+      width: 100%;
+    }
+
+    .block-right {
+      width: 100%;
+    }
+  }
+}

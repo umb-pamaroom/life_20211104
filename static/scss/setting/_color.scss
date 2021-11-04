@@ -1,0 +1,81 @@
+$main_color: #D90429;
+$sub_color: #fbc600;
+$black:#2B2D42;
+$grey: #f4f5f7;
+$text-grey: #A2A2A2;
+$grey1: #8D99AE;
+$bg-grey: #F2F5F7;
+$text-bg:#DEE1E2;
+$text-link-color: #036eb8;
+$dark-bg:rgb(14, 14, 14);
+$dark-text-color:rgb(223, 223, 223);
+$dark-main:rgb(41, 41, 41);
+
+
+html {
+--bg-header: #226fe2;
+--bg-main: #fff;
+--bg-main2: #e7e7e7;
+--text-main: rgb(0, 0, 0);
+--text-link: #226fe2;
+--btn-success: #226fe2;
+--border-main:1px solid #ccc;
+    --nkw-border-color-light-gray: #e8eaed;
+    --nkw-background-color-light-gray: #e8eaed;
+    --nkw-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .4);
+    --nkw-color-success: #28a745;
+    --nkw-color-error: #dc3545;
+    --nkw-color-warning: #ffc107;
+    --nkw-color-info: #17a2b8;
+    --nkw-color-link: #007bff;
+    --nkw-color-muted: #6c757d;
+    --nkw-color-border-light-gray: #e8eaed;
+    --nkw-color-border-dark-gray: #5f6368;
+    --nkw-color-active: #007bff;
+    --nkw-color-inactive: #6c757d;
+    --nkw-font-size-medium: 16px;
+    --nkw-font-size-small: 13px;
+    --nkw-font-size-x-small: 10px;
+    --nkw-form-background-color: #fff;
+    --nkw-form-border-color: #e8eaed;
+    --nkw-form-border-color-focus: #5f6368;
+    --nkw-form-field-color: #495057;
+    --nkw-form-font-size: 15px;
+    --nkw-form-font-size-label: 12px;
+    --nkw-form-height-icon: 18px;
+    --nkw-form-width-icon: 18px;
+    --nkw-height-list-item: 55px;
+    --nkw-height-list-item-icon: 24px;
+    --nkw-sidemenu-font-size-list-title: 15px;
+    --nkw-sidemenu-font-size-list-item: 13px;
+    --nkw-sidemenu-height-item-icon: 24px;
+    --nkw-sidemenu-height-shrink-icon: 38px;
+    --nkw-sidemenu-width-item-icon: 24px;
+    --nkw-sidemenu-width-shrink-icon: 38px;
+    --nkw-table-box-background-color: #fff;
+    --nkw-table-box-border-color: #e0e0e0;
+    --nkw-table-box-color: #5f6368;
+    --nkw-table-box-height-icon: 20px;
+    --nkw-table-box-width-icon: 20px;
+    --nkw-table-box-font-size: 14.5px;
+    --nkw-table-box-thead-background-color: #e8eaed;
+    --nkw-width-list-item-icon: 24px;
+    --text-reverse: rgb(32, 32, 32);
+    --text-form:rgb(32, 32, 32);
+}
+
+
+// ダークテーマ
+html[data-theme="dark"] {
+    --bg-header: #222d32;
+    --bg-main: #1f1f1f;
+    --bg-main2: #3a3a3a;
+    --text-main: rgba(248, 248, 248, 0.87);
+    --text-reverse: rgb(32, 32, 32);
+    --text-form:rgb(32, 32, 32);
+    --btn-success: #1957b4;
+    --text-link: #1957b4;
+
+    // ボーダー
+    --border-main:1px solid rgba(248, 248, 248, 0.87);
+}

@@ -1,0 +1,548 @@
+footer {
+  padding: 6em 2em 3em;
+  font-size: 14px;
+}
+
+body {
+  background: var(--bg-main);
+}
+
+.notable {
+  display: block !important;
+
+  tr {
+    display: block !important;
+
+    th,
+    td {
+      display: block !important;
+    }
+  }
+}
+
+.bgblue{
+  background: var(--btn-success);
+}
+.simple-table {
+  .table-content {
+    padding: 1em 0;
+    border-bottom: 1px solid var(--text-main);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+}
+
+a {
+  word-break: break-all;
+}
+
+.t-link {
+  text-decoration: underline;
+  color: var(--text-link);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// 共通
+.mb05 {
+  margin-bottom: .5em;
+}
+
+.container-before {
+  padding-top: 50px;
+}
+
+.link-p {
+  color: rgb(112, 112, 112);
+}
+
+.p0 {
+  padding: 0 !important;
+}
+
+.card {
+  padding: .8em;
+  width: 25%;
+
+  >a {
+    background: var(--bg-main);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #ccc;
+    display: block;
+    padding: 1em;
+    transition-duration: .3s;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    >.fb {
+      flex-wrap: wrap;
+
+      >* {
+        width: 100%;
+      }
+    }
+  }
+
+  &.my {
+    >a {
+      background: var(--bg-header);
+    }
+  }
+
+  >.card-unit {
+    padding: 0;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+}
+
+
+textarea,
+input {
+  background: var(--bg-main);
+  border: 1px solid #ccc;
+  height: 200px;
+  padding: .8em 1em;
+  color: var(--text-main);
+}
+
+input {
+  height: auto !important;
+  width: 100%;
+
+  &+span {
+    display: block;
+  }
+}
+
+// モーダルウィンドウ
+.modalContainer {
+
+  .btn {
+    margin-top: 1em !important;
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+
+  .btn-wrap {
+    text-align: center;
+  }
+
+  .btn-close {
+    padding: .8em;
+    margin: 0 auto;
+    background: rgb(104, 104, 104);
+  }
+
+  //modal
+  .modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: none;
+    opacity: 0;
+    z-index: -1;
+
+    .btn-inner {
+      margin-top: 23.5px;
+    }
+
+
+  }
+
+  .modal-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-inner {
+    width: 90vw;
+    max-width: 800px;
+    max-height: 80vh;
+    margin: auto;
+    padding: 15px;
+    background: var(--bg-main);
+    overflow-y: auto;
+    z-index: 1;
+
+    img {
+      width: 100%;
+    }
+  }
+
+
+  .modal-list-logo {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 25px;
+    text-align: center;
+
+    p {
+      margin-top: 15px;
+      font-size: 1.2rem;
+    }
+
+  }
+
+  .modal-content {
+    text-align: left;
+  }
+
+  .modal-content-ttl {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: .4em;
+  }
+
+  //modal animation
+  .modal {
+    &.is-open {
+      -webkit-animation: modal_open .5s ease forwards;
+      animation: modal_open .5s ease forwards;
+
+      .modal-inner {
+        -webkit-animation: modal_inner_open .5s ease forwards;
+        animation: modal_inner_open .5s ease forwards;
+      }
+    }
+
+    &.is-close {
+      -webkit-animation: modal_close .5s ease forwards;
+      animation: modal_close .5s ease forwards;
+
+      .modal-inner {
+        -webkit-animation: modal_inner_close .5s ease forwards;
+        animation: modal_inner_close .5s ease forwards;
+
+      }
+    }
+  }
+
+  @-webkit-keyframes modal_open {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+      z-index: 10000;
+    }
+  }
+
+  @keyframes modal_open {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+      z-index: 10000;
+    }
+  }
+
+  @-webkit-keyframes modal_inner_open {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes modal_inner_open {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @-webkit-keyframes modal_close {
+    0% {
+      z-index: 10000;
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+
+    }
+  }
+
+  @keyframes modal_close {
+    0% {
+      z-index: 10000;
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+
+    }
+  }
+
+  @-webkit-keyframes modal_inner_close {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-20px);
+      opacity: 0;
+
+    }
+  }
+
+  @keyframes modal_inner_close {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-20px);
+      opacity: 0;
+
+    }
+  }
+}
+
+.fb.three {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  >* {
+    width: 33.3333% !important;
+    max-height: 150px;
+    overflow: hidden;
+
+    >* {
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }
+}
+
+input[type="file"] {
+  padding: 0;
+  background: none;
+  border: none;
+  width: 100%;
+}
+
+::-webkit-file-upload-button {
+  display: block;
+  width: 100%;
+  background: var(--btn-success);
+  color: #fff;
+  border: none;
+  padding: .6em;
+  font-weight: bold;
+  margin-bottom: .4em;
+}
+
+.p-memo {
+  max-width: 800px;
+  margin: 0 auto;
+
+  .selectbox {
+    margin-bottom: 1.5em;
+  }
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.5em;
+    padding: .8em;
+
+    >* {
+      width: 100%;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: .2em;
+    }
+  }
+}
+
+.form-table {
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+
+  tbody {
+    display: block;
+    width: 100%;
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 1.5em;
+    padding: .8em;
+
+    th {
+      font-weight: bold;
+      margin-bottom: .2em;
+    }
+
+    th,
+    td {
+      width: 100%;
+      display: block;
+
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+// トップ
+.indexFb {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+// ボタン
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: .8em 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  &.bgblack {
+    background: #000;
+  }
+}
+
+.btn-flat {
+  overflow: hidden;
+  padding: 1.5rem 6rem;
+  color: var(--text-main);
+  background: var(--btn-success);
+}
+
+
+.text-blocks {
+  margin-bottom: 3em;
+  border-top: 1px solid var(--text-main);
+
+  .text-block {
+    padding: 1.5em 0;
+    border-bottom: 1px solid var(--text-main);
+
+    >p {
+      font-weight: bold;
+    }
+  }
+}
+
+.container-before {
+  padding: 0 1em;
+}
+
+/*  --------------------------------------------------------------- 
+  960以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 960px) {
+  .card {
+    width: 33.33333333%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 50%;
+  }
+}
+
+/*  --------------------------------------------------------------- 
+  600以下（480pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .card {
+    width: 100% !important;
+    padding: .6em 0;
+  }
+
+  .p-memo {
+    p {
+      padding: .6em 0;
+    }
+  }
+
+  .form-table {
+    tr {
+      padding: .6em 0;
+    }
+  }
+
+  .fb.three {
+    width: calc(100% + 64px);
+    position: relative;
+    right: 2em;
+  }
+}
+
+/*  --------------------------------------------------------------- 
+  479以下（320pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 479px) {}

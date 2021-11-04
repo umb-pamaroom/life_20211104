@@ -1,0 +1,22 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="heading">
+    <div>
+        <h1>プロフィール編集</h1>
+    </div>
+</div>
+<form action="" method="POST">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="mb1">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <p class="p0">{{ field }} {{ field.errors }}</p>
+    </div>
+    {% endfor %}
+    <div class="tc mt2">
+    <button type="submit" class="btn btn-flat">登録する</button>
+    </div>
+
+</form>
+{% endblock %}

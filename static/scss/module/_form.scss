@@ -1,0 +1,53 @@
+.search-form {
+  position: relative;
+  margin-bottom: 2em;
+
+  .fb{
+    height: 100%;
+    padding: 1em;
+    position: absolute;
+    right: 0;
+    /*アイコン左右の位置調整*/
+    top: 0;
+    color: #fff;
+    font-size: 20px;
+    /*アイコンサイズ*/
+  }
+}
+
+label{
+  margin-bottom: .3em;
+  display: block;
+}
+
+.selectbox{
+  position: relative;
+  margin-bottom: 2em;
+  &::after{
+    position: absolute;
+    content: "\f078" !important;
+    font-weight: 900;
+    right: .7em;
+    font-family: 'Font Awesome 5 Free',
+    'Font Awesome 5 Brands';
+    display: inline-block;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    color: var(--text-main);
+  }
+  select{
+    display: block;
+    width: 100%;
+    padding: .7em;
+    border: 1px solid var(--text-main);
+  }
+}
+
+
+
+
+@media screen and (max-width: 960px) {
+}

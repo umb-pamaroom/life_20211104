@@ -1,0 +1,124 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>日報編集</h1>
+    </div>
+</div>
+
+<form class="newMemo p-memo" action="{% url 'app:edit_memo' memo.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <div>
+            <label for="id_dateData">日付</label>
+            <p class="p0">{{ form.dateData }}</p>
+        </div>
+
+        <div class="accordion jsBtn simple-accodion-btn">
+            <p class="p0">日記</p>
+        </div>
+
+        <div class="panel">
+            <div style="display:none">
+                <label for="id_create_user">ユーザー</label>
+                <p class="p0"><select name="create_user" required="" id="id_create_user">
+                        <option value="{{ user.id }}" selected="{{ user.email }}">{{ user.email }}</option>
+                    </select>
+                </p>
+            </div>
+            <div>
+                <label for="id_discovery">学んだこと</label>
+                <p class="p0">{{ form.discovery }}</p>
+            </div>
+            <div>
+                <label for="id_tired">印象に残ったこと</label>
+                <p class="p0">{{ form.tired }}</p>
+            </div>
+            <div>
+                <label for="id_happy">嬉しかったこと</label>
+                <p class="p0">{{ form.happy }}</p>
+            </div>
+            <div>
+                <label for="id_best">頑張ったこと</label>
+                <p class="p0">{{ form.best }}</p>
+            </div>
+            <div>
+                <label for="id_tomorrow">明日したいこと</label>
+                <p class="p0">{{ form.tomorrow }}</p>
+            </div>
+            <div>
+                <label for="id_dislike">改善点</label>
+                <p class="p0">{{ form.dislike }}</p>
+            </div>
+            <div>
+                <label for="id_other">その他</label>
+                <p class="p0">{{ form.other }}</p>
+            </div>
+            <div>
+                <label for="id_summarize">1日のまとめ</label>
+                <p class="p0">{{ form.summarize }}</p>
+            </div>
+        </div>
+
+
+        <div class="accordion jsBtn simple-accodion-btn">
+            <p class="p0">食事</p>
+        </div>
+
+        <div class="panel">
+            <div>
+                <label for="id_breakfast">朝食</label>
+                <p class="p0">{{ form.breakfast }}</p>
+            </div>
+            <div>
+                <label for="id_breakfastName">朝食名</label>
+                <p class="p0">{{ form.breakfastName }}</p>
+            </div>
+            <div>
+                <label for="id_lunch">昼食</label>
+                <p class="p0">{{ form.lunch }}</p>
+            </div>
+            <div>
+                <label for="id_lunchName">昼食名</label>
+                <p class="p0">{{ form.lunchName }}</p>
+            </div>
+
+            <div>
+                <label for="id_dinner">夕食</label>
+                <p class="p0">{{ form.dinner }}</p>
+            </div>
+            <div>
+                <label for="id_dinnerName">夕食名</label>
+                <p class="p0">{{ form.dinnerName }}</p>
+            </div>
+
+            <div>
+                <label for="id_snack">間食</label>
+                <p class="p0">{{ form.snack }}</p>
+            </div>
+            <div>
+                <label for="id_snackName">間食名</label>
+                <p class="p0">{{ form.snackName }}</p>
+            </div>
+            <div>
+                <label for="id_mealEvaluation">食事の総合評価</label>
+                <div class="selectbox">{{ form.mealEvaluation }}</div>
+            </div>
+            <div>
+                <label for="id_mealComment">食事へのコメント</label>
+                <p class="p0">{{ form.mealComment }}</p>
+            </div>
+            <div>
+                <label for="id_condition">体調</label>
+                <div class="selectbox">{{ form.condition }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="tc">
+        <button class="btn btn-flat" type="submit">保存</button>
+    </div>
+</form>
+
+{% endblock %}

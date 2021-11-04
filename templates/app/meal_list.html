@@ -1,0 +1,92 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="heading">
+  <div>
+    <h1>食事一覧</h1>
+  </div>
+</div>
+
+<form method="GET" action="{% url 'app:meal_list' %}" class="search-form">
+  <input type="text" name="keyword" placeholder="食事名で検索する">
+  <button type="submit" class="fb"><i class="fas fa-search"></i></button>
+</form>
+
+<div class="fb indexFb modalContainer">
+  {% for memo in memos %}
+    <div class="card p0">
+      <div class="card-unit" href="{% url 'app:detail' memo.id %}">
+        <div class="fb three">
+          {% if memo.breakfast %}
+          <div class="btn-wrap">
+            <a class="modal-open" data-modal-open="modal-1-{{ memo.id }}"><img src="{{ memo.breakfast.url }}"></a>
+          </div>
+          {% endif %}
+
+          {% if memo.lunch %}
+          <div class="btn-wrap">
+            <a class="modal-open" data-modal-open="modal-2-{{ memo.id }}"><img src="{{ memo.lunch.url }}"></a>
+          </div>
+          {% endif %}
+
+          {% if memo.dinner %}
+          <div class="btn-wrap">
+            <a class="modal-open" data-modal-open="modal-3-{{ memo.id }}"><img src="{{ memo.dinner.url }}"></a>
+          </div>
+          {% endif %}
+        </div>
+        <div class="modal" data-modal="modal-1-{{ memo.id }}">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <p class="date">{{ memo.dateData }}　朝食</p>
+              <div class="modal-content-ttl">{{ memo.breakfastName }}</div>
+              {% if memo.breakfast %}
+              <p><img src="{{ memo.breakfast.url }}"></p>
+              {% endif %}
+              <div class="btn-wrap">
+            <a class="btn btn-flat" href="{% url 'app:edit_memo' memo.pk %}">編集</a>
+                <a href="#" class="btn btn-close btn-flat">閉じる</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" data-modal="modal-2-{{ memo.id }}">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <p class="date">{{ memo.dateData }}　昼食</p>
+              <div class="modal-content-ttl">{{ memo.lunchName }}</div>
+              {% if memo.lunch %}
+              <p><img src="{{ memo.lunch.url }}"></p>
+              {% endif %}
+              <div class="btn-wrap">
+            <a class="btn btn-flat" href="{% url 'app:edit_memo' memo.pk %}">編集</a>
+                <a href="#" class="btn btn-close btn-flat">閉じる</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" data-modal="modal-3-{{ memo.id }}">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <p class="date">{{ memo.dateData }}　夕食</p>
+              <div class="modal-content-ttl">{{ memo.dinnerName }}</div>
+              {% if memo.dinner %}
+              <p><img src="{{ memo.dinner.url }}"></p>
+              {% endif %}
+              <div class="btn-wrap">
+            <a class="btn btn-flat" href="{% url 'app:edit_memo' memo.pk %}">編集</a>
+                <a href="#" class="btn btn-close btn-flat">閉じる</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

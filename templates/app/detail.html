@@ -1,0 +1,172 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>日報詳細</h1>
+    </div>
+</div>
+
+<p class="mb1 fzl2 b">{{ memo.dateData }}</p>
+
+
+<div class="accordion jsBtn simple-accodion-btn">
+    <p class="p0">日記</p>
+</div>
+
+
+<div class="panel">
+    <div class="text-blocks">
+    <div class="text-block">
+        <p>学んだこと</p>
+        <div>
+            {{ memo.discovery | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>印象に残ったこと</p>
+        <div>
+            {{ memo.tired | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>嬉しかったこと</p>
+        <div>
+            {{ memo.happy | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>頑張ったこと</p>
+        <div>
+            {{ memo.best | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>明日したいこと</p>
+        <div>
+            {{ memo.tomorrow | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>改善点</p>
+        <div>
+            {{ memo.dislike | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>その他</p>
+        <div>
+            {{ memo.other | linebreaks | urlize }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>1日のまとめ</p>
+        <div>
+            {{ memo.summarize | linebreaks | urlize }}
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="accordion jsBtn simple-accodion-btn">
+    <p class="p0">食事</p>
+</div>
+
+<div class="panel">
+    <div class="text-blocks">
+
+    {% if memo.breakfast %}
+    <div class="text-block">
+        <p>朝食</p>
+        <div>
+            <img src="{{ memo.breakfast.url }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="text-block">
+        <p>朝食名</p>
+        <div>
+            {{ memo.breakfastName }}
+        </div>
+    </div>
+
+    {% if memo.lunch %}
+    <div class="text-block">
+        <p>昼食</p>
+        <div>
+            <img src="{{ memo.lunch.url }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="text-block">
+        <p>昼食名</p>
+        <div>
+            {{ memo.lunchName }}
+        </div>
+    </div>
+
+    {% if memo.dinner %}
+    <div class="text-block">
+        <p>夕食</p>
+        <div>
+            <img src="{{ memo.dinner.url }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="text-block">
+        <p>夕食名</p>
+        <div>
+            {{ memo.dinnerName }}
+        </div>
+    </div>
+
+    {% if memo.snack %}
+    <div class="text-block">
+        <p>間食</p>
+        <div>
+            <img src="{{ memo.snack.url }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="text-block">
+        <p>間食名</p>
+        <div>
+            {{ memo.snackName }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>食事の総合評価</p>
+        <div>
+            {{ memo.mealEvaluation }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>食事へのコメント</p>
+        <div>
+            {{ memo.mealComment }}
+        </div>
+    </div>
+    <div class="text-block">
+        <p>体調</p>
+        <div>
+            {{ memo.condition }}
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<div class="tc">
+    <a class="btn btn-flat mb2" href="{% url 'app:edit_memo' memo.pk %}">編集</a>
+
+    <form method="post" action="{% url 'app:delete_memo' memo.pk %}">{% csrf_token %}
+        <button class="btn btn-flat bgblack" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+    </form>
+</div>
+
+{% endblock %}

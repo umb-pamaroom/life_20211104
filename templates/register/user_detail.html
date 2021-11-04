@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="heading">
+    <div>
+        <h1>プロフィール</h1>
+    </div>
+</div>
+
+
+<div class="simple-table">
+    <div class="table-content">
+        <p class="title">メールアドレス</p>
+        <p>{{ user.email }}</p>
+    </div>
+    <div class="table-content">
+        <p class="title">姓</p>
+        <p>{{ user.last_name }}</p>
+    </div>
+    <div class="table-content">
+        <p class="title">名</p>
+        <p>{{ user.first_name }}</p>
+    </div>
+</div>
+
+<div class="tc">
+    <a class="btn btn-flat" href="{% url 'register:user_update' user.pk %}">プロフィール編集</a>
+</div>
+
+{% endblock %}

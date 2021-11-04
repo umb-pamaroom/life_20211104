@@ -1,0 +1,45 @@
+{% load static %}
+{% load md5url %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>日報アプリ</title>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'scss/common.css' %}">
+    </head>
+    <body>
+
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="fb mainMenu">
+                <!-- ロゴ -->
+                <div class="logo">
+                    <a href="/">Life</a>
+                </div>
+                <!-- //ロゴ -->
+                <div class="right fb">
+                    <!-- メニューボタン -->
+                    <button class="nav-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- //ヘッダー -->
+        <div class="container-before">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="tc">
+            copyright パパママ思い出 2021
+        </footer>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.4/jquery.min.js'></script>
+        <script src="{% static 'js/common.js' %}"></script>
+    </body>
+</html>

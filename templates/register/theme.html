@@ -1,0 +1,21 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="heading">
+    <div>
+        <h1>テーマの変更</h1>
+    </div>
+</div>
+<form action="" method="POST" class="p-memo">
+    {% csrf_token %}
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="selectbox">{{ field }} {{ field.errors }}</div>
+        </div>
+    {% endfor %}
+    <div class="tc mt2">
+    <button type="submit" class="btn btn-flat">登録する</button>
+    </div>
+</form>
+
+{% endblock %}

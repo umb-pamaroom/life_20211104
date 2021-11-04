@@ -1,0 +1,47 @@
+ul.accordion-ul {
+  li {
+    margin-bottom: 3em;
+
+    // アコーディオン
+    .accordion {
+      background-color: $main-color;
+      color: #fff;
+      cursor: pointer;
+      padding: 1em 2em;
+      width: 100%;
+      border: none;
+      outline: none;
+      transition: 0.4s;
+      font-size: 1.2em;
+      position: relative;
+      transition-duration: 0.2s;
+
+      &:after {
+        content: '＋';
+        color: #fff;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        left: 1.5em;
+        font-size: 1.7em;
+        display: inline-block;
+        transition-duration: 0.2s;
+      }
+
+      &.open {
+        &:after {
+          content: "ー";
+        }
+      }
+    }
+
+    .panel {
+      padding: 2em 0 5em;
+      display: none;
+    }
+  }
+}

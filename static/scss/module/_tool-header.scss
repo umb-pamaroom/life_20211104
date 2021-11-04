@@ -1,0 +1,514 @@
+header {
+  margin-bottom: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  .mainMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background: var(--bg-header);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .15);
+    color: var(--text-main);
+    font-size: 1.2em;
+    padding: 1em;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .nav-button {
+    &.poEv {
+      pointer-events: none;
+    }
+  }
+
+  .sp-menu {
+    display: none;
+  }
+
+  .mainMenu {
+
+
+    .left {
+      .logo {
+        width: 80px;
+      }
+
+      h1 {
+        margin-left: 2em;
+        font-weight: 500;
+        line-height: 1.35;
+        font-size: 12px;
+      }
+    }
+
+    .pc-menu {
+      >ul {
+        align-items: stretch;
+        font-size: .9em;
+
+        .button {
+          a {
+            width: auto;
+
+            &::after {
+              content: none;
+            }
+          }
+        }
+
+        >li {
+          font-weight: bold;
+          margin: 0;
+
+          &.dropdown-btn {
+            >a {
+              &::after {
+                content: "\f078";
+                font-weight: 900;
+                font-family: "Font Awesome 5 Free";
+                display: inline-block;
+                margin-left: .6em;
+                font-size: 12px;
+              }
+            }
+
+            &.linkNone {
+              .dropdown {
+                .title a {
+                  pointer-events: none;
+
+                  &::after {
+                    content: none;
+                  }
+                }
+              }
+            }
+
+            .dropdown {
+              z-index: 10;
+              left: 0;
+              display: none;
+              position: absolute;
+              width: 100%;
+              padding-top: 29px;
+
+              .wrapper {
+                background: #fff;
+                padding: 2em 0 5em;
+
+                .inner {
+                  width: 980px;
+                }
+              }
+
+              .title {
+                a {
+                  display: block;
+                  font-size: 1.4em;
+                  padding: .5em .8em;
+                  border-bottom: 3px solid #000;
+                  margin-bottom: 1em;
+                  position: relative;
+
+                  &::after {
+                    content: "\f105";
+                    font-weight: 900;
+                    font-family: "Font Awesome 5 Free";
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    right: 1.3em;
+                    font-size: 20px;
+                  }
+                }
+              }
+
+              ul {
+                margin: 0;
+
+                &.fbl {
+                  justify-content: flex-start;
+
+                  li:first-child {
+                    margin-right: 2%;
+                  }
+                }
+
+                li {
+                  margin: 0;
+                  padding: .4em 0;
+                  white-space: nowrap;
+
+                  a {
+                    display: block;
+                    position: relative;
+                    padding: .8em 1.2em;
+                    border-bottom: 1px solid $grey;
+
+                    &::after {
+                      content: "\f105";
+                      font-weight: 900;
+                      font-family: "Font Awesome 5 Free";
+                      position: absolute;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      -webkit-transform: translateY(-50%);
+                      -ms-transform: translateY(-50%);
+                      right: 1.3em;
+                      font-size: 20px;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.appDownload {
+              .fb {
+                justify-content: center;
+                margin-left: 2em;
+
+                li {
+                  width: auto;
+                  text-align: center;
+                  margin-right: 2em;
+
+                  a {
+                    padding: 0;
+                    border-bottom: none;
+
+                    img {
+                      height: 60px;
+                    }
+
+                    &::after {
+                      content: none;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.open {
+              background: $grey;
+
+              .dropdown {
+                display: block;
+              }
+
+              .btn {
+                background: #000;
+                color: #fff;
+              }
+            }
+
+          }
+
+          a {
+            font-weight: 500;
+          }
+
+          >a {
+            height: 100%;
+            padding: 0 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              background: $grey;
+            }
+          }
+
+          &:last-child {
+            margin-right: 0;
+
+            >a {
+              padding: .5em 1.8em;
+              border: 1px solid #000;
+              cursor: pointer;
+
+              &::after {
+                content: none;
+              }
+
+              &:hover {
+                background: #000;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .nav-wrap.open {
+    display: block;
+  }
+
+  .nav-wrap.close {
+    display: none;
+  }
+
+}
+
+.account{
+  .account-icon{
+    position: relative;
+    i{
+      font-size: 34px;
+    }
+    .account-menu{
+      position: absolute;
+      top: 42px;
+      right: 0;
+      z-index: 200;
+      background: var(--bg-main);
+      border-radius: 7px;
+      border: var(--border-main);
+      line-height: 1.4;
+      font-size: 13px;
+      width: 230px;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      .user-name{
+        font-weight: bold;
+        text-overflow: ellipsis;
+      }
+      ul{
+        margin-top: 0;
+      }
+      li{
+        margin-bottom: 0;
+      }
+      ul{
+        .menu-li{
+          margin-bottom: 0;
+          border-bottom: 1px solid rgb(236, 236, 236);
+          text-align: left;
+          font-weight: normal;
+          .menu-list{
+            padding: .7em .9em;
+            display: block;
+          }
+        }
+        .ul{
+          border-bottom: 1px solid rgb(236, 236, 236);
+          >li{
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+header {
+  .sp-menu {
+    &.langOpen {
+      .head {
+        .language {
+          #sp-lang {
+            &+.wrapper {
+              display: block;
+              z-index: 9999;
+              height: 100vh;
+              width: 100vw;
+              position: fixed;
+              left: 0;
+              top: 0;
+
+              .panel {
+                position: fixed;
+                top: 71px;
+                left: 0;
+                background: #fff;
+                width: 300px;
+                padding: 1em;
+                box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+/*  --------------------------------------------------------------- 
+  1200以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 960px) {
+  .nav-button {
+    display: block;
+    cursor: pointer;
+    transform: scale(.7);
+    margin-left: .8em;
+  }
+
+  /*メニューボタン*/
+  .nav-button,
+  .nav-button span {
+    display: inline-block;
+    transition: all 0.4s;
+    box-sizing: border-box;
+  }
+
+  .nav-button {
+    z-index: 20;
+    position: relative;
+    width: 40px;
+    height: 36px;
+  }
+
+  .nav-button span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--text-main);
+    border-radius: 4px;
+  }
+
+  .nav-button span:nth-of-type(1) {
+    top: 0;
+  }
+
+  .nav-button span:nth-of-type(2) {
+    top: 16px;
+  }
+
+  .nav-button span:nth-of-type(3) {
+    bottom: 0;
+  }
+
+  .nav-button.active span:nth-of-type(1) {
+    transform: translateY(16px) rotate(-45deg);
+  }
+
+  .nav-button.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  .nav-button.active span:nth-of-type(3) {
+    transform: translateY(-16px) rotate(45deg);
+  }
+}
+
+
+/*  --------------------------------------------------------------- 
+  769以下（480pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 769px) {
+  header {
+    .nav-wrap {
+      padding-top: 68px;
+
+      >.wrapper {
+        >.head {
+          height: 68px;
+
+          >.language {
+            height: 68px;
+          }
+        }
+      }
+    }
+  }
+
+  header .sp-menu.langOpen .head .language #sp-lang+.wrapper .panel {
+    top: 67px;
+  }
+
+  .nav-button {
+    display: block;
+    cursor: pointer;
+    transform: scale(.7);
+  }
+
+  /*メニューボタン*/
+  .nav-button,
+  .nav-button span {
+    display: inline-block;
+    transition: all 0.4s;
+    box-sizing: border-box;
+  }
+
+  .nav-button {
+    z-index: 20;
+    position: relative;
+    width: 40px;
+    height: 36px;
+  }
+
+  .nav-button span:nth-of-type(1) {
+    top: 0;
+  }
+
+  .nav-button span:nth-of-type(2) {
+    top: 16px;
+  }
+
+  .nav-button span:nth-of-type(3) {
+    bottom: 0;
+  }
+
+  .nav-button.active span:nth-of-type(1) {
+    transform: translateY(16px) rotate(-45deg);
+  }
+
+  .nav-button.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  .nav-button.active span:nth-of-type(3) {
+    transform: translateY(-16px) rotate(45deg);
+  }
+}
+
+
+/*  --------------------------------------------------------------- 
+  600以下（480pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  header {
+    h1 {
+      display: none;
+    }
+
+    .nav-wrap>.wrapper>.body>.wrapper>.apps>.fb {
+      justify-content: space-around;
+
+      li {
+        width: 48%;
+        margin: 1em 0;
+        padding: 0 .5em;
+
+        a {
+          img {
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+
+  header .sp-menu.langOpen .head .language #sp-lang+.wrapper .panel {
+    top: 67px;
+  }
+}
+
+/*  --------------------------------------------------------------- 
+  479以下（320pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 479px) {}

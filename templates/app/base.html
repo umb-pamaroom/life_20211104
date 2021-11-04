@@ -1,0 +1,155 @@
+{% load static %}
+{% load md5url %}
+
+<!DOCTYPE html>
+<html lang="ja" data-theme="{{ user.theme }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>日報アプリ</title>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'scss/common.css' %}?date=20211029174340">
+    </head>
+    <body>
+
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="fb mainMenu">
+                <!-- ロゴ -->
+                <div class="logo">
+                    <a href="/diary/">Life</a>
+                </div>
+                <!-- //ロゴ -->
+                <div class="right fb">
+                    <div class="account">
+                        <div class="account-icon jsBtn">
+                            <i class="fas fa-user-circle"></i>
+                            <div class="account-menu jsShow">
+                                <ul>
+                                    <li class="menu-li">
+                                        <p class="user-name menu-list">{{ user.email }}</p>
+                                    </li>
+                                    <li>
+                                        <ul class="ul">
+                                            <li class="menu-li">
+                                                <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">プロフィール</a>
+                                            </li>
+                                            <li class="menu-li">
+                                                <a class="menu-list" href="{% url 'register:user_update' user.pk %}">プロフィール更新</a>
+                                            </li>
+                                            <li class="menu-li">
+                                                <a class="menu-list" href="{% url 'register:password_change' %}">パスワードの変更</a>
+                                            </li>
+                                            <li class="menu-li">
+                                                <a class="menu-list" href="{% url 'register:email_change' %}">メールアドレスの変更</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-li">
+                                        <p><a href="{% url 'register:logout' %}" class="menu-list">ログアウト</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- メニューボタン -->
+                    <button class="nav-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- //ヘッダー -->
+
+        <aside class="sidebar nav-wrap">
+
+            <div class="sidebarInner">
+
+                <nav class="nav">
+                    <ul class="list accordion-ul">
+                        <li>
+                            <a href="{% url 'app:new_memo' %}" class="bgblue"><span>新規作成</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:index' %}"><span>共有日報一覧</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:mydiary' %}"><span>自分の日報一覧</span></a>
+                        </li>
+                        <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>日記管理</span></a>
+
+                            <ul class="panel">
+                                <li><a href="{% url 'app:meal_list' %}"><span>学んだこと一覧</span></a></li>
+                                <li><a href="{% url 'app:breakfast_list' %}"><span>印象に残ったこと一覧</span></a></li>
+                                <li><a href="{% url 'app:lunch_list' %}"><span>嬉しかったこと一覧</span></a></li>
+                                <li><a href="{% url 'app:dinner_list' %}"><span>頑張ったこと一覧</span></a></li>
+                                <li><a href="{% url 'app:dinner_list' %}"><span>明日したいこと一覧</span></a></li>
+                                <li><a href="{% url 'app:dinner_list' %}"><span>改善点一覧</span></a></li>
+                                <li><a href="{% url 'app:dinner_list' %}"><span>1日のまとめ一覧</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>食事管理</span></a>
+
+                            <ul class="panel">
+                                <li><a href="{% url 'app:meal_list' %}"><span>食事一覧</span></a></li>
+                                <li><a href="{% url 'app:breakfast_list' %}"><span>朝食一覧</span></a></li>
+                                <li><a href="{% url 'app:lunch_list' %}"><span>昼食一覧</span></a></li>
+                                <li><a href="{% url 'app:dinner_list' %}"><span>夕食一覧</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>アカウント設定</span></a>
+                            <ul class="panel">
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">プロフィール</a>
+                                </li>
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:user_update' user.pk %}">プロフィール更新</a>
+                                </li>
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:password_change' %}">パスワードの変更</a>
+                                </li>
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:email_change' %}">メールアドレスの変更</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>環境設定</span></a>
+                            <ul class="panel">
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">通知設定</a>
+                                </li>
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:theme' user.pk %}">テーマ設定</a>
+                                </li>
+                                <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:password_change' %}">Lifeについて</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li>
+                            <a href="#" class="btn sidebar-close btn-flat" style="margin-top:3em">閉じる</a>
+                        </li> -->
+                    </ul>
+
+                </nav>
+                <!-- <div class="btn-wrap">
+                   
+               </div> -->
+            </div>
+        </aside>
+
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.4/jquery.min.js'></script>
+        <script src="{% static 'js/common.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,557 @@
+// テンプレとして、どのサイトに使われても使う共通のcss
+// 編集する可能性があまり無いものと、あるもので分けてある
+
+/*===============================
+
+	編集する可能性があまり無いもの
+
+================================*/
+
+// 全体のこと
+body {
+    color: var(--text-main);
+    font-size: 18px;
+    @include font()
+}
+
+.section {
+    padding: 4em 0;
+}
+.jsShow{
+    display: none;
+}
+
+.jsBtn{
+    &.is-active{
+        .jsShow{
+            display: block;
+        }
+    }
+}
+
+.fzl1{
+    font-size: 1.1em;
+}
+.fzl2{
+    font-size: 1.2em;
+}
+.fzl3{
+    font-size: 1.3em;
+}
+
+.pb0{
+    padding-bottom: 0 !important;
+}
+.mb1{
+    margin-bottom: 1em !important;
+}
+.mb2 {
+    margin-bottom: 2em !important;
+}
+.mb3{
+    margin-bottom: 3em !important;
+}
+.mb4 {
+    margin-bottom: 4em !important;
+}
+
+.mt1 {
+    margin-top: 1em !important;
+}
+
+.mt2 {
+    margin-top: 2em !important;
+}
+
+.mt3 {
+    margin-top: 3em !important;
+}
+
+.mt4 {
+    margin-top: 4em !important;
+}
+
+.mt0{
+    margin-top: 0 !important;
+}
+
+.sa {
+    opacity: 0;
+    transition: all .8s ease;
+}
+
+.sa.show {
+    opacity: 1;
+    transform: none;
+}
+
+.sa--lr {
+    transform: translate(-100px, 0);
+}
+
+.sa--rl {
+    transform: translate(100px, 0);
+}
+
+.sa--up {
+    transform: translate(0, 100px);
+}
+
+.sa--down {
+    transform: translate(0, -100px);
+}
+
+.sa--scaleUp {
+    transform: scale(.5);
+}
+
+.sa--scaleDown {
+    transform: scale(1.5);
+}
+
+.sa--rotateL {
+    transform: rotate(180deg);
+}
+
+.sa--rotateR {
+    transform: rotate(-180deg);
+}
+
+main{
+    overflow: hidden;
+}
+
+.bg-grey {
+    background: $bg-grey;
+}
+
+.tc {
+    text-align: center;
+}
+
+.table {
+    border: 1px solid #e8eaed;
+
+    th {
+        border: 1px solid #e8eaed;
+    }
+
+    td {
+        border-right: 1px solid #e8eaed;
+        border-left: 1px solid #e8eaed;
+        padding: 1em 3em;
+    }
+
+    tr {
+        border: none;
+    }
+
+    thead {
+
+        th {
+            padding: 1em;
+            background: $bg-grey;
+        }
+    }
+}
+
+//背景とか以外は基本的にこれにいれる
+.inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 96%;
+}
+
+.warning-mark {
+    font-size: 14px;
+    text-align: center;
+    margin-top: .7em;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+// テキスト系
+.dib {
+    display: inline-block;
+    font-weight: transparent;
+}
+
+.text-link {
+    color: $text-link-color;
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.t-g {
+    color: $text-grey;
+}
+
+ul,
+ol {
+    li {
+        margin-bottom: .5em;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.text-bg {
+    position: relative;
+    z-index: 0;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: .5em;
+        background: $text-bg;
+        position: absolute;
+        bottom: .2em;
+        left: 0;
+        z-index: -1;
+    }
+}
+
+.rt {
+    text-align: right;
+}
+
+strong {
+    font-weight: bold;
+}
+
+small {
+    font-size: .85em;
+}
+
+// リストの装飾
+ul.disc {
+    padding-left: 1.7em;
+
+    >li {
+        list-style-type: disc;
+    }
+}
+
+li {
+
+    ul,
+    ol {
+        margin-top: .5em;
+    }
+}
+
+ol.number {
+    list-style-type: decimal;
+    padding-left: 1.3em;
+    margin-bottom: 1em;
+
+    >li {
+        margin-bottom: 1em;
+        list-style-type: decimal;
+
+        &:nth-child(n+10) {
+            margin-left: .4em;
+        }
+    }
+}
+
+// 電話のリンク
+a[href^="tel:"] {
+    pointer-events: none;
+    color: $black;
+    cursor: text;
+}
+
+// フレックスボックス
+.fb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// メディアクエリ系
+.tab {
+    display: none;
+}
+
+.ma1200 {
+    display: none;
+}
+
+.ma960 {
+    display: none;
+}
+
+.ma768,
+.ma600,
+.ma479 {
+    display: none;
+}
+
+
+img {
+    max-width: 100%;
+}
+
+/*===============================
+
+	//編集する可能性があまり無いもの
+
+================================*/
+
+
+
+/*===============================
+
+	編集する可能性があるもの
+
+================================*/
+
+
+/*
+	どのサイトでも使う（色とかは変更）
+================================*/
+
+
+
+// ボタン
+.button {
+    text-align: center;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    a {
+        padding: .7em 2em;
+        border: 3px solid $main-color;
+        color: $main-color;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        background: $main-color;
+        color: #fff;
+        display: inline-block;
+        border-radius: 3px;
+
+        &:hover {
+            background: $main-color;
+            color: #fff;
+        }
+    }
+}
+
+.section {
+    .button {
+        &.w100 {
+            width: 100%;
+            a{
+                width: 100%;
+            }
+        }
+
+        a {
+            padding: .6em 2em;
+            border-radius: 3px;
+        }
+    }
+}
+
+.fbc {
+    justify-content: center;
+}
+
+/*===============================
+
+	//編集する可能性があるもの
+
+================================*/
+
+.maxw300 {
+    max-width: 300px !important;
+    margin: 0 auto;
+}
+
+/*  --------------------------------------------------------------- 
+  1200以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 1200px) {
+
+    .section {
+        padding: 5em 0;
+    }
+
+    .mi1201 {
+        display: none;
+    }
+
+    .ma1200 {
+        display: block;
+    }
+}
+
+
+/*  --------------------------------------------------------------- 
+  960以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 960px) {
+    /*===============================
+
+	編集する可能性があるもの
+
+================================*/
+
+    body {
+        font-size: 18px;
+    }
+
+    .ma960 {
+        display: block;
+    }
+
+    /*===============================
+
+	//編集する可能性があるもの
+
+================================*/
+}
+
+
+/*  --------------------------------------------------------------- 
+  768以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+
+    /*===============================
+
+	編集する可能性があるもの
+
+================================*/
+.mb5-768 {
+    margin-bottom: 5em !important;
+}
+    body {
+        font-size: 16px;
+    }
+
+    .tab {
+        display: block;
+    }
+
+    .mi769 {
+        display: none;
+    }
+
+    .ma768 {
+        display: block;
+    }
+
+    h1 {
+        font-size: 3em;
+    }
+
+    h2 {
+        font-size: 2.1em;
+        margin-bottom: 2.2em;
+    }
+
+
+    .section {
+        .button {
+            a {
+                padding: .6em 1em;
+                font-size: 1.2em;
+            }
+        }
+    }
+
+    /*===============================
+
+	//編集する可能性があるもの
+
+================================*/
+}
+
+
+/*  --------------------------------------------------------------- 
+  600以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2.8em;
+    }
+
+    h2 {
+        font-size: 1.9em;
+        margin-bottom: 2.2em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+
+    .ma600 {
+        display: block;
+    }
+    .section{
+        padding-top: 6em !important;
+        margin-top: -3em !important;
+        .inner{
+            padding: 0 1em;
+        }
+    }
+}
+
+
+/*  --------------------------------------------------------------- 
+  479以下（320pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 479px) {
+    /*===============================
+
+	編集する可能性があるもの
+
+================================*/
+
+    .section {
+        padding: 3em 0;
+    }
+
+
+    h1 {
+        font-size: 2.3em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+
+    .ma479 {
+        display: block;
+    }
+
+    // 電話のリンク
+    a[href^="tel:"] {
+        pointer-events: auto;
+        color: var(--bg-main);
+        text-decoration: underline;
+    }
+
+    /*===============================
+
+	//編集する可能性があるもの
+
+================================*/
+}

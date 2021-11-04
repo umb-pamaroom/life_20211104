@@ -1,0 +1,43 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="heading">
+  <div>
+    <h1>朝食一覧</h1>
+  </div>
+</div>
+
+<div class="fb indexFb modalContainer">
+  <div class="card p0">
+    <div class="fb three flexWrap">
+      {% for memo in memos %}
+      {% if memo.breakfast %}
+      <div class="card-unit" href="{% url 'app:detail' memo.id %}">
+        <div class="btn-wrap">
+          <a class="btn modal-open" data-modal-open="modal-1-{{ memo.id }}"><img src="{{ memo.breakfast.url }}"></a>
+          <p></p>
+        </div>
+        <div class="modal" data-modal="modal-1-{{ memo.id }}">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <p class="date">{{ memo.dateData }}　朝食</p>
+              <div class="modal-content-ttl">{{ memo.breakfastName }}</div>
+              {% if memo.breakfast %}
+              <p><img src="{{ memo.breakfast.url }}"></p>
+              {% endif %}
+              <div class="btn-wrap">
+                <a href="#" class="btn btn-close btn-flat">閉じる</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
