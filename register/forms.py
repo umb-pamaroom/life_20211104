@@ -64,7 +64,11 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('last_name', 'first_name',)
+        fields = ('name', 'introduction')
+        labels = {
+            'name': 'ユーザネーム',
+            'introduction': '自己紹介',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

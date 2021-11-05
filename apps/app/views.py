@@ -14,7 +14,7 @@ from django.db.models import Q
 def index(request):
 
   # 投稿の並び順を制御する
-  memos = Memo.objects.all().order_by('-dateData')
+  memos = Memo.objects.all().order_by('-dateData', '-updated_datetime' , '-created_datetime')
   keyword = request.GET.get('keyword')
 
   if keyword:
@@ -29,7 +29,7 @@ def index(request):
 def mydiary(request):
 
   # 投稿の並び順を制御する
-  memos = Memo.objects.all().order_by('-dateData')
+  memos = Memo.objects.all().order_by('-dateData', '-updated_datetime', '-created_datetime')
   keyword = request.GET.get('keyword')
 
   if keyword:

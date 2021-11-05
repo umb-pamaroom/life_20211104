@@ -20,6 +20,10 @@ body {
   }
 }
 
+.bb{
+  border-bottom: 1px solid var(--text-main);
+}
+
 .bgblue{
   background: var(--btn-success);
 }
@@ -56,6 +60,15 @@ a {
   margin-bottom: .5em;
 }
 
+.mb07 {
+  margin-bottom: .7em;
+}
+
+
+.pb07{
+  padding-bottom: .7em;
+}
+
 .container-before {
   padding-top: 50px;
 }
@@ -73,7 +86,7 @@ a {
   width: 25%;
 
   >a {
-    background: var(--bg-main);
+    background: var(--bg-header);
     border-radius: 5px;
     box-shadow: 0 2px 5px #ccc;
     display: block;
@@ -95,7 +108,7 @@ a {
 
   &.my {
     >a {
-      background: var(--bg-header);
+      background: var(--bg-main);
     }
   }
 

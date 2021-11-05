@@ -109,7 +109,7 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">first_name</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto">name</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
       </TD></TR>
@@ -149,7 +149,7 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">last_name</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto">introduction</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
       </TD></TR>
