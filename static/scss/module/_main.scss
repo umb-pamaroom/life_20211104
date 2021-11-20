@@ -15,9 +15,19 @@
   padding: 2em;
 }
 
+.basewrapper{
+  padding: 2em 0;
+}
+
 @media screen and (max-width: 960px) {
   .container {
     width: 100%;
     position: static;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding:2em 1.5em;
   }
 }

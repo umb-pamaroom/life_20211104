@@ -104,6 +104,16 @@
                             </ul>
                         </li>
                         <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>習慣・タスク管理</span></a>
+                            <ul class="panel">
+                                <li><a href="{% url 'app:meal_list' %}"><span>習慣・タスク</span></a></li>
+                                <li><a href="{% url 'app:RoutineCreate' %}"><span>ルーティン作成</span></a></li>
+                                <li><a href="{% url 'app:RoutineList' %}"><span>ルーティン</span></a></li>
+                                <li><a href="{% url 'app:breakfast_list' %}"><span>タスク作成</span></a></li>
+                                <li><a href="{% url 'app:lunch_list' %}"><span>タスク一覧</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
                             <a class="accordion jsBtn" href="#"><span>アカウント設定</span></a>
                             <ul class="panel">
                                 <li class="menu-li">

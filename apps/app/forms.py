@@ -1,6 +1,18 @@
 from django.forms import ModelForm
-from .models import Memo
+from .models import Memo, RoutineModel
 
+
+class RoutineCreateForm(ModelForm):
+    class Meta:
+        model = RoutineModel
+        fields = ['title', 'description', 'start_time', 'end_time', 'category']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+        
 
 class MemoForm(ModelForm):
     class Meta:

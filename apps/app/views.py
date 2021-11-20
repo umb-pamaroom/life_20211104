@@ -1,14 +1,82 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from .models import Memo
+from .models import Memo, RoutineModel
 #ListViewのインポート
 from django.views.generic.list import ListView
+from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm
+from .forms import MemoForm, RoutineCreateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+
+
+class RoutineCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'routine/create.html'
+    model = RoutineModel
+
+    # forms.pyで定義したクラスを使う
+    form_class = RoutineCreateForm
+
+    success_url = reverse_lazy('app:RoutineList')
+    
+    def form_valid(self, form):
+        # form.instance.created_user = self.request.user
+        # return super().form_valid(form)
+        # viewsで直接、ユーザを入力している
+        obj = form.save(commit=False)
+        obj.create_user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('app:RoutineList'))
+
+    # 「RoutineList」はurls.pyのname
+
+
+class RoutineUpdateView(UpdateView):
+    template_name = 'routine/update.html'
+    model = RoutineModel
+
+    form_class = RoutineCreateForm
+
+    def get_success_url(self):
+        return reverse('app:RoutineDetail', kwargs={'pk': self.object.pk})
+
+
+
+class RoutineDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'routine/detail.html'
+    model = RoutineModel
+
+    context_object_name = 'routines'
+
+
+class RoutineDeleteView(DeleteView):
+    template_name = 'routine/delete.html'
+    model = RoutineModel
+    context_object_name = 'routines'
+
+    success_url = reverse_lazy('app:RoutineList')
+
+
+class RoutineListView(LoginRequiredMixin, ListView):
+    template_name = 'routine/list.html'
+    model = RoutineModel
+    # ordering = '-start_time'
+    context_object_name = 'routines'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(create_user=self.request.user).order_by('start_time')
+
+        return queryset
+
+
 
 @login_required
 def index(request):
@@ -38,16 +106,6 @@ def mydiary(request):
       )
       messages.success(request, '「{}」の検索結果'.format(keyword))
   return render(request, 'app/mydiary.html', {'memos': memos})
-
-
-# class MydiaryListView(ListView):
-#     template_name = 'app/mydiary.html'
-#     model = Memo
-
-#     def get_queryset(self):
-#         return self.model.objects.filter(
-#             create_user=self.request.user,
-#         )
 
 
 @login_required

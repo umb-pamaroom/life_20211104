@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+      <div>
+          <h1>ルーティン削除</h1>
+      </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>{{ routines.title }}を削除しますか？</p>
+    <button class="btn btn-flat bgblack" type="submit">削除する</button>
+  </form>
+{% endblock %}
