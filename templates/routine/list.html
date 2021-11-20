@@ -16,7 +16,11 @@
       <div class="unit">
         <!-- 真ん中のラインのアイコン -->
         <div class="icon">
-          <p>{{ routine.start_time }}<br>〜<br>{{ routine.end_time }}</p>
+          <p>{{ routine.start_time }}
+            {% if routine.end_time %}
+              <br>〜<br>{{ routine.end_time }}
+            {% endif %}
+          </p>
         </div>
         <!-- //真ん中のラインのアイコン -->
 
