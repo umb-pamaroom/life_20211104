@@ -24,7 +24,7 @@
     .icon {
       width: 70px;
       height: 90px;
-      background: $main-color;
+      background: var(--btn-success);
       order: 1;
       margin-left: calc(6% - 35px);
       display: flex;
@@ -51,7 +51,7 @@
         border-bottom: 1px solid var(--text-main);
       }
       .cate{
-        background: var(--btn-success);
+        background: var(--bg-main);
         font-size: .9em;
         padding:.2em .6em;
         border-radius: 3px;
@@ -220,6 +220,7 @@
     padding-bottom: 2em;
 
     .unit {
+      margin-bottom: 3em;
       .icon{
         font-size: 15px;
         width: 60px;

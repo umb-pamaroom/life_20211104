@@ -20,7 +20,6 @@ class TimelineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'timeline/create.html'
     model = TimelineModel
     form_class = TimelineCreateForm
-    success_url = reverse_lazy('app:TimelineList')
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -42,7 +41,6 @@ class TimelineUpdateView(UpdateView):
 class TimelineDetailView(LoginRequiredMixin, DetailView):
     template_name = 'timeline/detail.html'
     model = TimelineModel
-
     context_object_name = 'timelines'
 
 
@@ -97,8 +95,6 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
 
     # forms.pyで定義したクラスを使う
     form_class = RoutineCreateForm
-
-    success_url = reverse_lazy('app:RoutineList')
     
     def form_valid(self, form):
         # form.instance.created_user = self.request.user
@@ -107,9 +103,8 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.create_user = self.request.user
         obj.save()
-        return HttpResponseRedirect(reverse('app:RoutineList'))
+        return HttpResponseRedirect(reverse('app:TimelineList'))
 
-    # 「RoutineList」はurls.pyのname
 
 
 class RoutineUpdateView(UpdateView):
