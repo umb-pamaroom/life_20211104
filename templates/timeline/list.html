@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+      <div>
+          <h1>タイムライン一覧</h1>
+      </div>
+  </div>
+
+  <div class="basewrapper">
+    <div class="inner">
+      {% for timeline in timelines %}
+      <div class="card">
+        <a href="{% url 'app:TimelineItems' timeline.id %}">
+          <div class="fb">
+            <p class="title">{{ timeline.title }}</p>
+            <p class="text">{{ timeline.description }}</p>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+{% endblock %}

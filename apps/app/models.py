@@ -33,9 +33,23 @@ class Condition(models.TextChoices):
     UPSET = '悪い', '悪い'
 
 
-# ルーティーンのモデル
+# タイムラインモデル
+class TimelineModel(models.Model):
+    create_user = models.ForeignKey(User, related_name='relate_user_timeline', on_delete=models.CASCADE, null=True, blank=True)
+    dateData = models.DateField(default=timezone.now, blank=True)
+    title = models.CharField('タイムライン名', max_length=50)
+    description = models.TextField('説明', blank=True)
+    created_datetime = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_datetime = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+# タイムラインの項目モデル
 class RoutineModel(models.Model):
     create_user = models.ForeignKey(User, related_name='relate_user_routine', on_delete=models.CASCADE, null=True, blank=True)
+    timeline = models.ForeignKey(TimelineModel, related_name='timeline_model', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明', blank=True)
     start_time = models.TimeField('開始時間')

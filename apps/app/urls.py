@@ -21,12 +21,19 @@ urlpatterns = [
     path('diary/delete_memo/<int:memo_id>', views.delete_memo, name='delete_memo'),
     path('diary/edit_memo/<int:memo_id>', views.edit_memo, name='edit_memo'),
 
-
     # ルーティーン
     path('routine/create/', views.RoutineCreateView.as_view(), name='RoutineCreate'),
     path('routine/detail/<int:pk>', views.RoutineDetailView.as_view(), name='RoutineDetail'),
     path('routine/delete/<int:pk>', views.RoutineDeleteView.as_view(), name='RoutineDelete'),
     path('routine/update/<int:pk>', views.RoutineUpdateView.as_view(), name='RoutineUpdate'),
     path('routine/list/', views.RoutineListView.as_view(), name='RoutineList'),
+
+    # タイムライン
+    path('timeline/create/', views.TimelineCreateView.as_view(), name='TimelineCreate'),
+    path('timeline/detail/<int:pk>', views.TimelineDetailView.as_view(), name='TimelineDetail'),
+    path('timeline/<int:pk>', views.TimelineItemsView.as_view(), name='TimelineItems'),
+    path('timeline/delete/<int:pk>', views.TimelineDeleteView.as_view(), name='TimelineDelete'),
+    path('timeline/update/<int:pk>', views.TimelineUpdateView.as_view(), name='TimelineUpdate'),
+    path('timeline/list/', views.TimelineListView.as_view(), name='TimelineList'),
 
 ]

@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+      <div>
+          <h1>タイムライン詳細</h1>
+      </div>
+  </div>
+  <div class="tc mb1">
+    <a class="btn btn-flat" href="{% url 'app:TimelineUpdate' timelines.pk %}">編集する</a>
+  </div>
+
+  <div class="tc">
+    <a class="btn btn-flat" href="{% url 'app:TimelineDelete' timelines.pk %}">削除</a>
+  </div>
+<p>{{ timelines.title }}</p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+      <div>
+          <h1>タイムライン編集</h1>
+      </div>
+  </div>
+
+  <form class="p-memo" action="" method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <div class="tc">
+      <button class="btn btn-flat" type="submit">編集する</button>
+    </div>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+      <div>
+          <h1>{{ timelines.title }}</h1>
+      </div>
+  </div>
+
+  <div class="basewrapper">
+    <div class="inner timeline">
+
+      {% for item in timeline_items %}
+      <!-- アイコンと見出しのセット -->
+      <div class="unit">
+        <!-- 真ん中のラインのアイコン -->
+        <div class="icon">
+          <p>{{ item.start_time }}
+            {% if item.end_time %}
+            <br>〜<br>{{ item.end_time }}
+            {% endif %}
+          </p>
+        </div>
+        <!-- //真ん中のラインのアイコン -->
+
+        <!-- 見出し -->
+        <a href="{% url 'app:RoutineDetail' item.pk %}" class="h2-title">
+          <div class="left">
+            <div class="fb top">
+              <div class="fb">
+                <span class="dib title">{{ item.title }}</span><span class="dib cate">
+                  {% if item.category %}
+                  {{ item.category }}
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+            <p>{{ item.description }}</p>
+          </div>
+          <!-- <div class="right">
+          <span>{{ item.start_time }}</span>
+          </div> -->
+        </a>
+        <!-- //見出し -->
+      </div>
+      <!-- //アイコンと見出しのセット -->
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

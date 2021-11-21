@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from .models import Memo, RoutineModel
+from .models import Memo, RoutineModel, TimelineModel
 #ListViewのインポート
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -15,6 +15,82 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 
 
+# タイムラインのView
+class TimelineCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'timeline/create.html'
+    model = TimelineModel
+    form_class = TimelineCreateForm
+    success_url = reverse_lazy('app:TimelineList')
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.create_user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('app:TimelineList'))
+
+
+class TimelineUpdateView(UpdateView):
+    template_name = 'timeline/update.html'
+    model = TimelineModel
+
+    form_class = TimelineCreateForm
+
+    def get_success_url(self):
+        return reverse('app:TimelineDetail', kwargs={'pk': self.object.pk})
+
+
+class TimelineDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'timeline/detail.html'
+    model = TimelineModel
+
+    context_object_name = 'timelines'
+
+
+# タイムラインのタイトルと、タイムラインの項目を表示
+class TimelineItemsView(LoginRequiredMixin, DetailView):
+    template_name = 'timeline/items.html'
+    model = TimelineModel
+    context_object_name = 'timelines'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline_items'] = RoutineModel.objects.all().filter(timeline=self.kwargs['pk'])
+        return context
+
+
+class TimelineDeleteView(DeleteView):
+    template_name = 'timeline/delete.html'
+    model = TimelineModel
+    context_object_name = 'timelines'
+
+    success_url = reverse_lazy('app:TimelineList')
+
+
+class TimelineListView(LoginRequiredMixin, ListView):
+    template_name = 'timeline/list.html'
+    model = TimelineModel
+    context_object_name = 'timelines'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+
+        return queryset
+
+
+# ルーティンのビュー
 class RoutineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'routine/create.html'
     model = RoutineModel
