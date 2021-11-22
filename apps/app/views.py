@@ -61,7 +61,7 @@ class TimelineItemsView(LoginRequiredMixin, DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline_items'] = RoutineModel.objects.all().filter(timeline=self.kwargs['pk'])
+        context['timeline_items'] = RoutineModel.objects.all().filter(timeline=self.kwargs['pk']).order_by('start_time')
         return context
 
 
