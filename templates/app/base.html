@@ -134,6 +134,9 @@
                             <a class="accordion jsBtn" href="#"><span>環境設定</span></a>
                             <ul class="panel">
                                 <li class="menu-li">
+                                    <a class="menu-list" href="{% url 'register:timeline_settings' user.pk %}">タイムライン設定</a>
+                                </li>
+                                <li class="menu-li">
                                     <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">通知設定</a>
                                 </li>
                                 <li class="menu-li">

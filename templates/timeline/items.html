@@ -29,11 +29,12 @@
           <div class="left">
             <div class="fb top">
               <div class="fb">
-                <span class="dib title">{{ item.title }}</span><span class="dib cate">
-                  {% if item.category %}
+                <span class="dib title">{{ item.title }}</span>
+                {% if user.timeline_settings_category_show == "show" %}
+                <span class="dib cate">
                   {{ item.category }}
-                  {% endif %}
                 </span>
+                {% endif %}
               </div>
             </div>
             <p>{{ item.description }}</p>

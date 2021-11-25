@@ -98,6 +98,26 @@ class  ThemeUpdateForm(forms.ModelForm):
         self.label_suffix = ""
 
 
+# ModelFormを継承してクラスを作成する
+class TimelineSettingsCategoryShowForm(forms.ModelForm):
+    """カテゴリ更新フォーム"""
+
+    class Meta:
+        # Userモデルを使用する
+        model = User
+
+        # 表示するフィールド
+        fields = ['timeline_settings_category_show']
+        labels = {
+            'timeline_settings_category_show': 'カテゴリ',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
 
 class MyPasswordChangeForm(PasswordChangeForm):
     """パスワード変更フォーム"""

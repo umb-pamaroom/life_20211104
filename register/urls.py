@@ -30,5 +30,7 @@ urlpatterns = [
     # テーマ変更
     path('theme/<int:pk>/', views.ThemeUpdate.as_view(), name='theme'),
 
+    path('timeline_settings/<int:pk>/', views.TimelineSettingsCategoryShow.as_view(), name='timeline_settings'),
+
     path('diary/', include('apps.app.urls')),
 ]

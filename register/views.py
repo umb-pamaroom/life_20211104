@@ -15,7 +15,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, ThemeUpdateForm, MyPasswordChangeForm,
-    MyPasswordResetForm, MySetPasswordForm, EmailChangeForm
+    MyPasswordResetForm, MySetPasswordForm, EmailChangeForm, TimelineSettingsCategoryShowForm
 )
 
 
@@ -235,3 +235,13 @@ class ThemeUpdate(OnlyYouMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('register:theme', pk=self.kwargs['pk'])
+
+
+class TimelineSettingsCategoryShow(OnlyYouMixin, generic.UpdateView):
+    """カテゴリ更新ページ"""
+    model = User
+    form_class = TimelineSettingsCategoryShowForm
+    template_name = 'register/timeline_settings.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
+
+    def get_success_url(self):
+        return resolve_url('register:timeline_settings', pk=self.kwargs['pk'])

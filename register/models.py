@@ -11,6 +11,12 @@ class Themes(models.TextChoices):
     WHITE = 'white', 'ホワイト'
     DARK = 'dark', 'ダーク'
 
+# カテゴリ表示・非表示選択肢用のクラス
+class TimelineSettingsCategoryShow(models.TextChoices):
+    SHOW = 'show', '表示'
+    NONE = 'none', '非表示'
+
+
 class CustomUserManager(UserManager):
     """ユーザーマネージャー"""
     use_in_migrations = True
@@ -50,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     introduction = models.TextField(_('introduction'), max_length=150, blank=True)
     # 選択肢用をchoicesで追加する
     theme = models.CharField(max_length=30, default="white", choices=Themes.choices)
+    timeline_settings_category_show = models.CharField(max_length=30, default="show", choices=TimelineSettingsCategoryShow.choices)
 
     is_staff = models.BooleanField(
         _('staff status'),
