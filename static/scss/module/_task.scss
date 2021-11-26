@@ -3,10 +3,11 @@
   max-width: 800px;
   .task-wrapper{
     border-bottom: 1px solid var(--border-grey);
-    padding: .8em 0;
+    padding: .4em 1em;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: var(--bg-main);
     .task-controls{
       *{
         display: inline-block;
@@ -29,10 +30,4 @@ margin: 0 auto 1em;
 .search-form{
   max-width: 800px;
   margin: 0 auto;
-  .text-input{
-    width: 70%;
-  }
-  .button{
-    width: 30%;
-  }
 }
