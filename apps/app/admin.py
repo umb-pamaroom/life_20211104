@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Memo, RoutineModel, TimelineModel
+from .models import Memo, RoutineModel, TimelineModel, Task
 
 class MemoAdmin(admin.ModelAdmin):
     list_display = ('id', 'created_datetime', 'updated_datetime')
@@ -7,3 +7,4 @@ class MemoAdmin(admin.ModelAdmin):
 admin.site.register(Memo, MemoAdmin)
 admin.site.register(RoutineModel)
 admin.site.register(TimelineModel)
+admin.site.register(Task)

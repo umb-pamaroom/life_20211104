@@ -33,6 +33,21 @@ class Condition(models.TextChoices):
     UPSET = '悪い', '悪い'
 
 
+# Todo
+class Task(models.Model):
+    user = models.ForeignKey(User, related_name='relate_user_task', on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    complete = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        order_with_respect_to = 'user'
+
+
 # タイムラインモデル
 class TimelineModel(models.Model):
     create_user = models.ForeignKey(User, related_name='relate_user_timeline', on_delete=models.CASCADE, null=True, blank=True)

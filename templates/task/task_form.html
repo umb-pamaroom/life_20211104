@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <a href="{% url 'app:tasks' %}">&#8592; 戻る</a>
+</div>
+
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+.task-items-wrapper{
+  margin: 2em auto;
+  max-width: 800px;
+  .task-wrapper{
+    border-bottom: 1px solid var(--border-grey);
+    padding: .8em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .task-controls{
+      *{
+        display: inline-block;
+        line-height: 1;
+        padding: .3em;
+        font-size: 26px;
+      }
+      span{
+        i{
+font-size: 20px;
+        }
+      }
+    }
+  }
+}
+.header-bar{
+max-width: 800px;
+margin: 0 auto 1em;
+}
+.search-form{
+  max-width: 800px;
+  margin: 0 auto;
+  .text-input{
+    width: 70%;
+  }
+  .button{
+    width: 30%;
+  }
+}

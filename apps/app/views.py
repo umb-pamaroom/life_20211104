@@ -1,18 +1,92 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from .models import Memo, RoutineModel, TimelineModel
+from .models import Memo, RoutineModel, TimelineModel, Task
 #ListViewのインポート
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.db import transaction
+from django.views import View
+
+
+# タスク関係
+class TaskList(LoginRequiredMixin, ListView):
+    template_name = 'task/task_list.html'
+    model = Task
+    context_object_name = 'tasks'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(complete=False).count()
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['tasks'] = context['tasks'].filter(
+                title__contains=search_input)
+
+        context['search_input'] = search_input
+
+        return context
+
+
+class TaskDetail(LoginRequiredMixin, DetailView):
+    template_name = 'task/task.html'
+    model = Task
+    context_object_name = 'task'
+
+
+class TaskCreate(LoginRequiredMixin, CreateView):
+    template_name = 'task/task_form.html'
+    model = Task
+    fields = ['title', 'description', 'complete']
+    success_url = reverse_lazy('app:tasks')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
+
+
+class TaskUpdate(LoginRequiredMixin, UpdateView):
+    template_name = 'task/task_form.html'
+    model = Task
+    fields = ['title', 'description', 'complete']
+    success_url = reverse_lazy('app:tasks')
+
+
+class DeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'task/task_confirm_delete.html'
+    model = Task
+    context_object_name = 'task'
+    success_url = reverse_lazy('app:tasks')
+
+    def get_queryset(self):
+        owner = self.request.user
+        return self.model.objects.filter(user=owner)
+
+
+class TaskReorder(View):
+    def post(self, request):
+        form = PositionForm(request.POST)
+
+        if form.is_valid():
+            positionList = form.cleaned_data["position"].split(',')
+
+            with transaction.atomic():
+                self.request.user.set_task_order(positionList)
+
+        return redirect(reverse_lazy('app:tasks'))
+
+
+
 
 
 # タイムラインのView

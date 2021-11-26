@@ -1,6 +1,10 @@
+from django import forms
 from django.forms import ModelForm
 from .models import Memo, RoutineModel, TimelineModel
 
+
+class PositionForm(forms.Form):
+    position = forms.CharField()
 
 class RoutineCreateForm(ModelForm):
     class Meta:
