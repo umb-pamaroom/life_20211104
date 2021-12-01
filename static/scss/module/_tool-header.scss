@@ -345,6 +345,23 @@ header {
   }
 }
 
+.heading{
+  .heading-wrap{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: .5em;
+    .heading-title h1{
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .icons-menu-wrap{
+      .icon-menu-item{
+        justify-content: center;
+        padding: .3em;
+      }
+    }
+  }
+}
+
 /*  --------------------------------------------------------------- 
   1200以下（600pxで問題ないかどうか）
   --------------------------------------------------------------- */

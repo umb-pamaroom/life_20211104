@@ -4,6 +4,15 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from .models import User
 
+# 管理画面でデータをインポート・エクスポート
+from import_export import resources
+from import_export.admin import ImportExportMixin
+
+
+class UserResource(resources.ModelResource):
+    class Meta:
+        model = User
+
 
 class MyUserChangeForm(UserChangeForm):
     class Meta:
@@ -17,7 +26,7 @@ class MyUserCreationForm(UserCreationForm):
         fields = ('email',)
 
 
-class MyUserAdmin(UserAdmin):
+class MyUserAdmin(ImportExportMixin, UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('name', 'introduction')}),
@@ -37,9 +46,11 @@ class MyUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'name', 'introduction')
     ordering = ('email',)
+    resource_class = UserResource
 
 
 class UserThemeAdmin(admin.ModelAdmin):
     fields = ['color']
 
 admin.site.register(User, MyUserAdmin)
+

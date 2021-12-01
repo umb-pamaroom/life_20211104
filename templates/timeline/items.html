@@ -2,11 +2,29 @@
 
 {% block content %}
 
-  <div class="heading">
-      <div>
+  <div class="heading modalContainer">
+      <div class="fb heading-wrap">
+        <div class="heading-title">
           <h1>{{ timelines.title }}</h1>
+          </div>
+          <div class="icons-menu-wrap">
+            <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+            <i class="fas fa-ellipsis-h"></i>
+            </a>
+          </div>
+          <div class="modal" data-modal="menu1">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae aliquid quaerat quo modi iusto, tenetur corrupti, necessitatibus, perspiciatis pariatur sequi nam? Nam quidem voluptates modi deleniti. Aperiam quaerat velit ea debitis animi ipsum eligendi nisi, et soluta nobis vitae illo. Nihil natus, distinctio tempore accusamus saepe ab ratione est quidem tempora volu</p>
+                <a href="#" class="btn btn-close btn-flat">閉じる</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
   </div>
+  
 
   <div class="basewrapper">
     <div class="inner timeline">
