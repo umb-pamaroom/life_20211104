@@ -2,75 +2,98 @@
 
 {% block content %}
 
-  <div class="heading modalContainer">
-      <div class="fb heading-wrap">
-        <div class="heading-title">
-          <h1>{{ timelines.title }}</h1>
-          </div>
-          <div class="icons-menu-wrap">
-            <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
-            <i class="fas fa-ellipsis-h"></i>
-            </a>
-          </div>
-          <div class="modal" data-modal="menu1">
+<div class="heading modalContainer">
+  <div class="fb heading-wrap">
+    <div class="heading-title">
+      <h1>{{ timelines.title }}</h1>
+    </div>
+    <div class="icons-menu-wrap">
+      <div class="icon-item-wrap icon-menu-modal">
+        <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+          <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="modal icon-menu-modal-wrap" data-modal="menu1">
           <div class="modal-cover"></div>
           <div class="modal-inner">
             <div class="modal-content">
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae aliquid quaerat quo modi iusto, tenetur corrupti, necessitatibus, perspiciatis pariatur sequi nam? Nam quidem voluptates modi deleniti. Aperiam quaerat velit ea debitis animi ipsum eligendi nisi, et soluta nobis vitae illo. Nihil natus, distinctio tempore accusamus saepe ab ratione est quidem tempora volu</p>
-                <a href="#" class="btn btn-close btn-flat">閉じる</a>
-              </div>
+              <ul class="modal-ul">
+                <li>
+                  <ul class="mt0">
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:RoutineCreate' %}">項目を追加</a>
+                    </li>
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-li">
+                  <p><a class="menu-list" href="{% url 'app:TimelineDelete' timelines.pk %}">タイムラインを削除</a></p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
-  
+</div>
 
-  <div class="basewrapper">
-    <div class="inner timeline">
+<div class="basewrapper">
+  <div class="inner timeline">
 
-      {% for item in timeline_items %}
-      <!-- アイコンと見出しのセット -->
-      <div class="unit">
-        <!-- 真ん中のラインのアイコン -->
-        <div class="icon">
-          <p>{{ item.start_time }}
-            {% if item.end_time %}
-            <br>〜<br>{{ item.end_time }}
-            {% endif %}
-          </p>
-        </div>
-        <!-- //真ん中のラインのアイコン -->
+    {% for item in timeline_items %}
+    <!-- アイコンと見出しのセット -->
+    <div class="unit">
+      <!-- 真ん中のラインのアイコン -->
+      <div class="icon">
+        <p>{{ item.start_time }}
+          {% if item.end_time %}
+          <br>〜<br>{{ item.end_time }}
+          {% endif %}
+        </p>
+      </div>
+      <!-- //真ん中のラインのアイコン -->
 
-        <!-- 見出し -->
-        <a href="{% url 'app:RoutineDetail' item.pk %}" class="h2-title">
-          <div class="left">
-            <div class="fb top">
-              <div class="fb">
-                <span class="dib title">{{ item.title }}</span>
-                {% if user.timeline_settings_category_show == "show" %}
-                <span class="dib cate">
-                  {{ item.category }}
-                </span>
-                {% endif %}
-              </div>
+      <!-- 見出し -->
+      <a href="{% url 'app:RoutineDetail' item.pk %}" class="h2-title">
+        <div class="left">
+          <div class="fb top">
+            <div class="fb">
+              <span class="dib title">{{ item.title }}</span>
+              {% if user.timeline_settings_category_show == "show" %}
+              <span class="dib cate">
+                {{ item.category }}
+              </span>
+              {% endif %}
             </div>
-            <p>{{ item.description }}</p>
           </div>
-          <!-- <div class="right">
+          <p>{{ item.description }}</p>
+        </div>
+        <!-- <div class="right">
           <span>{{ item.start_time }}</span>
           </div> -->
-        </a>
-        <!-- //見出し -->
-      </div>
-      <!-- //アイコンと見出しのセット -->
-      {% endfor %}
+      </a>
+      <!-- //見出し -->
     </div>
-  </div>
+    <!-- //アイコンと見出しのセット -->
 
-  <!-- 右下の追加ボタン -->
-    <div class="right-bottom-btn">
-      <a href="{% url 'app:RoutineCreate' %}">＋</a>
+    {% empty %}
+    <div class="tc">
+<p class="mb1">タイムラインの項目がありません。</p>
+      <a class="btn btn-flat" href="{% url 'app:RoutineCreate' %}">追加する</a>
     </div>
-  <!-- //右下の追加ボタン -->
+    <script>
+      document.querySelector( '.timeline' ).classList.remove("timeline");
+    </script>
+
+    {% endfor %}
+  </div>
+</div>
+
+<!-- 右下の追加ボタン -->
+<div class="right-bottom-btn">
+  <a href="{% url 'app:RoutineCreate' %}">＋</a>
+</div>
+<!-- //右下の追加ボタン -->
 {% endblock %}
