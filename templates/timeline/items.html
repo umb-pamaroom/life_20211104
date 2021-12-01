@@ -68,7 +68,9 @@
               {% endif %}
             </div>
           </div>
-          <p>{{ item.description }}</p>
+{% if item.description %}
+          <p class="bottom">{{ item.description }}</p>
+          {% endif %}
         </div>
         <!-- <div class="right">
           <span>{{ item.start_time }}</span>
