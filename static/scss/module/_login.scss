@@ -31,7 +31,7 @@
     }
   }
   .block-right{
-    padding: 3em;
+    padding:5em 3em;
     width: 60%;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,52 @@
   }
   form{
     input{
-margin-bottom: 1em;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.social-wrap{
+  .h3-title{
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+  }
+  .social-media{
+    justify-content: center;
+    margin-bottom: 1.3em;
+    .social-icon{
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: transparent;
+      justify-content: center;
+    }
+  }
+  .or{
+    position: relative;
+    z-index: 0;
+    text-align: center;
+    margin-bottom: 1.5em;
+    span{
+      display: inline-block;
+      background: #fff;
+      padding: 0 20px;
+    }
+    &::after{
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      content: '';
+      width: 100%;
+      height: 1px;
+      background: #e6e6e6;
+      z-index: -1;
     }
   }
 }
@@ -59,7 +104,7 @@ margin-bottom: 1em;
     }
 
     .block-right {
-      padding: 1.5em;
+      padding:2.5em 1.5em;
     }
   }
 }
