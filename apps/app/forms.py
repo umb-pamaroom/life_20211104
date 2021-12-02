@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Memo, RoutineModel, TimelineModel
+from .models import Memo, RoutineModel, TimelineModel, TaskProjectModel, TaskSectionModel
 
 
 class PositionForm(forms.Form):
@@ -14,6 +14,12 @@ class RoutineCreateForm(ModelForm):
             'timeline': 'タイムライン',
         }
 
+        # 時間を選択できるように
+        widgets = {
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # 「:」を削除
@@ -24,6 +30,31 @@ class TimelineCreateForm(ModelForm):
     class Meta:
         model = TimelineModel
         fields = ['title', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
+class TaskProject_CreateForm(ModelForm):
+    class Meta:
+        model = TaskProjectModel
+        fields = ['title', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
+class TaskSection_CreateForm(ModelForm):
+    class Meta:
+        model = TaskSectionModel
+        fields = ['project','title', 'description']
+        labels = {
+            'project': 'プロジェクト',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

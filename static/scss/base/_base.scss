@@ -275,6 +275,9 @@ a[href^="tel:"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &.fbl{
+        justify-content: flex-start;
+    }
 }
 
 // メディアクエリ系

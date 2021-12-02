@@ -38,14 +38,14 @@ label{
     -ms-transform: translateY(-50%);
     color: var(--text-main);
   }
-  select{
-    display: block;
-    width: 100%;
-    padding: .7em;
-    border: 1px solid var(--text-main);
-  }
 }
-
+select {
+  display: block;
+  width: 100%;
+  padding: .7em;
+  border: 1px solid var(--text-main);
+  position: relative;
+}
 
 
 

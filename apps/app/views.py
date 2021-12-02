@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from .models import Memo, RoutineModel, TimelineModel, Task
+from .models import Memo, RoutineModel, TimelineModel, Task, TaskProjectModel, TaskSectionModel
 #ListViewのインポート
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -17,7 +17,14 @@ from django.db import transaction
 from django.views import View
 
 
-# タスク関係
+"""""""""""""""""""""""""""""""""""""""""""""
+
+タスクのView
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
 class TaskList(LoginRequiredMixin, ListView):
     template_name = 'task/task_list.html'
     model = Task
@@ -47,7 +54,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_form.html'
     model = Task
-    fields = ['title', 'description', 'complete']
+    fields = ['section', 'title', 'description', 'complete']
     success_url = reverse_lazy('app:tasks')
 
     def form_valid(self, form):
@@ -86,6 +93,196 @@ class TaskReorder(View):
 
         return redirect(reverse_lazy('app:tasks'))
 
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+タスクのView
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+class TaskProject_CreateView(LoginRequiredMixin, CreateView):
+    template_name = 'task_project/create.html'
+    model = TaskProjectModel
+    form_class = TaskProject_CreateForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.create_user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('app:TaskProject_List'))
+
+
+class TaskProject_UpdateView(UpdateView):
+    template_name = 'task_project/update.html'
+    model = TaskProjectModel
+
+    form_class = TaskProject_CreateForm
+
+    def get_success_url(self):
+        return reverse('app:TaskProject_Detail', kwargs={'pk': self.object.pk})
+
+
+class TaskProject_DetailView(LoginRequiredMixin, DetailView):
+    template_name = 'task_project/detail.html'
+    model = TaskProjectModel
+    context_object_name = 'TaskProject_object'
+
+
+# タイムラインのタイトルと、タイムラインの項目を表示
+class TaskProject_ItemsView(LoginRequiredMixin, DetailView):
+    template_name = 'task_project/items.html'
+    model = TaskProjectModel
+    context_object_name = 'TaskProject_object'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_section_items'] = TaskSectionModel.objects.all()
+        return context
+
+
+class TaskProject_DeleteView(DeleteView):
+    template_name = 'task_project/delete.html'
+    model = TaskProjectModel
+    context_object_name = 'TaskProject_object'
+
+    success_url = reverse_lazy('app:TaskProject_List')
+
+
+class TaskProject_ListView(LoginRequiredMixin, ListView):
+    template_name = 'task_project/list.html'
+    model = TaskProjectModel
+    context_object_name = 'TaskProject_object'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+
+        return queryset
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+タスクプロジェクトのView
+タスクセクションをまとめるもの
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+タスクセクションのView
+タスクセクションをまとめるもの
+メインモデル:TaskSectionModel
+使用フォーム:TaskSection_CreateForm
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+class TaskSection_CreateView(LoginRequiredMixin, CreateView):
+    template_name = 'task_section/create.html'
+    model = TaskSectionModel
+    form_class = TaskSection_CreateForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.create_user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('app:TaskSection_List'))
+
+
+class TaskSection_UpdateView(UpdateView):
+    template_name = 'task_section/update.html'
+    model = TaskSectionModel
+
+    form_class = TaskSection_CreateForm
+
+    def get_success_url(self):
+        return reverse('app:TaskSection_Detail', kwargs={'pk': self.object.pk})
+
+
+class TaskSection_DetailView(LoginRequiredMixin, DetailView):
+    template_name = 'task_section/detail.html'
+    model = TaskSectionModel
+    context_object_name = 'TaskSection_object'
+
+
+# タイムラインのタイトルと、タイムラインの項目を表示
+class TaskSection_ItemsView(LoginRequiredMixin, DetailView):
+    template_name = 'task_section/items.html'
+    model = TaskSectionModel
+    context_object_name = 'TaskSection_object'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_section_items'] = RoutineModel.objects.all().filter(
+            timeline=self.kwargs['pk']).order_by('start_time')
+        return context
+
+
+class TaskSection_DeleteView(DeleteView):
+    template_name = 'task_section/delete.html'
+    model = TaskSectionModel
+    context_object_name = 'TaskSection_object'
+
+    success_url = reverse_lazy('app:TaskSection_List')
+
+
+class TaskSection_ListView(LoginRequiredMixin, ListView):
+    template_name = 'task_section/list.html'
+    model = TaskSectionModel
+    context_object_name = 'TaskSection_object'
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+
+        # is_publishedがTrueのものに絞り、titleをキーに並び変える
+        queryset = queryset.filter(
+            create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+
+        return queryset
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+タスクセクションのView
+タスクセクションをまとめるもの
+
+"""""""""""""""""""""""""""""""""""""""""""""
 
 
 

@@ -56,11 +56,16 @@
      }, false );
  }
 
+const body = document.querySelector( 'body' );
 
+document.querySelector( '[data-toggle="sidebar-pc"]' ).addEventListener( 'click', function () {
+    body.classList.toggle( 'sidebar-open-pc' );
+    document.querySelector( '.sidebar' ).classList.toggle( 'is-pcopen' );
+} );
 
 //  メニューボタン
-document.querySelector( '.nav-button' ).addEventListener( 'click', function () {
-    document.querySelector( '.nav-button' ).classList.toggle( 'active' );
+document.querySelector( '[data-toggle="sidebar-sp"]' ).addEventListener( 'click', function () {
+    document.querySelector( '[data-toggle="sidebar-sp"]' ).classList.toggle( 'active' );
     document.querySelector( '.sidebar' ).classList.toggle( 'is-open' );
 } );
 
@@ -72,11 +77,6 @@ for ( let n = 0; n < jsBtn.length; n++ ) {
     }, false );
 }
 
-document.querySelector( '.sidebar-close' ).addEventListener( 'click', function () {
-    document.querySelector( '.sidebar' ).classList.remove( 'is-open' );
-} );
-
-
 $( "#login-button" ).click( function ( event ) {
     event.preventDefault();
 
@@ -85,3 +85,4 @@ $( "#login-button" ).click( function ( event ) {
 } );
 
 
+// PC用サイドバー

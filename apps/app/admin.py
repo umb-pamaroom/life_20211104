@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Memo, RoutineModel, TimelineModel, Task
+from .models import Memo, RoutineModel, TimelineModel, Task, TaskProjectModel, TaskSectionModel
 # 管理画面でデータをインポート・エクスポート
 from import_export import resources
 from import_export.admin import ImportExportMixin
@@ -11,6 +11,24 @@ class MemoResource(resources.ModelResource):
 
 class MemoAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = MemoResource
+
+
+class TaskProjectModelResource(resources.ModelResource):
+    class Meta:
+        model = TaskProjectModel
+
+class TaskProjectModelAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = TaskProjectModelResource
+
+
+class TaskSectionModelResource(resources.ModelResource):
+    class Meta:
+        model = TaskSectionModel
+
+
+class TaskSectionModelAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = TaskSectionModelResource
+
 
 
 # 管理画面でインポート・エクスポート
@@ -45,5 +63,7 @@ class TaskAdmin(ImportExportMixin, admin.ModelAdmin):
     
 admin.site.register(Memo, MemoAdmin)
 admin.site.register(RoutineModel, RoutineModelAdmin)
+admin.site.register(TaskSectionModel, TaskSectionModelAdmin)
+admin.site.register(TaskProjectModel, TaskProjectModelAdmin)
 admin.site.register(TimelineModel, TimelineModelAdmin)
 admin.site.register(Task, TaskAdmin)

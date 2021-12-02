@@ -36,6 +36,22 @@ urlpatterns = [
     path('timeline/update/<int:pk>', views.TimelineUpdateView.as_view(), name='TimelineUpdate'),
     path('timeline/list/', views.TimelineListView.as_view(), name='TimelineList'),
 
+    # タスクプロジェクト
+    path('task_project/create/', views.TaskProject_CreateView.as_view(), name='TaskProject_Create'),
+    path('task_project/detail/<int:pk>', views.TaskProject_DetailView.as_view(), name='TaskProject_Detail'),
+    path('task_project/<int:pk>', views.TaskProject_ItemsView.as_view(), name='TaskProject_Items'),
+    path('task_project/delete/<int:pk>', views.TaskProject_DeleteView.as_view(), name='TaskProject_Delete'),
+    path('task_project/update/<int:pk>', views.TaskProject_UpdateView.as_view(), name='TaskProject_Update'),
+    path('task_project/list/', views.TaskProject_ListView.as_view(), name='TaskProject_List'),
+
+    # タスクセクション
+    path('task_section/create/', views.TaskSection_CreateView.as_view(), name='TaskSection_Create'),
+    path('task_section/detail/<int:pk>', views.TaskSection_DetailView.as_view(), name='TaskSection_Detail'),
+    path('task_section/<int:pk>', views.TaskSection_ItemsView.as_view(), name='TaskSection_Items'),
+    path('task_section/delete/<int:pk>', views.TaskSection_DeleteView.as_view(), name='TaskSection_Delete'),
+    path('task_section/update/<int:pk>', views.TaskSection_UpdateView.as_view(), name='TaskSection_Update'),
+    path('task_section/list/', views.TaskSection_ListView.as_view(), name='TaskSection_List'),
+
     # タスク
     path('task/', views.TaskList.as_view(), name='tasks'),
     path('task/<int:pk>/', views.TaskDetail.as_view(), name='task'),

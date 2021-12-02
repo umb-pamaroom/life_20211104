@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+       <div class="fb heading-wrap">
+         <div class="heading-title">
+           <h1>タスクプロジェクト削除</h1>
+           </div>
+      </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>{{ TaskProject_object.title }}を削除しますか？</p>
+    <button class="btn btn-flat bgblack" type="submit">削除する</button>
+  </form>
+{% endblock %}

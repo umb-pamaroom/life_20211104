@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+  <div class="heading">
+       <div class="fb heading-wrap">
+         <div class="heading-title">
+           <h1>タスクセクション詳細</h1>
+           </div>
+      </div>
+  </div>
+  <div class="tc mb1">
+    <a class="btn btn-flat" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">編集する</a>
+  </div>
+
+  <div class="tc">
+    <a class="btn btn-flat" href="{% url 'app:TaskProject_Delete' TaskProject_object.pk %}">削除</a>
+  </div>
+<p>{{ TaskProject_object.title }}</p>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="heading modalContainer">
+  <div class="fb heading-wrap">
+    <div class="heading-title">
+      <h1>{{ TaskProject_object.title }}</h1>
+    </div>
+    <div class="icons-menu-wrap">
+      <div class="icon-item-wrap icon-menu-modal">
+        <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+          <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <ul class="modal-ul">
+                <li>
+                  <ul class="mt0">
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:task-create' %}">項目を追加</a>
+                    </li>
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">タスクプロジェクトを編集</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-li">
+                  <p><a class="menu-list" href="{% url 'app:TaskProject_Delete' TaskProject_object.pk %}">タスクプロジェクトを削除</a></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="basewrapper">
+  <div class="inner">
+    {% for item in task_section_items %}
+    <div class="card">
+      <a href="{% url 'app:TaskSection_Items' item.id %}">
+        <div class="fb">
+          <p class="title">{{ item.title }}</p>
+          <p class="text">{{ item.description }}</p>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="tc">
+      <p class="mb1">タスクセクションがありません。</p>
+      <a class="btn btn-flat" href="{% url 'app:TaskSection_Create' %}">追加する</a>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- 右下の追加ボタン -->
+<div class="right-bottom-btn">
+  <a href="{% url 'app:task-create' %}">＋</a>
+</div>
+<!-- //右下の追加ボタン -->
+{% endblock %}

@@ -6,7 +6,10 @@
   left: 0;
   z-index: 100;
   &.is-open{
-    display: block;
+    display: block !important;
+  }
+  &.is-pcopen {
+    display: none;
   }
 
   .sidebarInner {
@@ -46,11 +49,22 @@
   }
 }
 
+body.sidebar-open-pc{
+  .container{
+    width: 100vw;
+    left: auto;
+  }
+}
+
 /*  --------------------------------------------------------------- 
   960以下（600pxで問題ないかどうか）
   --------------------------------------------------------------- */
 @media screen and (max-width: 960px) {
+  
   .sidebar{
     display: none;
+    &.is-pcopen {
+      display: none;
+    }
   }
 }

@@ -33,9 +33,46 @@ class Condition(models.TextChoices):
     UPSET = '悪い', '悪い'
 
 
+"""""""""""""""""""""""""""""""""""""""""""""
+
+タスク関連のモデル
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+# タスクプロジェクトモデル
+class TaskProjectModel(models.Model):
+    create_user = models.ForeignKey(User, related_name='relate_user_task_project', on_delete=models.CASCADE, null=True, blank=True)
+    dateData = models.DateField(default=timezone.now, blank=True)
+    title = models.CharField('タスクプロジェクト名', max_length=50)
+    description = models.TextField('説明', blank=True)
+    created_datetime = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_datetime = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+# タスクセクションモデル
+class TaskSectionModel(models.Model):
+    create_user = models.ForeignKey(User, related_name='relate_user_task_section', on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(TaskProjectModel, related_name='relate_section_taskproject_model', on_delete=models.CASCADE, null=True, blank=True)
+    dateData = models.DateField(default=timezone.now, blank=True)
+    title = models.CharField('タスクセクション名', max_length=50)
+    description = models.TextField('説明', blank=True)
+    created_datetime = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_datetime = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
 # Todo
 class Task(models.Model):
     user = models.ForeignKey(User, related_name='relate_user_task', on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(TaskProjectModel, related_name='taskproject_model', on_delete=models.CASCADE, null=True, blank=True)
+    section = models.ForeignKey(TaskSectionModel, related_name='tasksection_model', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
@@ -46,6 +83,16 @@ class Task(models.Model):
 
     class Meta:
         order_with_respect_to = 'user'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+タスク関連のモデル
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
 
 
 # タイムラインモデル
