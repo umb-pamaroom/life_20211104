@@ -218,20 +218,21 @@ border-top: 1px solid var(--text-main);
     .unit {
       margin-bottom: 3em;
       .icon{
-        font-size: 15px;
-        width: 60px;
-        height: 84px;
-        border-width: 3px;
+        font-size: 14px;
+        width: 54px;
+        height: 78px;
+        border-width: 2px;
+        border-radius: 5px;
       }
       .h2-title {
-        width: calc(100% - 80px);
+        width: calc(100% - 72px);
         padding: .7em 1em;
 
         &:before {
           border-width: 8px 8px 8px 0;
           right: auto;
           top: 13px;
-          left: 72px;
+          left: 64px;
           border-color: transparent var(--bg-main2) transparent transparent;
         }
 
