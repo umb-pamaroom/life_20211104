@@ -214,6 +214,10 @@ border-top: 1px solid var(--text-main);
   .timeline {
     width: 100%;
     padding-bottom: 2em;
+    &::before{
+      left: 26px;
+height: calc(100% - 100px);
+    }
 
     .unit {
       margin-bottom: 3em;
@@ -223,10 +227,13 @@ border-top: 1px solid var(--text-main);
         height: 78px;
         border-width: 2px;
         border-radius: 5px;
+        p{
+          text-align: center;
+        }
       }
       .h2-title {
         width: calc(100% - 72px);
-        padding: .7em 1em;
+        padding: .6em .9em;
 
         &:before {
           border-width: 8px 8px 8px 0;
