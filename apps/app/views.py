@@ -307,7 +307,8 @@ class TimelineUpdateView(UpdateView):
     form_class = TimelineCreateForm
 
     def get_success_url(self):
-        return reverse('app:TimelineDetail', kwargs={'pk': self.object.pk})
+        # return reverse('app:TimelineDetail', kwargs={'pk': self.object.pk})
+        return reverse('app:TimelineList')
 
 
 class TimelineDetailView(LoginRequiredMixin, DetailView):
@@ -386,8 +387,8 @@ class RoutineUpdateView(UpdateView):
     form_class = RoutineCreateForm
 
     def get_success_url(self):
-        return reverse('app:RoutineDetail', kwargs={'pk': self.object.pk})
-
+        # return reverse('app:RoutineDetail', kwargs={'pk': self.object.pk})
+        return reverse('app:TimelineList')
 
 
 class RoutineDetailView(LoginRequiredMixin, DetailView):
@@ -402,7 +403,7 @@ class RoutineDeleteView(DeleteView):
     model = RoutineModel
     context_object_name = 'routines'
 
-    success_url = reverse_lazy('app:RoutineList')
+    success_url = reverse_lazy('app:TimelineList')
 
 
 class RoutineListView(LoginRequiredMixin, ListView):

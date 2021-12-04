@@ -68,8 +68,8 @@
               {% endif %}
             </div>
           </div>
-{% if item.description %}
-          <p class="bottom">{{ item.description }}</p>
+          {% if item.description %}
+            <div class="bottom">{{ item.description | linebreaks }}</div>
           {% endif %}
         </div>
         <!-- <div class="right">

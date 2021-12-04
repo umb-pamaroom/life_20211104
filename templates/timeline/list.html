@@ -17,7 +17,7 @@
         <a href="{% url 'app:TimelineItems' timeline.id %}">
           <div class="fb">
             <p class="title">{{ timeline.title }}</p>
-            <p class="text">{{ timeline.description }}</p>
+            <p class="text">{{ timeline.description | linebreaks | urlize }}</p>
           </div>
         </a>
       </div>

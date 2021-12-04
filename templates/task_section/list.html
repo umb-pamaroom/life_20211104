@@ -17,7 +17,7 @@
         <a href="{% url 'app:TaskProject_Items' item.id %}">
           <div class="fb">
             <p class="title">{{ item.title }}</p>
-            <p class="text">{{ item.description }}</p>
+            <p class="text">{{ item.description | linebreaks | urlize }}</p>
           </div>
         </a>
       </div>
