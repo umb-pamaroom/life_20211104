@@ -148,7 +148,7 @@ AUTH_USER_MODEL = 'register.User'
 
 # ログインページと、直接ログインページへ行った後のリダイレクトページ
 LOGIN_URL = 'register:login'
-LOGIN_REDIRECT_URL = 'app:index'
+LOGIN_REDIRECT_URL = 'app:mydiary'
 
 # メールをコンソールに表示する
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
