@@ -21,7 +21,6 @@ from .forms import (
 
 User = get_user_model()
 
-
 class Top(generic.TemplateView):
     template_name = 'register/top.html'
 

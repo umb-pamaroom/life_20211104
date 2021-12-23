@@ -1,5 +1,5 @@
 {% extends 'app/base.html' %}
-
+{% block title %}{{ TaskProject_object.title }}{% endblock title %}
 {% block content %}
 
 <div class="heading modalContainer">
@@ -40,7 +40,7 @@
 </div>
 
 <div class="basewrapper">
-  <div class="inner">
+  <div class="inner fb fbl">
     {% for item in task_section_items %}
     <div class="card">
       <a href="{% url 'app:TaskSection_Items' item.id %}">

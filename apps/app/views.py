@@ -99,7 +99,7 @@ class TaskReorder(View):
 
 """""""""""""""""""""""""""""""""""""""""""""
 
-タスクのView
+タスクプロジェクトのView
 
 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 
@@ -134,7 +134,7 @@ class TaskProject_DetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'TaskProject_object'
 
 
-# タイムラインのタイトルと、タイムラインの項目を表示
+# タスクプロジェクトのタイトルと、そのプロジェクトセクションを表示
 class TaskProject_ItemsView(LoginRequiredMixin, DetailView):
     template_name = 'task_project/items.html'
     model = TaskProjectModel
@@ -151,7 +151,8 @@ class TaskProject_ItemsView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['task_section_items'] = TaskSectionModel.objects.all()
+        # 「TaskSectionModel」モデルのprojectとそのプロジェクトが等しいものを代入
+        context['task_section_items'] = TaskSectionModel.objects.all().filter(project=self.kwargs['pk'])
         return context
 
 
@@ -230,7 +231,7 @@ class TaskSection_DetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'TaskSection_object'
 
 
-# タイムラインのタイトルと、タイムラインの項目を表示
+# タスクセクションのタイトルと、、そのセクションのタスクを表示
 class TaskSection_ItemsView(LoginRequiredMixin, DetailView):
     template_name = 'task_section/items.html'
     model = TaskSectionModel
@@ -239,7 +240,6 @@ class TaskSection_ItemsView(LoginRequiredMixin, DetailView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        # is_publishedがTrueのものに絞り、titleをキーに並び変える
         queryset = queryset.filter(
             create_user=self.request.user)
 
@@ -247,8 +247,10 @@ class TaskSection_ItemsView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['task_section_items'] = RoutineModel.objects.all().filter(
-            timeline=self.kwargs['pk']).order_by('start_time')
+        # task_itemsコンテキストに、､検索して一致するものを代入する
+        # 代入するものは、そのセクションのタスク！
+        # sectionとself.kwargs['pk']が等しいもの！ sectionの部分のものは、foreignkkeyのもの
+        context['task_items'] = Task.objects.all().filter(section=self.kwargs['pk'])
         return context
 
 
@@ -334,6 +336,8 @@ class TimelineItemsView(LoginRequiredMixin, DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # timeline_itemsコンテキストに「RoutineModel」の全てから検索して、モデルのtimeline項目がself.kwargs.pkに一致するもの
         context['timeline_items'] = RoutineModel.objects.all().filter(timeline=self.kwargs['pk']).order_by('start_time')
         return context
 

@@ -7,10 +7,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Life</title>
+        <title>{% block title %}{% endblock title  %} - Life</title>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
         <link rel="stylesheet" type="text/css" href="{% static 'scss/common.css' %}?date={% now 'YmdGi' %}">
+        {% block extracss %}
+        {% endblock extracss %}
     </head>
     <body>
         <!-- ヘッダー -->
@@ -85,9 +87,6 @@
                             <a href="{% url 'app:index' %}"><span>共有日報一覧</span></a>
                         </li> -->
                         <li>
-                            <a href="{% url 'app:mydiary' %}"><span>カレンダー</span></a>
-                        </li>
-                        <li>
                             <a href="{% url 'app:mydiary' %}"><span>自分の日報一覧</span></a>
                         </li>
                         <li class="treeview">
@@ -119,6 +118,22 @@
                                 <li><a href="{% url 'app:TimelineCreate' %}"><span>タイムライン作成</span></a></li>
                                 <li><a href="{% url 'app:TimelineList' %}"><span>タイムライン一覧</span></a></li>
                                 <li><a href="{% url 'app:RoutineCreate' %}"><span>ルーティン作成</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a class="accordion jsBtn" href="#"><span>カレンダー管理</span></a>
+                            <ul class="panel">
+                                <li>
+                                    <a href="{% url 'calendarapp:calendar' %}"><span>カレンダー</span></a></li>
+                                <li>
+                                    <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> 進行中</a>
+                                </li>
+                                <li>
+                                    <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> 近日予定</a>
+                                </li>
+                                <li>
+                                    <a class="treeview-item" href="{% url 'calendarapp:all_events' %}"><i class="icon fa fa-circle-o"></i> 全て</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -185,5 +200,8 @@
         </div>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.4/jquery.min.js'></script>
         <script src="{% static 'js/common.js' %}?date={% now 'YmdGi' %}""></script>
+        {% include 'base/js.html' %}
+        {% block extrascripts %}
+        {% endblock extrascripts %}
     </body>
 </html>
