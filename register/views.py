@@ -17,6 +17,7 @@ from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, ThemeUpdateForm, MyPasswordChangeForm,
     MyPasswordResetForm, MySetPasswordForm, EmailChangeForm, TimelineSettingsCategoryShowForm
 )
+from django.contrib import messages
 
 
 User = get_user_model()
@@ -244,3 +245,7 @@ class TimelineSettingsCategoryShow(OnlyYouMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('register:timeline_settings', pk=self.kwargs['pk'])
+        
+    def form_valid(self, form):
+        messages.success(self.request, '更新しました')
+        return super().form_valid(form)

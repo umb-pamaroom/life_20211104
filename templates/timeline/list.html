@@ -2,12 +2,35 @@
 {% block title %}タイムライン一覧{% endblock %}
 {% block content %}
 
-  <div class="heading">
-       <div class="fb heading-wrap">
-         <div class="heading-title">
-           <h1>タイムライン一覧</h1>
-           </div>
+  <div class="heading modalContainer">
+    <div class="fb heading-wrap">
+      <div class="heading-title">
+        <h1>タイムライン一覧</h1>
       </div>
+      <div class="icons-menu-wrap">
+        <div class="icon-item-wrap icon-menu-modal">
+          <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+            <i class="fas fa-ellipsis-h"></i>
+          </a>
+          <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+            <div class="modal-cover"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <ul class="modal-ul">
+                  <li>
+                    <ul class="mt0">
+                      <li class="menu-li">
+                        <a class="menu-list" href="{% url 'app:TimelineCreate' %}">タイムラインを追加</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="basewrapper">
@@ -25,6 +48,13 @@
 
     </div>
   </div>
+
+
+  <!-- 右下の追加ボタン -->
+  <div class="right-bottom-btn">
+    <a href="{% url 'app:TimelineCreate' %}">＋</a>
+  </div>
+  <!-- //右下の追加ボタン -->
 
 
 {% endblock %}

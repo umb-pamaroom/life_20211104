@@ -7,6 +7,30 @@
         </div>
     </div>
 </div>
+
+<!-- <div id="noknow-toaster" class="toaster-container top-center-drop-down">
+    <div class="toaster-item success active">
+        <p class="toaster-icon success"></p>
+        <div class="toaster-item-contents">
+            <p class="toaster-item-title">マイページの更新が完了しました。</p>
+        </div><span class="toaster-close-btn"></span>
+    </div>
+</div> -->
+
+<!-- <div class="msgbox-message-container">
+    <h1>Responsive Message Box</h1>
+    <h3>Using Native Javascript class</h3>
+    <p><button id="msgboxPersistent" class="msgbox-message-button" type="button">Show persistent</button></p>
+    <p><button id="msgboxShowMessage" class="msgbox-message-button" type="button">Show non-persistent</button></p>
+    <p><button id="msgboxHiddenClose" class="msgbox-message-button" type="button">Hidden close button</button></p>
+</div>
+<div id="msgbox-area" class="msgbox-area">
+    <div class="msgbox-box">
+        <div class="msgbox-content">Hello! My close button is hidden, but I will close myself after 5 seconds.</div>
+    </div>
+</div> -->
+
+
 <form action="" method="POST" class="p-memo">
     {% csrf_token %}
     {% for field in form %}
@@ -16,7 +40,7 @@
         </div>
     {% endfor %}
     <div class="tc mt2">
-    <button type="submit" class="btn btn-flat">登録する</button>
+    <button type="submit" class="btn btn-flat">更新する</button>
     </div>
 </form>
 

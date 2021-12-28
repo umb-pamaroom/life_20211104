@@ -171,7 +171,7 @@ input {
   //modal
   .modal {
     position: fixed;
-    display: flex;
+    display: none;
     align-items: center;
     width: 100vw;
     height: 100vh;
@@ -187,8 +187,15 @@ input {
     .btn-inner {
       margin-top: 23.5px;
     }
+    &.is-open{
+      display: flex;
+    }
+  }
 
-
+  &.modal-light{
+    .modal-cover{
+      background: none;
+    }
   }
 
   .modal-cover {
