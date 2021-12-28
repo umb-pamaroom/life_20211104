@@ -7,6 +7,11 @@ body {
   background: var(--bg-main);
 }
 
+// アイコン
+span[class^="material-icons"] {
+  font-size: 20px;
+}
+
 .notable {
   display: block !important;
 

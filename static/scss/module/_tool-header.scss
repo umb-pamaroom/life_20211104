@@ -306,13 +306,18 @@ header {
         ul {
           .menu-li {
             margin-bottom: 0;
-            border-bottom: 1px solid rgb(236, 236, 236);
+            border-bottom: 1px solid var(--border-grey);
             text-align: left;
             font-weight: normal;
+            span[class^="material-icons"] {
+              margin-right: 6px;
+              color: var(--border-grey);
+            }
 
             .menu-list {
-              padding: .7em .9em;
-              display: block;
+              padding: .8em .9em;
+              display: flex;
+              align-items: center;
             }
             &:last-child{
               border-bottom: none;
@@ -320,7 +325,7 @@ header {
           }
 
           .ul {
-            border-bottom: 1px solid rgb(236, 236, 236);
+            border-bottom: 1px solid var(--border-grey);
 
             >li {
               border-bottom: none;

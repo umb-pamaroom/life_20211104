@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock title  %} - Life</title>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
         <link rel="stylesheet" type="text/css" href="{% static 'scss/common.css' %}?date={% now 'YmdGi' %}">
         {% block extracss %}
@@ -47,21 +48,26 @@
                                         <li>
                                             <ul class="ul">
                                                 <li class="menu-li">
-                                                    <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">プロフィール</a>
+                                                    <a class="menu-list" href="{% url 'register:user_update' user.pk %}"><span class="material-icons-outlined">
+                                                            manage_accounts
+                                                        </span>プロフィール</a>
                                                 </li>
                                                 <li class="menu-li">
-                                                    <a class="menu-list" href="{% url 'register:user_update' user.pk %}">プロフィール更新</a>
+                                                    <a class="menu-list" href="{% url 'register:password_change' %}"><span class="material-icons-outlined">
+                                                            lock
+                                                        </span>パスワードの変更</a>
                                                 </li>
                                                 <li class="menu-li">
-                                                    <a class="menu-list" href="{% url 'register:password_change' %}">パスワードの変更</a>
-                                                </li>
-                                                <li class="menu-li">
-                                                    <a class="menu-list" href="{% url 'register:email_change' %}">メールアドレスの変更</a>
+                                                    <a class="menu-list" href="{% url 'register:email_change' %}"><span class="material-icons-outlined">
+                                                            email
+                                                        </span>メールアドレスの変更</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="menu-li">
-                                            <p><a href="{% url 'register:logout' %}" class="menu-list">ログアウト</a></p>
+                                            <p><a href="{% url 'register:logout' %}" class="menu-list"><span class="material-icons-outlined">
+                                                        logout
+                                                    </span>ログアウト</a></p>
                                         </li>
                                     </ul>
                                 </div>
