@@ -92,16 +92,22 @@
                 <nav class="nav">
                     <ul class="list accordion-ul">
                         <li>
-                            <a href="{% url 'app:new_memo' %}" class="bgblue"><span>新規作成</span></a>
+                            <a href="{% url 'app:new_memo' %}" class="bgblue"><span class="material-icons-outlined">
+                                    note_add
+                                </span><span>新規作成</span></a>
                         </li>
                         <!-- <li>
                             <a href="{% url 'app:index' %}"><span>共有日報一覧</span></a>
                         </li> -->
                         <li>
-                            <a href="{% url 'app:mydiary' %}"><span>自分の日報一覧</span></a>
+                            <a href="{% url 'app:mydiary' %}"><span class="material-icons-outlined">
+                                    text_snippet
+                                </span><span>自分の日報一覧</span></a>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>日記管理</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    description
+                                </span><span>日記管理</span></a>
 
                             <ul class="panel">
                                 <li><a href="{% url 'app:meal_list' %}"><span>学んだこと一覧</span></a></li>
@@ -114,7 +120,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>食事管理</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    restaurant_menu
+                                </span><span>食事管理</span></a>
 
                             <ul class="panel">
                                 <li><a href="{% url 'app:meal_list' %}"><span>食事一覧</span></a></li>
@@ -124,7 +132,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>タイムライン管理</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    view_timeline
+                                </span><span>タイムライン管理</span></a>
                             <ul class="panel">
                                 <li><a href="{% url 'app:TimelineCreate' %}"><span>タイムライン作成</span></a></li>
                                 <li><a href="{% url 'app:TimelineList' %}"><span>タイムライン一覧</span></a></li>
@@ -132,7 +142,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>カレンダー管理</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    date_range
+                                </span><span>カレンダー管理</span></a>
                             <ul class="panel">
                                 <li>
                                     <a href="{% url 'calendarapp:calendar' %}"><span>カレンダー</span></a></li>
@@ -148,7 +160,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>タスク管理</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    task
+                                </span><span>タスク管理</span></a>
 
                             <ul class="panel">
                                 <li><a href="{% url 'app:TaskProject_List' %}"><span>タスクプロジェクト一覧</span></a></li>
@@ -158,7 +172,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>アカウント設定</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    manage_accounts
+                                </span><span>アカウント設定</span></a>
                             <ul class="panel">
                                 <li class="menu-li">
                                     <a class="menu-list" href="{% url 'register:user_detail' user.pk %}">プロフィール</a>
@@ -175,7 +191,9 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a class="accordion jsBtn" href="#"><span>環境設定</span></a>
+                            <a class="accordion jsBtn" href="#"><span class="material-icons-outlined">
+                                    settings
+                                </span><span>環境設定</span></a>
                             <ul class="panel">
                                 <li class="menu-li">
                                     <a class="menu-list" href="{% url 'register:timeline_settings' user.pk %}">タイムライン設定</a>

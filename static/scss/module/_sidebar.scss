@@ -40,8 +40,12 @@
          margin-bottom: 0;
          margin-top: 0;
          a{
-           display: block;
+           display: flex;
+           align-items: center;
            padding: .6em 1.3em;
+           span[class^="material-icons"] {
+             margin-right: 8px;
+           }
          }
        }
       }
@@ -55,6 +59,7 @@ body.sidebar-open-pc{
     left: auto;
   }
 }
+
 
 /*  --------------------------------------------------------------- 
   960以下（600pxで問題ないかどうか）

@@ -1,4 +1,3 @@
-
 .container {
   margin: 30px 0 0;
   width: calc(100vw - 300px);
@@ -7,18 +6,19 @@
   padding: 2em;
 }
 
-.basewrapper{
+.basewrapper {
   padding: .5em 0;
 }
 
-.right-bottom-btn{
+.right-bottom-btn {
   position: fixed;
   right: 60px;
   bottom: 60px;
   line-height: 1;
-  a{
+
+  a {
     display: block;
-background: var(--btn-success);
+    background: var(--btn-success);
     padding: .7em;
     border-radius: 50%;
     font-size: 26px;
@@ -35,8 +35,9 @@ background: var(--btn-success);
 
 @media screen and (max-width: 600px) {
   .container {
-    padding:1.5em;
+    padding: 1.5em;
   }
+
   .right-bottom-btn {
     position: fixed;
     right: 30px;
@@ -48,7 +49,7 @@ background: var(--btn-success);
   }
 }
 
-.messages_ul{
+.messages_ul {
   position: absolute;
   bottom: 2em;
   z-index: 10;
@@ -63,7 +64,7 @@ background: var(--btn-success);
   animation: fadeOut 0s ease-in 3s forwards;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-  padding:.8em 1.5em;
+  padding: .8em 1.5em;
   border-radius: 3px;
   background: var(--bg-main2);
 }
