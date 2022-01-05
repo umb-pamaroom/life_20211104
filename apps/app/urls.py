@@ -5,7 +5,7 @@ app_name = 'app'
 urlpatterns = [
     path('diary/', views.index, name='index'),
 
-    # 自分の日報一覧
+    # 自分の日記一覧
     path('mydiary/', views.mydiary, name='mydiary'),
     # path('mydiary/', views.MydiaryListView.as_view(), name='mydiary'),
     path('diary/<int:memo_id>', views.detail, name='detail'),
