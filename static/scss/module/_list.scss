@@ -1,0 +1,33 @@
+.project-list.card-wrapper{
+  &.col3{
+    flex-wrap: wrap;
+    .card{
+      width: 30%;
+    }
+  }
+  .card{
+    .card-link{
+      .card-inner{
+        .title-fb{
+          margin-bottom: .8em;
+          .text-icon{
+            background: var(--btn-success);
+            padding: .4em;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 3px;
+            margin-right: .8em;
+          }
+        }
+        .text{
+          font-size: 13px;
+          color: var(--text-grey);
+        }
+      }
+    }
+  }
+}
+

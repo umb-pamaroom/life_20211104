@@ -11,12 +11,12 @@ $dark-bg:rgb(14, 14, 14);
 $dark-text-color:rgb(223, 223, 223);
 $dark-main:rgb(41, 41, 41);
 
-
 html {
 --bg-header: #226fe2;
 --bg-main: #fff;
 --bg-main2: #e7e7e7;
 --text-main: rgb(0, 0, 0);
+--text-grey: rgba(155, 155, 155, 0.87);
 --text-link: #226fe2;
 --btn-success: #226fe2;
 --border-main:1px solid #ccc;
@@ -72,6 +72,7 @@ html[data-theme="dark"] {
     --bg-main: #1f1f1f;
     --bg-main2: #3a3a3a;
     --text-main: rgba(248, 248, 248, 0.87);
+    --text-grey: rgba(199, 199, 199, 0.87);
     --border-grey: rgba(155, 155, 155, 0.87);
     --text-reverse: rgb(32, 32, 32);
     --text-form:rgb(32, 32, 32);

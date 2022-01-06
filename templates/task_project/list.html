@@ -2,57 +2,108 @@
 {% block title %}プロジェクト一覧{% endblock title %}
 {% block content %}
 
-  <div class="heading modalContainer">
-    <div class="fb heading-wrap">
-      <div class="heading-title">
-        <h1>プロジェクト一覧</h1>
-      </div>
-      <div class="icons-menu-wrap">
-        <div class="icon-item-wrap icon-menu-modal">
-          <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
-            <i class="fas fa-ellipsis-h"></i>
-          </a>
-          <div class="modal icon-menu-modal-wrap" data-modal="menu1">
-            <div class="modal-cover"></div>
-            <div class="modal-inner">
-              <div class="modal-content">
-                <ul class="modal-ul">
-                  <li>
-                    <ul class="mt0">
-                      <li class="menu-li">
-                        <a class="menu-list" href="{% url 'app:TaskProject_Create' %}">プロジェクトを追加</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
+<div class="heading modalContainer">
+  <div class="fb heading-wrap">
+    <div class="heading-title">
+      <h1>プロジェクト一覧</h1>
+    </div>
+    <div class="icons-menu-wrap">
+      <div class="icon-item-wrap icon-menu-modal">
+        <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+          <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+          <div class="modal-cover"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <ul class="modal-ul">
+                <li>
+                  <ul class="mt0">
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:TaskProject_Create' %}">プロジェクトを追加</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="basewrapper">
 
-  <div class="basewrapper">
-    <div class="inner fb fbl">
-      {% for item in TaskProject_object %}
-      <div class="card">
-        <a href="{% url 'app:TaskProject_Items' item.id %}">
-          <div class="fb">
-            <p class="title">{{ item.title }}</p>
-            <p class="text">{{ item.description | linebreaks | urlize }}</p>
-          </div>
-        </a>
+  <div class="section-div">
+    <div class="inner">
+      <div class="h2-title-wrap">
+      <h2 class="h2-title">お気に入りプロジェクト</h2>
       </div>
-      {% empty %}
-      <div class="tc">
-        <p class="mb1">タスクプロジェクトがありません。</p>
-        <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
-      </div>
-      {% endfor %}
+      <div class="fb fbl card-wrapper project-list col3">
+        {% for item in TaskProject_object %}
+        <div class="card">
+          <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
+            <div class="fb card-inner">
+              <div class="top">
+                <div class="fb title-fb fbl">
+                  <span class="text-icon fb">{{ item.title|first }}</span>
+                  <p class="title">{{ item.title }}</p>
+                </div>
+                {% comment %}文字を切り詰める{% endcomment %}
+                <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+              </div>
+              <div class="bottom">
 
+              </div>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="tc">
+          <p class="mb1">タスクプロジェクトがありません。</p>
+          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+        </div>
+        {% endfor %}
+
+      </div>
     </div>
   </div>
+
+  <div class="section-div">
+    <div class="inner">
+      <div class="h2-title-wrap">
+      <h2 class="h2-title">プロジェクト</h2>
+      </div>
+      <div class="fb fbl card-wrapper project-list col3">
+        {% for item in TaskProject_object %}
+        <div class="card">
+          <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
+            <div class="fb card-inner">
+              <div class="top">
+                <div class="fb title-fb fbl">
+                  <span class="text-icon fb">{{ item.title|first }}</span>
+                  <p class="title">{{ item.title }}</p>
+                </div>
+                {% comment %}文字を切り詰める{% endcomment %}
+                <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+              </div>
+              <div class="bottom">
+
+              </div>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="tc">
+          <p class="mb1">タスクプロジェクトがありません。</p>
+          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

@@ -99,7 +99,7 @@ class TaskReorder(View):
 
 """""""""""""""""""""""""""""""""""""""""""""
 
-タスクプロジェクトのView
+プロジェクトのView
 
 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 
@@ -177,6 +177,12 @@ class TaskProject_ListView(LoginRequiredMixin, ListView):
             create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
 
         return queryset
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["foo"] = "bar"
+        return context
 
 
 """""""""""""""""""""""""""""""""""""""""""""
