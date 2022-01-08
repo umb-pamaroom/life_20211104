@@ -40,7 +40,7 @@ class TimelineCreateForm(ModelForm):
 class TaskProject_CreateForm(ModelForm):
     class Meta:
         model = TaskProjectModel
-        fields = ['title', 'description']
+        fields = ['title', 'description','members']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -44,6 +44,9 @@ class Condition(models.TextChoices):
 
 # タスクプロジェクトモデル
 class TaskProjectModel(models.Model):
+
+    # 作成者だけでなく、他の人と共有するために
+    members = models.ManyToManyField(User, related_name='relate_members_task_project')
     create_user = models.ForeignKey(User, related_name='relate_user_task_project', on_delete=models.CASCADE, null=True, blank=True)
     dateData = models.DateField(default=timezone.now, blank=True)
     title = models.CharField('タスクプロジェクト名', max_length=50)

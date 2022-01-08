@@ -2,10 +2,33 @@
 {% block title %}タイムラインの項目編集{% endblock title %}
 {% block content %}
 
-  <div class="heading">
+  <div class="heading modalContainer">
     <div class="fb heading-wrap">
       <div class="heading-title">
         <h1>タイムラインの項目編集</h1>
+      </div>
+      <div class="icons-menu-wrap">
+        <div class="icon-item-wrap icon-menu-modal">
+          <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+            <i class="fas fa-ellipsis-h"></i>
+          </a>
+          <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+            <div class="modal-cover"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <ul class="modal-ul">
+                  <li>
+                    <ul class="mt0">
+                      <li class="menu-li">
+                        <a class="menu-list" href="{% url 'app:RoutineDelete' routines.pk %}">この項目を削除</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

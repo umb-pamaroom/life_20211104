@@ -20,15 +20,15 @@
                 <li>
                   <ul class="mt0">
                     <li class="menu-li">
-                      <a class="menu-list" href="{% url 'app:task-create' %}">項目を追加</a>
+                      <a class="menu-list" href="{% url 'app:task-create' %}">セクションを追加</a>
                     </li>
                     <li class="menu-li">
-                      <a class="menu-list" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">タスクプロジェクトを編集</a>
+                      <a class="menu-list" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">プロジェクトを編集</a>
                     </li>
                   </ul>
                 </li>
                 <li class="menu-li">
-                  <p><a class="menu-list" href="{% url 'app:TaskProject_Delete' TaskProject_object.pk %}">タスクプロジェクトを削除</a></p>
+                  <p><a class="menu-list" href="{% url 'app:TaskProject_Delete' TaskProject_object.pk %}">プロジェクトを削除</a></p>
                 </li>
               </ul>
             </div>
@@ -38,6 +38,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="basewrapper">
   <div class="inner fb fbl">

@@ -173,15 +173,13 @@ class TaskProject_ListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset(**kwargs)
 
         # is_publishedがTrueのものに絞り、titleをキーに並び変える
-        queryset = queryset.filter(
-            create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+        queryset = queryset.filter(create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
 
         return queryset
 
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["foo"] = "bar"
         return context
 
 
@@ -371,7 +369,19 @@ class TimelineListView(LoginRequiredMixin, ListView):
         return queryset
 
 
-# ルーティンのビュー
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+ルーティーンのView
+メインモデル:
+使用フォーム:
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
 class RoutineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'routine/create.html'
     model = RoutineModel
@@ -395,6 +405,7 @@ class RoutineUpdateView(UpdateView):
     model = RoutineModel
 
     form_class = RoutineCreateForm
+    context_object_name = 'routines'
 
     def get_success_url(self):
         # return reverse('app:RoutineDetail', kwargs={'pk': self.object.pk})

@@ -103,6 +103,41 @@
       </div>
     </div>
   </div>
+
+  <div class="section-div">
+    <div class="inner">
+      <div class="h2-title-wrap">
+        <h2 class="h2-title">終了したプロジェクト</h2>
+      </div>
+      <div class="fb fbl card-wrapper project-list col3">
+        {% for item in TaskProject_object %}
+        <div class="card">
+          <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
+            <div class="fb card-inner">
+              <div class="top">
+                <div class="fb title-fb fbl">
+                  <span class="text-icon fb">{{ item.title|first }}</span>
+                  <p class="title">{{ item.title }}</p>
+                </div>
+                {% comment %}文字を切り詰める{% endcomment %}
+                <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+              </div>
+              <div class="bottom">
+
+              </div>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="tc">
+          <p class="mb1">タスクプロジェクトがありません。</p>
+          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
 </div>
 
 

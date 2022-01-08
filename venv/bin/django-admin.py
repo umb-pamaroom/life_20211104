@@ -1,4 +1,4 @@
-#!/Users/kasashimamasaya/Desktop/Doing/Python/Life/diaryReport/venv/bin/python
+#!/Users/kasashimamasaya/Desktop/Doing/Python/Life_20211104/diaryReport/venv/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
