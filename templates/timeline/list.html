@@ -35,16 +35,34 @@
 
   <div class="basewrapper">
     <div class="inner">
-      {% for timeline in timelines %}
-      <div class="card">
-        <a href="{% url 'app:TimelineItems' timeline.id %}">
-          <div class="fb">
-            <p class="title">{{ timeline.title }}</p>
-            <p class="text">{{ timeline.description | linebreaks | urlize }}</p>
-          </div>
-        </a>
+
+      <div class="fb fbl card-wrapper project-list col3">
+        {% for timeline in timelines %}
+        <div class="card">
+          <a href="{% url 'app:TimelineItems' timeline.id %}" class="card-link">
+            <div class="fb card-inner">
+              <div class="top">
+                <div class="fb title-fb fbl">
+                  <span class="text-icon fb">{{ timeline.title|first }}</span>
+                  <p class="title">{{ timeline.title }}</p>
+                </div>
+                {% comment %}文字を切り詰める{% endcomment %}
+                <p class="text">{{ timeline.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+              </div>
+              <div class="bottom">
+
+              </div>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="tc">
+          <p class="mb1">タイムラインがありません。</p>
+          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+        </div>
+        {% endfor %}
+
       </div>
-      {% endfor %}
 
     </div>
   </div>
