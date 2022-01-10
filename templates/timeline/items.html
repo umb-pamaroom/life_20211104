@@ -44,7 +44,7 @@
 
     {% for item in timeline_items %}
     <!-- アイコンと見出しのセット -->
-    <div class="unit">
+    <div class="unit {% if item.completed %}done{% endif %}">
       <!-- 真ん中のラインのアイコン -->
       <div class="icon">
         <p>{{ item.start_time }}
@@ -57,6 +57,16 @@
 
       <!-- 見出し -->
       <a href="{% url 'app:RoutineUpdate' item.pk %}" class="h2-title">
+        {% if item.completed %}
+          <div class="done-wrap fb">
+            <p class="fb">
+              <span class="material-icons-outlined check-icon">
+                check_circle
+              </span>
+              <span class="text">完了</span>
+              </p>
+          </div>
+        {% endif %}
         <div class="left">
           <div class="fb top">
             <div class="fb">

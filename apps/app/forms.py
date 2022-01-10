@@ -9,15 +9,17 @@ class PositionForm(forms.Form):
 class RoutineCreateForm(ModelForm):
     class Meta:
         model = RoutineModel
-        fields = ['timeline', 'title', 'description', 'start_time', 'end_time', 'category']
+        fields = ['timeline', 'title', 'description', 'start_time', 'end_time', 'category','completed']
         labels = {
             'timeline': 'タイムライン',
+            'completed': 'ステータス',
         }
 
         # 時間を選択できるように
         widgets = {
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
+            'completed': forms.CheckboxInput(attrs={'class': 'check'}),
         }
 
     def __init__(self, *args, **kwargs):

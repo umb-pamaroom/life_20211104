@@ -97,7 +97,6 @@ class Task(models.Model):
 """""""""""""""""""""""""""""""""""""""""""""
 
 
-
 # タイムラインモデル
 class TimelineModel(models.Model):
     create_user = models.ForeignKey(User, related_name='relate_user_timeline', on_delete=models.CASCADE, null=True, blank=True)
@@ -113,6 +112,8 @@ class TimelineModel(models.Model):
 
 # タイムラインの項目モデル
 class RoutineModel(models.Model):
+    # 完了したかしていないか
+    completed = models.BooleanField(default=False, blank=True, null=True)
     create_user = models.ForeignKey(User, related_name='relate_user_routine', on_delete=models.CASCADE, null=True, blank=True)
     timeline = models.ForeignKey(TimelineModel, related_name='timeline_model', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField('タイトル', max_length=50)
