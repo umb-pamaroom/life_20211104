@@ -41,9 +41,13 @@
         .check-icon {
           font-size: 40px;
           margin-right: .3em;
+          font-weight: bold;
         }
         .text{
           font-size: 30px;
+          font-weight: bold;
+          line-height: 1;
+          display: block;
         }
       }
       .h2-title{
@@ -185,11 +189,11 @@
         .done-wrap {
 
           .check-icon {
-            font-size: 30px;
+            font-size: 24px;
           }
 
           .text {
-            font-size: 20px;
+            font-size: 18px;
           }
         }
       }
