@@ -54,19 +54,24 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_form.html'
     model = Task
-    fields = ['section', 'title', 'description', 'complete']
-    success_url = reverse_lazy('app:tasks')
+    fields = ['project','section', 'title', 'description', 'complete']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TaskCreate, self).form_valid(form)
 
+    def get_success_url(self):
+        # 作成した項目が所属するタイムラインのページへリンク
+        return reverse_lazy('app:TaskSection_Items', kwargs={'pk': self.object.section.pk})
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'task/task_form.html'
     model = Task
     fields = ['title', 'description', 'complete']
-    success_url = reverse_lazy('app:tasks')
+    
+    def get_success_url(self):
+        # 作成した項目が所属するタイムラインのページへリンク
+        return reverse_lazy('app:TaskSection_Items', kwargs={'pk': self.object.section.pk})
 
 
 class DeleteView(LoginRequiredMixin, DeleteView):
@@ -305,7 +310,7 @@ class TimelineCreateView(LoginRequiredMixin, CreateView):
         obj.save()
         return HttpResponseRedirect(reverse('app:TimelineList'))
 
-
+# タイムラインの編集
 class TimelineUpdateView(UpdateView):
     template_name = 'timeline/update.html'
     model = TimelineModel
@@ -396,7 +401,11 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.create_user = self.request.user
         obj.save()
-        return HttpResponseRedirect(reverse('app:TimelineList'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # 作成した項目が所属するタイムラインのページへリンク
+        return reverse_lazy('app:TimelineItems', kwargs={'pk': self.object.timeline.pk})
 
 
 
@@ -408,8 +417,8 @@ class RoutineUpdateView(UpdateView):
     context_object_name = 'routines'
 
     def get_success_url(self):
-        # return reverse('app:RoutineDetail', kwargs={'pk': self.object.pk})
-        return reverse('app:TimelineList')
+        # 元のタイムラインへ遷移する
+        return reverse_lazy('app:TimelineItems', kwargs={'pk': self.object.timeline.pk})
 
 
 class RoutineDetailView(LoginRequiredMixin, DetailView):
