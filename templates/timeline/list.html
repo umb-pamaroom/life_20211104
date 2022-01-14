@@ -42,6 +42,7 @@
           <a href="{% url 'app:TimelineItems' timeline.id %}" class="card-link">
             <div class="fb card-inner">
               <div class="top">
+                <p>共有人数：{{ timeline.members.count }}</p>
                 <div class="fb title-fb fbl">
                   <span class="text-icon fb">{{ timeline.title|first }}</span>
                   <p class="title">{{ timeline.title }}</p>
@@ -50,7 +51,6 @@
                 <p class="text">{{ timeline.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
               </div>
               <div class="bottom">
-
               </div>
             </div>
           </a>

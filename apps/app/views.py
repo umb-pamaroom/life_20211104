@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TimelineUpdateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -127,7 +127,7 @@ class TaskProject_UpdateView(UpdateView):
     template_name = 'task_project/update.html'
     model = TaskProjectModel
 
-    form_class = TaskProject_CreateForm
+    form_class = TaskProject_UpdateForm
 
     def get_success_url(self):
         return reverse('app:TaskProject_Detail', kwargs={'pk': self.object.pk})
@@ -148,9 +148,16 @@ class TaskProject_ItemsView(LoginRequiredMixin, DetailView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        # is_publishedがTrueのものに絞り、titleをキーに並び変える
-        queryset = queryset.filter(
-            create_user=self.request.user)
+        # 作成者のみアクセスできる
+        # queryset = queryset.filter(
+        #     create_user=self.request.user)
+
+        # メンバーも見れる
+        # queryset = queryset.filter(
+        #     members__in=[self.request.user])
+
+         # メンバーと作成者も見れる
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct()
 
         return queryset
 
@@ -177,8 +184,13 @@ class TaskProject_ListView(LoginRequiredMixin, ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        # is_publishedがTrueのものに絞り、titleをキーに並び変える
-        queryset = queryset.filter(create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+        # 作成者と一致する
+        # queryset = queryset.filter(create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+
+        # メンバーと一致する
+        # queryset = queryset.filter(members__in=[self.request.user]).order_by('-updated_datetime', '-created_datetime')
+
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct().order_by('-updated_datetime', '-created_datetime')
 
         return queryset
 
@@ -298,7 +310,19 @@ class TaskSection_ListView(LoginRequiredMixin, ListView):
 
 
 
-# タイムラインのView
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+タイムラインのView
+タイムラインをまとめるもの
+メインモデル:TimelineModel
+使用フォーム:
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
 class TimelineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'timeline/create.html'
     model = TimelineModel
@@ -310,12 +334,13 @@ class TimelineCreateView(LoginRequiredMixin, CreateView):
         obj.save()
         return HttpResponseRedirect(reverse('app:TimelineList'))
 
+
 # タイムラインの編集
 class TimelineUpdateView(UpdateView):
     template_name = 'timeline/update.html'
     model = TimelineModel
 
-    form_class = TimelineCreateForm
+    form_class = TimelineUpdateForm
 
     def get_success_url(self):
         # return reverse('app:TimelineDetail', kwargs={'pk': self.object.pk})
@@ -337,9 +362,7 @@ class TimelineItemsView(LoginRequiredMixin, DetailView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        # is_publishedがTrueのものに絞り、titleをキーに並び変える
-        queryset = queryset.filter(
-            create_user=self.request.user)
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct()
 
         return queryset
     
@@ -367,9 +390,7 @@ class TimelineListView(LoginRequiredMixin, ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        # is_publishedがTrueのものに絞り、titleをキーに並び変える
-        queryset = queryset.filter(
-            create_user=self.request.user).order_by('-updated_datetime', '-created_datetime')
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct().order_by('-updated_datetime', '-created_datetime')
 
         return queryset
 

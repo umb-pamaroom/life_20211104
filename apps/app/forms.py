@@ -39,10 +39,40 @@ class TimelineCreateForm(ModelForm):
         self.label_suffix = ""
 
 
+class TimelineUpdateForm(ModelForm):
+    class Meta:
+        model = TimelineModel
+        fields = ['title', 'description', 'members']
+
+        labels = {
+            'members': 'メンバー',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
 class TaskProject_CreateForm(ModelForm):
     class Meta:
         model = TaskProjectModel
-        fields = ['title', 'description','members']
+        fields = ['title', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
+class TaskProject_UpdateForm(ModelForm):
+    class Meta:
+        model = TaskProjectModel
+        fields = ['title', 'description', 'members']
+
+        labels = {
+            'members': 'メンバー',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -34,7 +34,7 @@
 </div>
 <div class="basewrapper">
 
-  <div class="section-div">
+  <!-- <div class="section-div">
     <div class="inner">
       <div class="h2-title-wrap">
       <h2 class="h2-title">お気に入りプロジェクト</h2>
@@ -67,7 +67,7 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="section-div">
     <div class="inner">
@@ -76,10 +76,11 @@
       </div>
       <div class="fb fbl card-wrapper project-list col3">
         {% for item in TaskProject_object %}
-        <div class="card">
+        <div class="card {% if item.members.count > 0 %}shared{% endif %}">
           <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
             <div class="fb card-inner">
               <div class="top">
+                <p>共有人数：{{ item.members.count }}</p>
                 <div class="fb title-fb fbl">
                   <span class="text-icon fb">{{ item.title|first }}</span>
                   <p class="title">{{ item.title }}</p>
@@ -104,7 +105,7 @@
     </div>
   </div>
 
-  <div class="section-div">
+  <!-- <div class="section-div">
     <div class="inner">
       <div class="h2-title-wrap">
         <h2 class="h2-title">終了したプロジェクト</h2>
@@ -137,7 +138,7 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 
