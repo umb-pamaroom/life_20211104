@@ -416,10 +416,11 @@ header {
       }
 
       .modal-ul {
-        a {
+        .menu-list {
           display: block;
           line-height: 1;
           padding: .6em 1.2em;
+          cursor: pointer;
         }
       }
     }

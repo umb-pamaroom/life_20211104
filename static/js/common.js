@@ -126,3 +126,14 @@ document.addEventListener( "DOMContentLoaded", () => {
     }
     taskEventListener( document.querySelectorAll( ".taskCheck" ) )
 } )
+
+// チェックボックスを全てリセット
+const ResetBtn = document.getElementById( "checkBoxReset" );
+ResetBtn.addEventListener( 'click', function () {
+    const checks = document.querySelectorAll( ".taskCheck" )
+    for ( const check of checks ) {
+        check.checked = false;
+        check.closest( ".unit" ).classList.remove( "done" );
+    }
+    ResetBtn.closest( ".modal" ).classList.remove( "is-open" );
+} );

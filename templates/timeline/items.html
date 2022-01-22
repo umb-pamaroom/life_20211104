@@ -25,6 +25,9 @@
                     <li class="menu-li">
                       <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
                     </li>
+                    <li class="menu-li">
+                      <p class="menu-list" id="checkBoxReset">チェックをリセットする</p>
+                    </li>
                   </ul>
                 </li>
                 <li class="menu-li">
@@ -70,7 +73,7 @@
         <div class="left">
           <div class="fb top">
             <div class="fb">
-<input type="checkbox" name="4" class="taskCheck" data-pk="{{ item.pk }}" {% if item.completed %}checked{% endif %}>
+<input type="checkbox" class="taskCheck" data-pk="{{ item.pk }}" {% if item.completed %}checked{% endif %}>
               <span class="dib title">{{ item.title }}</span>
               {% if user.timeline_settings_category_show == "show" %}
               <span class="dib cate">
