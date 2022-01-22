@@ -12,9 +12,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.db import transaction
 from django.views import View
+import json
+
+
+def check_task(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        # data["pk"]はhtmlの「data-pk」のこと
+        checkbox = RoutineModel.objects.get(pk=data["pk"])
+        checkbox.completed = True
+        checkbox.save()
+        return JsonResponse({"message": "Success"})
+
+def uncheck_task(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        checkbox = RoutineModel.objects.get(pk=data["pk"])
+        checkbox.completed = False
+        checkbox.save()
+        return JsonResponse({"message": "Success"})
 
 
 """""""""""""""""""""""""""""""""""""""""""""

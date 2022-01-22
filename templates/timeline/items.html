@@ -58,18 +58,19 @@
       <!-- 見出し -->
       <a href="{% url 'app:RoutineUpdate' item.pk %}" class="h2-title">
         {% if item.completed %}
-          <div class="done-wrap fb">
+          <!-- <div class="done-wrap fb">
             <p class="fb">
               <span class="material-icons-outlined check-icon">
                 check_circle
               </span>
               <span class="text">完了</span>
               </p>
-          </div>
+          </div> -->
         {% endif %}
         <div class="left">
           <div class="fb top">
             <div class="fb">
+<input type="checkbox" name="4" class="taskCheck" data-pk="{{ item.pk }}" {% if item.completed %}checked{% endif %}>
               <span class="dib title">{{ item.title }}</span>
               {% if user.timeline_settings_category_show == "show" %}
               <span class="dib cate">
@@ -108,6 +109,5 @@
   <a href="{% url 'app:RoutineCreate' %}">＋</a>
 </div>
 <!-- //右下の追加ボタン -->
-
 
 {% endblock %}

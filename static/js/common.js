@@ -88,3 +88,41 @@ $( "#login-button" ).click( function ( event ) {
 // PC用サイドバー
 
 
+
+
+// タイムラインAJAX
+document.addEventListener( "DOMContentLoaded", () => {
+    const csrf = Cookies.get( 'csrftoken' );
+    const taskEventListener = checkboxes => {
+        checkboxes.forEach( checkbox => {
+            checkbox.addEventListener( "change", function ()
+            {
+                if ( this.checked ) {
+                    fetch( '/check_task', {
+                        method: "POST",
+                        headers: {
+                            'X-CSRFToken': csrf
+                        },
+                        body: JSON.stringify( {
+                            "pk": checkbox.dataset.pk
+                        } )
+                    } )
+                    // 祖先要素を取得
+                    checkbox.closest( ".unit" ).classList.add( "done" );
+                } else {
+                    fetch( '/uncheck_task', {
+                        method: "POST",
+                        headers: {
+                            'X-CSRFToken': csrf
+                        },
+                        body: JSON.stringify( {
+                            "pk": checkbox.dataset.pk
+                        } )
+                    } )
+                    checkbox.closest( ".unit" ).classList.remove( "done" );
+                }
+            } )
+        } )
+    }
+    taskEventListener( document.querySelectorAll( ".taskCheck" ) )
+} )
