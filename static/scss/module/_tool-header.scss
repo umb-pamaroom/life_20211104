@@ -603,4 +603,18 @@ header {
 /*  --------------------------------------------------------------- 
   479以下（320pxで問題ないかどうか）
   --------------------------------------------------------------- */
-@media screen and (max-width: 479px) {}
+@media screen and (max-width: 479px) {
+  .heading{
+    &.fixed-header {
+      position: fixed;
+      width: calc(100vw - 3em);
+      background: var(--bg-main);
+      z-index: 20;
+      top: 50px;
+
+      &+.basewrapper {
+        padding-top: 4.5em;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
 {% block title %}{{ timelines.title }}{% endblock %}
 {% block content %}
 
-<div class="heading modalContainer">
+<div class="heading fixed-header modalContainer">
   <div class="fb heading-wrap">
     <div class="heading-title">
       <h1>{{ timelines.title }}</h1>
@@ -26,7 +26,7 @@
                       <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
                     </li>
                     <li class="menu-li">
-                      <p class="menu-list" id="checkBoxReset">チェックをリセットする</p>
+                      <p class="menu-list" id="checkBoxReset">チェックをリセット</p>
                     </li>
                   </ul>
                 </li>
