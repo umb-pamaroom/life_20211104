@@ -88,11 +88,10 @@ $( "#login-button" ).click( function ( event ) {
 // PC用サイドバー
 
 
-
+const csrf = Cookies.get( 'csrftoken' );
 
 // タイムラインAJAX
 document.addEventListener( "DOMContentLoaded", () => {
-    const csrf = Cookies.get( 'csrftoken' );
     const taskEventListener = checkboxes => {
         checkboxes.forEach( checkbox => {
             checkbox.addEventListener( "change", function ()
@@ -134,6 +133,15 @@ ResetBtn.addEventListener( 'click', function () {
     for ( const check of checks ) {
         check.checked = false;
         check.closest( ".unit" ).classList.remove( "done" );
+        fetch( '/uncheck_task', {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrf
+            },
+            body: JSON.stringify( {
+                "pk": check.dataset.pk
+            } )
+        } )
     }
     ResetBtn.closest( ".modal" ).classList.remove( "is-open" );
 } );
