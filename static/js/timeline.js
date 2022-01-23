@@ -4,15 +4,19 @@ const csrf = Cookies.get( 'csrftoken' );
 // %
 const persentNumber = document.getElementById( "persentNumber" );
 const checks = document.querySelectorAll( ".taskCheck" );
+const ChecksAll = document.getElementById( "ChecksAll" );
+const doneChecksSpan = document.getElementById( "doneChecks" );
 
 // タイムラインのアイテムの数
-let chekcsNumbers = checks.length;
+let checksNumbers = checks.length;
 
 // 完了しているタイムラインのアイテムの数
 let doneChecks = document.querySelectorAll( ".done .taskCheck" );
 let doneChecksNumbers = doneChecks.length;
 
-persentNumber.innerHTML = Math.round( doneChecksNumbers / chekcsNumbers * 100 );
+persentNumber.innerHTML = Math.round( doneChecksNumbers / checksNumbers * 100 );
+ChecksAll.innerHTML = checksNumbers;
+doneChecksSpan.innerHTML = doneChecksNumbers;
 
 // タイムラインAJAX
 document.addEventListener( "DOMContentLoaded", () => {
@@ -45,7 +49,9 @@ document.addEventListener( "DOMContentLoaded", () => {
                     checkbox.closest( ".unit" ).classList.remove( "done" );
                 }
                 let doneChecks = document.querySelectorAll( ".done .taskCheck" );
-                persentNumber.innerHTML = Math.round( doneChecks.length / chekcsNumbers * 100 );
+                persentNumber.innerHTML = Math.round( doneChecks.length / checksNumbers * 100 );
+                ChecksAll.innerHTML = checksNumbers;
+                doneChecksSpan.innerHTML = doneChecks.length;
             } )
         } )
     }

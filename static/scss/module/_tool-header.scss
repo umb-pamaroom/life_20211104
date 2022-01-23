@@ -373,6 +373,18 @@ header {
 .heading {
   margin-bottom: 1.5em;
 
+  &.fixed-header {
+    position: fixed;
+    width: calc(100vw - 300px - 4em);
+    background: var(--bg-main);
+    z-index: 20;
+    top: 50px;
+
+    &+.basewrapper {
+      padding-top: 4.5em;
+    }
+  }
+
   .heading-wrap {
     border-bottom: 1px solid #ccc;
 
@@ -380,6 +392,17 @@ header {
       font-size: 1.2em;
       padding: .6em 0;
       font-weight: bold;
+    }
+    .persent-box{
+      margin-right: .4em;
+      .mini-info,
+      .persent {
+        font-size: .85em;
+      }
+      #persentNumber{
+        font-weight: bold;
+      }
+      
     }
 
     .icons-menu-wrap {
@@ -606,11 +629,7 @@ header {
 @media screen and (max-width: 479px) {
   .heading{
     &.fixed-header {
-      position: fixed;
       width: calc(100vw - 3em);
-      background: var(--bg-main);
-      z-index: 20;
-      top: 50px;
 
       &+.basewrapper {
         padding-top: 3.8em;
