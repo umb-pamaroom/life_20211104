@@ -378,7 +378,7 @@ header {
 
     .heading-title h1 {
       font-size: 1.2em;
-      padding: .6em;
+      padding: .6em 0;
       font-weight: bold;
     }
 
@@ -613,7 +613,14 @@ header {
       top: 50px;
 
       &+.basewrapper {
-        padding-top: 4.5em;
+        padding-top: 3.8em;
+      }
+    }
+    .heading-wrap{
+      .heading-title{
+        h1{
+          font-size: 1em;
+        }
       }
     }
   }

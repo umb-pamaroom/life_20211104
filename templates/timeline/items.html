@@ -1,4 +1,9 @@
 {% extends 'app/base.html' %}
+
+{% load static %}
+{% load md5url %}
+
+
 {% block title %}{{ timelines.title }}{% endblock %}
 {% block content %}
 
@@ -7,6 +12,10 @@
     <div class="heading-title">
       <h1>{{ timelines.title }}</h1>
     </div>
+    <div class="info fb">
+      <div class="persennt">
+        <p><span id="persentNumber"></span><span class="persent">%</span></p>
+      </div>
     <div class="icons-menu-wrap">
       <div class="icon-item-wrap icon-menu-modal">
         <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
@@ -38,6 +47,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>
@@ -114,3 +124,6 @@
 <!-- //右下の追加ボタン -->
 
 {% endblock %}
+{% block extrascripts %}
+<script src="{% static 'js/timeline.js' %}?date={% now 'YmdGi' %}""></script>
+{% endblock extrascripts %}
