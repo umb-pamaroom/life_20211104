@@ -15,12 +15,10 @@ let doneChecks = document.querySelectorAll( ".done .taskCheck" );
 let doneChecksNumbers = doneChecks.length;
 
 // 未完了のアイテム
-let unDoneChecks = document.querySelectorAll( ".undone .taskCheck" );
-// unDoneChecks[0].scrollIntoView( {
-//     behavior: 'smooth'
-// } );
 
-function scrollToTargetAdjusted( height ) {
+function scrollToTargetAdjusted( height )
+{
+    let unDoneChecks = document.querySelectorAll( ".undone .taskCheck" );
     var headerOffset = height;
     var elementPosition = unDoneChecks[ 0 ].getBoundingClientRect().top;
     var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -101,6 +99,7 @@ document.addEventListener( "DOMContentLoaded", () => {
                     } )
                     // 祖先要素を取得
                     checkbox.closest( ".unit" ).classList.add( "done" );
+                    checkbox.closest( ".unit" ).classList.remove( "undone" );
                 } else {
                     fetch( '/uncheck_task', {
                         method: "POST",
@@ -112,6 +111,7 @@ document.addEventListener( "DOMContentLoaded", () => {
                         } )
                     } )
                     checkbox.closest( ".unit" ).classList.remove( "done" );
+                    checkbox.closest( ".unit" ).classList.add( "undone" );
                 }
                 let doneChecks = document.querySelectorAll( ".done .taskCheck" );
                 persentNumber.innerHTML = Math.round( doneChecks.length / checksNumbers * 100 );
@@ -141,4 +141,24 @@ ResetBtn.addEventListener( 'click', function () {
         } )
     }
     ResetBtn.closest( ".modal" ).classList.remove( "is-open" );
+} );
+
+
+const moveBtn = document.getElementById( "moveBtn" );
+moveBtn.addEventListener( 'click', function () {
+    
+    if ( isMobileSize ) {
+        //横幅768px以下（スマホ）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 130 );
+    }
+
+    if ( isTabletSize ) {
+        //横幅768px以上、1024px以下（タブレット）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 160 );
+    }
+
+    if ( isPcSize ) {
+        //横幅1024px以上（PC）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 160 );
+    }
 } );

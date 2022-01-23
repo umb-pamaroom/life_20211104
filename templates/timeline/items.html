@@ -14,41 +14,46 @@
     </div>
     <div class="info fb">
       <div class="persent-box fb">
+        <div class="moveBtn">
+          <span class="material-icons-outlined" id="moveBtn">
+            restart_alt
+          </span>
+        </div>
         <p><span id="persentNumber"></span><span class="persent">%</span>
           <span class="mini-info">(<span id="doneChecks"></span>/<span id="ChecksAll"></span>)</span></p>
       </div>
-    <div class="icons-menu-wrap">
-      <div class="icon-item-wrap icon-menu-modal">
-        <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
-          <i class="fas fa-ellipsis-h"></i>
-        </a>
-        <div class="modal icon-menu-modal-wrap" data-modal="menu1">
-          <div class="modal-cover"></div>
-          <div class="modal-inner">
-            <div class="modal-content">
-              <ul class="modal-ul">
-                <li>
-                  <ul class="mt0">
-                    <li class="menu-li">
-                      <a class="menu-list" href="{% url 'app:RoutineCreate' %}">項目を追加</a>
-                    </li>
-                    <li class="menu-li">
-                      <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
-                    </li>
-                    <li class="menu-li">
-                      <p class="menu-list" id="checkBoxReset">チェックをリセット</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-li">
-                  <p><a class="menu-list" href="{% url 'app:TimelineDelete' timelines.pk %}">タイムラインを削除</a></p>
-                </li>
-              </ul>
+      <div class="icons-menu-wrap">
+        <div class="icon-item-wrap icon-menu-modal">
+          <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+            <i class="fas fa-ellipsis-h"></i>
+          </a>
+          <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+            <div class="modal-cover"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <ul class="modal-ul">
+                  <li>
+                    <ul class="mt0">
+                      <li class="menu-li">
+                        <a class="menu-list" href="{% url 'app:RoutineCreate' %}">項目を追加</a>
+                      </li>
+                      <li class="menu-li">
+                        <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
+                      </li>
+                      <li class="menu-li">
+                        <p class="menu-list" id="checkBoxReset">チェックをリセット</p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-li">
+                    <p><a class="menu-list" href="{% url 'app:TimelineDelete' timelines.pk %}">タイムラインを削除</a></p>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
@@ -72,7 +77,7 @@
       <!-- 見出し -->
       <a href="{% url 'app:RoutineUpdate' item.pk %}" class="h2-title">
         {% if item.completed %}
-          <!-- <div class="done-wrap fb">
+        <!-- <div class="done-wrap fb">
             <p class="fb">
               <span class="material-icons-outlined check-icon">
                 check_circle
@@ -84,7 +89,7 @@
         <div class="left">
           <div class="fb top">
             <div class="fb">
-<input type="checkbox" class="taskCheck" data-pk="{{ item.pk }}" {% if item.completed %}checked{% endif %}>
+              <input type="checkbox" class="taskCheck" data-pk="{{ item.pk }}" {% if item.completed %}checked{% endif %}>
               <span class="dib title">{{ item.title }}</span>
               {% if user.timeline_settings_category_show == "show" %}
               <span class="dib cate">
@@ -94,7 +99,7 @@
             </div>
           </div>
           {% if item.description %}
-            <div class="bottom">{{ item.description | linebreaks }}</div>
+          <div class="bottom">{{ item.description | linebreaks }}</div>
           {% endif %}
         </div>
         <!-- <div class="right">
@@ -107,11 +112,12 @@
 
     {% empty %}
     <div class="tc">
-<p class="mb1">タイムラインの項目がありません。</p>
+      <p class="mb1">タイムラインの項目がありません。</p>
       <a class="btn btn-flat" href="{% url 'app:RoutineCreate' %}">追加する</a>
     </div>
     <script>
-      document.querySelector( '.timeline' ).classList.remove("timeline");
+      document.querySelector( '.timeline' ).classList.remove( "timeline" );
+
     </script>
 
     {% endfor %}
