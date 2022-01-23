@@ -58,7 +58,7 @@
 
     {% for item in timeline_items %}
     <!-- アイコンと見出しのセット -->
-    <div class="unit {% if item.completed %}done{% endif %}">
+    <div class="unit {% if item.completed %}done{% else %}undone{% endif %}">
       <!-- 真ん中のラインのアイコン -->
       <div class="icon">
         <p>{{ item.start_time }}

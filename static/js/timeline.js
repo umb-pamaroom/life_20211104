@@ -14,6 +14,53 @@ let checksNumbers = checks.length;
 let doneChecks = document.querySelectorAll( ".done .taskCheck" );
 let doneChecksNumbers = doneChecks.length;
 
+// 未完了のアイテム
+let unDoneChecks = document.querySelectorAll( ".undone .taskCheck" );
+// unDoneChecks[0].scrollIntoView( {
+//     behavior: 'smooth'
+// } );
+
+function scrollToTargetAdjusted( height ) {
+    var headerOffset = height;
+    var elementPosition = unDoneChecks[ 0 ].getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo( {
+        top: offsetPosition,
+        behavior: "smooth"
+    } );
+}
+
+
+$windowWidth = window.innerWidth;
+
+$breakPointA = 768;
+$breakPointB = 1024;
+
+isMobileSize = ( $windowWidth < $breakPointA );
+isTabletSize = ( $windowWidth <= $breakPointB ) && ( $windowWidth > $breakPointA );
+isPcSize = ( $windowWidth > $breakPointB );
+
+if ( isMobileSize ) {
+    //横幅768px以下（スマホ）に適用させるJavaScriptを記述
+    scrollToTargetAdjusted(130);
+}
+
+if ( isTabletSize ) {
+    //横幅768px以上、1024px以下（タブレット）に適用させるJavaScriptを記述
+    scrollToTargetAdjusted( 160 );
+}
+
+if ( isPcSize ) {
+    //横幅1024px以上（PC）に適用させるJavaScriptを記述
+    scrollToTargetAdjusted( 160 );
+}
+
+
+
+
+
+
 persentNumber.innerHTML = Math.round( doneChecksNumbers / checksNumbers * 100 );
 ChecksAll.innerHTML = checksNumbers;
 doneChecksSpan.innerHTML = doneChecksNumbers;
