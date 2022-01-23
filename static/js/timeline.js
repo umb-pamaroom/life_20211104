@@ -57,6 +57,24 @@ if ( isPcSize ) {
 }
 
 
+window.onload = function () {
+    if ( isMobileSize ) {
+        //横幅768px以下（スマホ）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 130 );
+    }
+
+    if ( isTabletSize ) {
+        //横幅768px以上、1024px以下（タブレット）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 160 );
+    }
+
+    if ( isPcSize ) {
+        //横幅1024px以上（PC）に適用させるJavaScriptを記述
+        scrollToTargetAdjusted( 160 );
+    }
+
+}
+
 
 
 
