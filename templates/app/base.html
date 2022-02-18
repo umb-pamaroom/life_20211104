@@ -36,7 +36,13 @@
                 <div class="right fb modalContainer modal-light">
                     <div class="account icon-menu-modal">
                         <div class="account-icon modal-open" data-modal-open="user-menu-modal">
-                            <i class="fas fa-user-circle"></i>
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}">
+                            {% else %}
+                            <span class="fb text-icon">
+                                {{ user.email|first|upper }}
+                            </span>
+                                {% endif %}
                         </div>
                         <div class="account-menu modal" data-modal="user-menu-modal">
                             <div class="modal-cover"></div>
@@ -148,15 +154,15 @@
                                 </span><span>カレンダー管理</span></a>
                             <ul class="panel">
                                 <li>
-                                    <a href="{% url 'calendarapp:calendar' %}"><span>カレンダー</span></a></li>
+                                    <a href="{% url 'calendar:mycalendar' %}"><span>カレンダー</span></a></li>
                                 <li>
-                                    <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> 進行中</a>
+                                    <a href="{% url 'calendar:month_with_forms' %}"><span>月間カレンダー</span></a>
                                 </li>
                                 <li>
-                                    <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> 近日予定</a>
+                                    <a href="{% url 'calendar:week_with_schedule' %}"><span>週間カレンダー</span></a>
                                 </li>
                                 <li>
-                                    <a class="treeview-item" href="{% url 'calendarapp:all_events' %}"><i class="icon fa fa-circle-o"></i> 全て</a>
+                                    <a href="{% url 'calendar:mycalendar' %}"><span>登録機能付き月間・週間カレンダー</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -240,7 +246,9 @@
         {% endif %}
         <!-- //通知メッセージ(リロードする場合) -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.4/jquery.min.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="{% static 'js/common.js' %}?date={% now 'YmdGi' %}""></script>
+        
         {% include 'base/js.html' %}
         {% block extrascripts %}
         {% endblock extrascripts %}

@@ -64,10 +64,11 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('name', 'introduction')
+        fields = ('name', 'introduction','avatar')
         labels = {
             'name': 'ユーザネーム',
             'introduction': '自己紹介',
+            'avatar': 'プロフィール画像',
         }
 
     def __init__(self, *args, **kwargs):

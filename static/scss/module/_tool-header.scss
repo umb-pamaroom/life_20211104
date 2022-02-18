@@ -265,16 +265,38 @@ header {
 
 }
 
+.account-icon {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  .text-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--btn-success);
+    justify-content: center;
+    line-height: 36px;
+    font-weight: normal;
+  }
+
+  img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    max-width: auto;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--btn-success);
+    border-radius: 50%;
+  }
+}
+
 .header {
   .mainMenu {
     .account {
-      .account-icon {
-        position: relative;
 
-        i {
-          font-size: 34px;
-        }
-      }
 
       .account-menu {
         line-height: 1.4;
@@ -309,6 +331,7 @@ header {
             border-bottom: 1px solid var(--border-grey);
             text-align: left;
             font-weight: normal;
+
             span[class^="material-icons"] {
               margin-right: 6px;
               color: var(--border-grey);
@@ -319,7 +342,8 @@ header {
               display: flex;
               align-items: center;
             }
-            &:last-child{
+
+            &:last-child {
               border-bottom: none;
             }
           }
@@ -393,16 +417,19 @@ header {
       padding: .6em 0;
       font-weight: bold;
     }
-    .persent-box{
+
+    .persent-box {
       margin-right: .4em;
+
       .mini-info,
       .persent {
         font-size: .85em;
       }
-      #persentNumber{
+
+      #persentNumber {
         font-weight: bold;
       }
-      
+
     }
 
     .icons-menu-wrap {
@@ -627,7 +654,7 @@ header {
   479以下（320pxで問題ないかどうか）
   --------------------------------------------------------------- */
 @media screen and (max-width: 479px) {
-  .heading{
+  .heading {
     &.fixed-header {
       width: calc(100vw - 3em);
 
@@ -635,9 +662,10 @@ header {
         padding-top: 3.8em;
       }
     }
-    .heading-wrap{
-      .heading-title{
-        h1{
+
+    .heading-wrap {
+      .heading-title {
+        h1 {
           font-size: 1em;
         }
       }

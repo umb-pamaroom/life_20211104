@@ -25,6 +25,18 @@ span[class^="material-icons"] {
   }
 }
 
+.icon-list{
+  &.jcfe{
+    justify-content: flex-end;
+    >*{
+      margin-left: .3em;
+      &:first-child{
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 .section-div {
   margin-bottom: 3.5em;
 }

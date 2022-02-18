@@ -54,6 +54,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(_('name'), max_length=30, blank=True)
     introduction = models.TextField(_('introduction'), max_length=150, blank=True)
+
+    # プロフィール画像
+    avatar = models.ImageField('プロフィール画像',upload_to='images/avatar', blank=True, null=True)
+
     # 選択肢用をchoicesで追加する
     theme = models.CharField(max_length=30, default="white", choices=Themes.choices)
     timeline_settings_category_show = models.CharField(max_length=30, default="show", choices=TimelineSettingsCategoryShow.choices)

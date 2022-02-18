@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'django_static_md5url',
     'apps.app',
-    'apps.calendarapp.apps.CalendarappConfig',
+    'apps.calendar.apps.AppConfig',
 ]
 
 MIDDLEWARE = [

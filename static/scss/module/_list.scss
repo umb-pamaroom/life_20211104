@@ -1,16 +1,19 @@
-.project-list.card-wrapper{
-  &.col3{
+.project-list.card-wrapper {
+  &.col3 {
     flex-wrap: wrap;
-    .card{
+
+    .card {
       width: 30%;
     }
   }
-  .card{
-    .card-link{
-      .card-inner{
-        .title-fb{
+
+  .card {
+    .card-link {
+      .card-inner {
+        .title-fb {
           margin-bottom: .8em;
-          .text-icon{
+
+          .text-icon {
             background: var(--btn-success);
             padding: .4em;
             justify-content: center;
@@ -22,7 +25,12 @@
             margin-right: .8em;
           }
         }
-        .text{
+        
+        .bottom{
+          margin-top: 1em;
+        }
+
+        .text {
           font-size: 13px;
           color: var(--text-grey);
         }
@@ -30,4 +38,3 @@
     }
   }
 }
-

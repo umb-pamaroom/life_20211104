@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<style>
+    table {
+        table-layout: fixed;
+    }
+
+    td>div {
+        height: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+</style>
+{% include 'calendar/includes/header.html' %}
+
+<div class="calendar-head month">
+    <div class="fb">
+        <div class="fb left-box">
+            <div class="fb arrow-box">
+                <a class="icon-btn" href="{% url 'calendar:month_with_schedule' month_previous.year month_previous.month %}"><span class="material-icons">
+                        chevron_left
+                    </span></a>
+                <a class="icon-btn" href="{% url 'calendar:month_with_schedule' month_next.year month_next.month %}"><span class="material-icons">chevron_right</span></a>
+            </div>
+            <p class="now-date">{{ month_current | date:"Y年m月" }}</p>
+        </div>
+        <div class="right-box">
+            <div class="fb">
+                <div class="icon-btn">
+                    <span class="material-icons">
+                        search
+                    </span>
+                </div>
+                <div class="icon-btn">
+                    <span class="material-icons">
+                        add
+                    </span>
+                </div>
+                <a class="icon-btn">
+                    <span class="material-icons">
+                        calendar_view_month
+                    </span>
+                </a>
+                <a class="icon-btn">
+                    <span class="material-icons">
+                        calendar_view_week
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="month-table">
+    <thead>
+        <tr class="week-name">
+            {% for w in week_names %}
+            <th>{{ w }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for week_day_schedles in month_day_schedules %}
+        <tr>
+            {% for day, schedules in week_day_schedles.items %}
+            {% if now == day %}
+            <td class="today">
+                {% else %}
+            <td>
+                {% endif %}
+
+                <div>
+                    <p class="date">
+                        <span class="dib">
+                            {% if month_current.month != day.month %}
+                            {{ day | date:"m/d" }}
+                            {% else %}
+                            {{ day.day }}
+                            {% endif %}
+                        </span>
+                    </p>
+
+                    <div class="schedules-box">
+                        {% for schedule in schedules %}
+                        <p class="schedule-summary">{{ schedule.summary }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -29,7 +29,8 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(ImportExportMixin, UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('name', 'introduction')}),
+        (_('Personal info'), {
+         'fields': ('name', 'introduction', 'theme', 'avatar')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -42,9 +43,10 @@ class MyUserAdmin(ImportExportMixin, UserAdmin):
     )
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    list_display = ('email', 'name', 'introduction', 'is_staff')
+    list_display = ('email', 'name', 'introduction',
+                    'is_staff', 'theme', 'avatar')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email', 'name', 'introduction')
+    search_fields = ('email', 'name', 'introduction', 'theme', 'avatar')
     ordering = ('email',)
     resource_class = UserResource
 

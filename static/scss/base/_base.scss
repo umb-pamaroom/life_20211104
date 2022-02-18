@@ -150,7 +150,7 @@ main{
 
         th {
             padding: 1em;
-            background: $bg-grey;
+            background: var(--bg-main);
         }
     }
 }
