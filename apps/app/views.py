@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TaskUpdateForm, TimelineUpdateForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TaskUpdateForm, TimelineUpdateForm, TaskCreateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -77,7 +77,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_form.html'
     model = Task
-    fields = ['project','section', 'title', 'description', 'date','start_time','end_time']
+    form_class = TaskCreateForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -85,7 +85,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         # 作成した項目が所属するタイムラインのページへリンク
-        return reverse_lazy('app:TaskSection_Items', kwargs={'pk': self.object.section.pk})
+        return reverse_lazy('calendar:month_with_forms')
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'task/task_form.html'
