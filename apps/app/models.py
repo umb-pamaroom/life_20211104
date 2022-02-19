@@ -74,11 +74,14 @@ class TaskSectionModel(models.Model):
 # Todo
 class Task(models.Model):
     user = models.ForeignKey(User, related_name='relate_user_task', on_delete=models.CASCADE, null=True, blank=True)
-    project = models.ForeignKey(TaskProjectModel, related_name='taskproject_model', on_delete=models.CASCADE, null=True, blank=True)
-    section = models.ForeignKey(TaskSectionModel, related_name='tasksection_model', on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(TaskProjectModel, related_name='related_task_to_project', on_delete=models.CASCADE, null=True, blank=True)
+    section = models.ForeignKey(TaskSectionModel, related_name='related_task_to_section', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
+    start_time = models.TimeField('開始時間', null=True, blank=True)
+    end_time = models.TimeField('終了時間',  null=True, blank=True)
+    date = models.DateField('日付', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

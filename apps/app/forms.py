@@ -1,7 +1,27 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Memo, RoutineModel, TimelineModel, TaskProjectModel, TaskSectionModel
+from .models import Memo, RoutineModel, TimelineModel, TaskProjectModel, TaskSectionModel,Task
 
+# タスクのフォーム
+
+
+class TaskUpdateForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = ['project', 'section', 'title', 'description','date' ,'start_time','end_time','complete']
+
+        # 時間を選択できるように
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
+            'completed': forms.CheckboxInput(attrs={'class': 'check'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
 
 class PositionForm(forms.Form):
     position = forms.CharField()

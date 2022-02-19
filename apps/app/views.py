@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TimelineUpdateForm
+from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TaskUpdateForm, TimelineUpdateForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -77,7 +77,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_form.html'
     model = Task
-    fields = ['project','section', 'title', 'description', 'complete']
+    fields = ['project','section', 'title', 'description', 'date','start_time','end_time']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -90,7 +90,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'task/task_form.html'
     model = Task
-    fields = ['title', 'description', 'complete']
+    form_class = TaskUpdateForm
     
     def get_success_url(self):
         # 作成した項目が所属するタイムラインのページへリンク
@@ -188,6 +188,7 @@ class TaskProject_ItemsView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # 「TaskSectionModel」モデルのprojectとそのプロジェクトが等しいものを代入
         context['task_section_items'] = TaskSectionModel.objects.all().filter(project=self.kwargs['pk'])
+        context['task_items'] = Task.objects.all()
         return context
 
 

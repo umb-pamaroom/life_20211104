@@ -183,7 +183,8 @@ class MonthWithFormsMixin(MonthCalendarMixin):
             '{}__range'.format(self.date_field): (start, end)
         }
         # 例えば、Schedule.objects.filter(date__range=(1日, 31日)) になる
-        queryset = self.model.objects.filter(**lookup)
+        # 「user = self.request.user」でログインユーザのタスクのみを表示している
+        queryset = self.model.objects.filter(**lookup, user=self.request.user)
         days_count = sum(len(week) for week in days)
         FormClass = forms.modelformset_factory(self.model, self.form_class, extra=days_count)
         if self.request.method == 'POST':

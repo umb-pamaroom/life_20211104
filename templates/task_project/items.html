@@ -23,7 +23,7 @@
                       <a class="menu-list" href="{% url 'app:TaskSection_Create' %}">セクションを追加</a>
                     </li>
                     <li class="menu-li">
-                      <a class="menu-list" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">プロジェクトを編集</a>
+                      <a class="menu-list" href="{% url 'app:TaskProject_Update' TaskProject_object.pk %}">プロジェクト詳細設定</a>
                     </li>
                   </ul>
                 </li>
@@ -41,15 +41,32 @@
 
 
 <div class="basewrapper">
-  <div class="inner fb fbl">
+  <div class="inner fb fbl section-card">
     {% for item in task_section_items %}
     <div class="card">
-      <a href="{% url 'app:TaskSection_Items' item.id %}">
-        <div class="fb">
-          <p class="title">{{ item.title }}</p>
-          <p class="text">{{ item.description }}</p>
+      <div class="card-in">
+      <div class="fb section-head">
+        <p class="title">{{ item.title }}</p>
+        <a href="{% url 'app:TaskSection_Items' item.id %}">link</a>
+      </div>
+      <div class="tasks">
+        <!-- 逆参照をしている -->
+        {% for task in item.related_task_to_section.all %}
+        <div class="div-task">
+          <a href="{% url 'app:task-update' task.id %}">
+            <p class="task">{{ task.title }}</p>
+            <div class="time">
+            {% if task.end_time %}
+              <p class="time-p">{{task.date}}{{task.start_time}}〜{{task.end_time}}</p>
+            {% endif %}
+            </div>
+          </a>
         </div>
-      </a>
+        {% empty %}
+        <p>タスクなし</p>
+        {% endfor %}
+      </div>
+      </div>
     </div>
     {% empty %}
     <div class="tc">

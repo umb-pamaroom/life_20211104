@@ -1,6 +1,6 @@
 from django import forms
 from .models import Schedule
-
+from apps.app.models import *
 
 class BS4ScheduleForm(forms.ModelForm):
     """Bootstrapに対応するためのModelForm"""
@@ -37,11 +37,19 @@ class SimpleScheduleForm(forms.ModelForm):
     """シンプルなスケジュール登録用フォーム"""
 
     class Meta:
-        model = Schedule
-        fields = ('summary', 'date',)
+        model = Task
+        fields = ('title', 'date',)
+        labels = {
+            'title': '',
+        }
         widgets = {
-            'summary': forms.TextInput(attrs={
+            'title': forms.TextInput(attrs={
                 'class': 'form-control',
             }),
             'date': forms.HiddenInput,
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""

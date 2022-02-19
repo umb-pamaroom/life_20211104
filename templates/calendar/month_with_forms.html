@@ -1,8 +1,9 @@
 {% extends 'app/base.html' %}
 {% block content %}
 
-    {% include 'calendar/includes/header.html' %}
+{% include 'calendar/includes/header.html' %}
 
+<form action="" method="POST">
     <div class="calendar-head month">
         <div class="fb">
             <div class="fb left-box">
@@ -21,11 +22,11 @@
                             search
                         </span>
                     </div>
-                    <div class="icon-btn">
+                    <a class="icon-btn" href="{% url 'app:task-create' %}">
                         <span class="material-icons">
                             add
                         </span>
-                    </div>
+                    </a>
                     <a class="icon-btn" href="{% url 'calendar:month_with_forms' %}">
                         <span class="material-icons">
                             calendar_view_month
@@ -36,53 +37,58 @@
                             calendar_view_week
                         </span>
                     </a>
+                    <button type="submit" class="icon-btn">
+                        <span class="material-icons">
+                            save
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <form action="" method="POST">
-        {{ month_formset.management_form }}
-        <table class="month-table">
-            <thead>
+    {{ month_formset.management_form }}
+    <table class="month-table">
+        <thead>
             <tr class="week-name">
                 {% for w in week_names %}
-                    <th>{{ w }}</th>
+                <th>{{ w }}</th>
                 {% endfor %}
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             {% for week_day_forms in month_day_forms %}
-                <tr>
-                    {% for day, forms in week_day_forms.items %}
-                        {% if now == day %}
-                            <td class="today">
-                                {% else %}
-                            <td>
-                        {% endif %}
+            <tr>
+                {% for day, forms in week_day_forms.items %}
+                {% if now == day %}
+                <td class="today">
+                    {% else %}
+                <td>
+                    {% endif %}
 
                     <div>
                         <p class="date">
                             <span class="dib">
-                        {% if month_current.month != day.month %}
-                            {{ day | date:"m/d" }}
-                        {% else %}
-                            {{ day.day }}
-                        {% endif %}
-                        </span>
+                                {% if month_current.month != day.month %}
+                                {{ day | date:"m/d" }}
+                                {% else %}
+                                {{ day.day }}
+                                {% endif %}
+                            </span>
                         </p>
 
-                        {% for form in forms %}
+                        <div class="date-form">
+                            {% for form in forms %}
                             {{ form.as_p }}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                    </td>
-                    {% endfor %}
-                </tr>
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-            </tbody>
-        </table>
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">送信</button>
-    </form>
+        </tbody>
+    </table>
+    {% csrf_token %}
+</form>
 {% endblock %}

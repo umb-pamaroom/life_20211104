@@ -1,9 +1,10 @@
 import datetime
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
 from .forms import BS4ScheduleForm, SimpleScheduleForm
 from .models import Schedule
 from . import mixins
+from apps.app.models import *
 
 
 class MonthCalendar(mixins.MonthCalendarMixin, generic.TemplateView):
@@ -86,7 +87,7 @@ class MyCalendar(mixins.MonthCalendarMixin, mixins.WeekWithScheduleMixin, generi
 class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.View):
     """フォーム付きの月間カレンダーを表示するビュー"""
     template_name = 'calendar/month_with_forms.html'
-    model = Schedule
+    model = Task
     date_field = 'date'
     form_class = SimpleScheduleForm
 
@@ -97,8 +98,12 @@ class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.View):
     def post(self, request, **kwargs):
         context = self.get_month_calendar()
         formset = context['month_formset']
+
         if formset.is_valid():
-            formset.save()
+            instances = formset.save(commit=False)
+            for schedule in instances:
+                schedule.user = request.user
+                schedule.save()
             return redirect('calendar:month_with_forms')
 
         return render(request, self.template_name, context)

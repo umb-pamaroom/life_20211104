@@ -12,6 +12,34 @@ span[class^="material-icons"] {
   font-size: 20px;
 }
 
+
+// セクションカード
+.section-card {
+  align-items: flex-start;
+
+  .card {
+    .card-in {
+      background: var(--bg-header);
+      box-shadow: none;
+      padding: 1.2em;
+      border-radius: 6px;
+
+      .tasks {
+
+        .div-task {
+          margin-top: .8em;
+
+          >a {
+            display: block;
+            background: var(--btn-success);
+            padding: .3em .6em;
+          }
+        }
+      }
+    }
+  }
+}
+
 .notable {
   display: block !important;
 
@@ -25,12 +53,14 @@ span[class^="material-icons"] {
   }
 }
 
-.icon-list{
-  &.jcfe{
+.icon-list {
+  &.jcfe {
     justify-content: flex-end;
-    >*{
+
+    >* {
       margin-left: .3em;
-      &:first-child{
+
+      &:first-child {
         margin-left: 0;
       }
     }
@@ -42,27 +72,28 @@ span[class^="material-icons"] {
 }
 
 
-.h2-title-wrap{
-  .h2-title{
+.h2-title-wrap {
+  .h2-title {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: .2em;
   }
 }
 
-.h3-title{
+.h3-title {
   font-weight: bold;
   font-size: 1.15em;
   margin-bottom: 1em;
 }
 
-.bb{
+.bb {
   border-bottom: 1px solid var(--text-main);
 }
 
-.bgblue{
+.bgblue {
   background: var(--btn-success);
 }
+
 .simple-table {
   .table-content {
     padding: 1em 0;
@@ -101,7 +132,7 @@ a {
 }
 
 
-.pb07{
+.pb07 {
   padding-bottom: .7em;
 }
 
@@ -117,7 +148,7 @@ a {
   padding: 0 !important;
 }
 
-.card-wrapper{
+.card-wrapper {
   align-items: stretch;
 }
 
@@ -221,13 +252,14 @@ input {
     .btn-inner {
       margin-top: 23.5px;
     }
-    &.is-open{
+
+    &.is-open {
       display: flex;
     }
   }
 
-  &.modal-light{
-    .modal-cover{
+  &.modal-light {
+    .modal-cover {
       background: none;
     }
   }
