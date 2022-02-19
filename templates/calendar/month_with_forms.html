@@ -1,19 +1,57 @@
 {% extends 'app/base.html' %}
 {% block content %}
 
-{% include 'calendar/includes/header.html' %}
+<div class="heading modalContainer">
+    <div class="fb heading-wrap">
+        <div class="heading-title">
+            <h1>{{ month_current | date:"Y年m月" }}</h1>
+        </div>
+        <div class="icons-menu-wrap">
+            <div class="icon-item-wrap icon-menu-modal">
+                <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+                    <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+                    <div class="modal-cover"></div>
+                    <div class="modal-inner">
+                        <div class="modal-content">
+                            <ul class="modal-ul">
+                                <li>
+                                    <ul class="mt0">
+                                        <li class="menu-li">
+                                            <a class="menu-list" href="{% url 'calendar:month_with_forms' %}">月間カレンダー</a>
+                                        </li>
+                                        <li class="menu-li">
+                                            <a class="menu-list" href="{% url 'calendar:week_with_schedule' %}">週間カレンダー</a>
+                                        </li>
+                                        <li class="menu-li">
+                                            <a class="menu-list" href="{% url 'calendar:month_with_forms' %}">一括登録</a>
+                                        </li>
+                                        <li class="menu-li">
+                                            <a class="menu-list" href="{% url 'app:task-create' %}">タスクを追加</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <form action="" method="POST">
     <div class="calendar-head month">
         <div class="fb">
             <div class="fb left-box">
+                <a class="text-btn" href="{% url 'calendar:month_with_forms' %}">今日</a>
                 <div class="fb arrow-box">
                     <a class="icon-btn" href="{% url 'calendar:month_with_forms' month_previous.year month_previous.month %}"><span class="material-icons">
                             chevron_left
                         </span></a>
                     <a class="icon-btn" href="{% url 'calendar:month_with_forms' month_next.year month_next.month %}"><span class="material-icons">chevron_right</span></a>
                 </div>
-                <p class="now-date">{{ month_current | date:"Y年m月" }}</p>
             </div>
             <div class="right-box">
                 <div class="fb">
