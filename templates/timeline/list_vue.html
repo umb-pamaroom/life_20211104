@@ -33,48 +33,147 @@
     </div>
   </div>
 
-  <div class="basewrapper">
+  <div class="basewrapper" id="starting">
+    <div class="container">
+      <div class="row">
+        <div class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" v-model="search_term" aria-label="Search" />
+          <button class="btn btn-outline-success my-2 my-sm-0" v-on:click.prevent="getArticles()">
+            Search
+          </button>
+        </div>
+
+        <!-- AJAXで更新されるデータ部分 -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">🦔</th>
+              <th scope="col">タイトル</th>
+              <th scope="col">アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+              <td></td>
+              <td>
+                <button class="btn btn-info" v-on:click="getArticle(article.id)">
+                  編集
+                </button>
+                <button class="btn btn-danger" v-on:click="deleteArticle(article.id)">
+                  削除
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- //AJAXで更新されるデータ部分 -->
+
+        <!-- 新規追加のAJAXのフォーム -->
+        <div class="a" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div role="document">
+            <div>
+              <div>
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                  新規追加
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form v-on:submit.prevent="addArticle()">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="title">タイトル</label>
+                    <input type="text" class="form-control" id="title" placeholder="タイトルを入力してください" v-model="newArticle.title" required="required" />
+                  </div>
+                  <div class="form-group">
+                    <label for="description">本文</label>
+                    <textarea class="form-control" id="description" placeholder="本文を入力してください" v-model="newArticle.description" required="required" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary m-progress" data-dismiss="modal">
+                    閉じる
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    保存
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="loading" v-if="loading===true">Loading&#8230;</div>
+        </div>
+        <!-- //新規追加のAJAXのフォーム -->
+
+
+        <!-- AJAXの編集フォーム -->
+        <div class="" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div role="document">
+            <div>
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                  編集
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form v-on:submit.prevent="updateArticle()">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="title">タイトル</label>
+                    <input type="text" class="form-control" id="title" placeholder="タイトルを入力してください" v-model="currentArticle.title" required="required" />
+                  </div>
+                  <div class="form-group">
+                    <label for="description">本文</label>
+                    <textarea class="form-control" id="description" placeholder="本文を入力してください" v-model="currentArticle.description" required="required" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary m-progress" data-dismiss="modal">
+                    閉じる
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    保存
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="loading" v-if="loading===true">Loading&#8230;</div>
+        </div>
+        <!-- //AJAXの編集フォーム -->
+
+
+
+      </div>
+    </div>
+    <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <div class="inner">
 
-      <div class="fb fbl card-wrapper project-list col3">
-        {% for timeline in timelines %}
+      <div class="fb fbl card-wrapper project-list col3" v-for="article in articles">
         <div class="card">
-          <a href="{% url 'app:TimelineItems' timeline.id %}" class="card-link">
+          <a href="" class="card-link">
             <div class="fb card-inner">
               <div class="top">
                 <div class="fb title-fb fbl">
-                  <span class="text-icon fb">{{ timeline.title|first }}</span>
-                  <p class="title">{{ timeline.title }}</p>
+                  <!-- <span class="text-icon fb">${article.title|first}</span> -->
+                  <p class="title">${article.title}</p>
                 </div>
-                {% comment %}文字を切り詰める{% endcomment %}
-                <p class="text">{{ timeline.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+                <p class="text">${article.description}</p>
               </div>
               <div class="bottom">
-                <div class="icon-list fb jcfe">
-                  <!-- 最大3アカウントのみ表示 -->
-                  {% for member in timeline.members.all|slice:":3" %}
-                  <div class="account-icon">
-                    {% if member.avatar %}
-                    <img src="{{ member.avatar.url }}">
-                    {% else %}
-                    <span class="fb text-icon">
-                      {{ member.email|first|upper }}
-                    </span>
-                    {% endif %}
-                  </div>
-                  {% endfor %}
-                  <p>({{ timeline.members.count }})</p>
+                <div class="icon-list fb jcfe" v-for="member in article.members">
+                  <p>${member}</p>
                 </div>
               </div>
             </div>
           </a>
         </div>
-        {% empty %}
-        <div class="tc">
+        <!-- <div class="tc">
           <p class="mb1">タイムラインがありません。</p>
           <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
-        </div>
-        {% endfor %}
+        </div> -->
 
       </div>
 
@@ -106,7 +205,8 @@
             newArticle: {
                 title: null,
                 description: null,
-                create_user: null
+                create_user: null,
+                members: null
             },
             search_term: ""
         },

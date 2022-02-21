@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% block title %}カレンダー{% endblock title %}
 {% block content %}
 
 <div class="heading modalContainer">
@@ -86,7 +87,7 @@
     </div>
 
     {{ month_formset.management_form }}
-    <table class="month-table">
+    <table class="month-table modalContainer">
         <thead>
             <tr class="week-name">
                 {% for w in week_names %}
@@ -101,10 +102,10 @@
                 {% if now == day %}
                 <td class="today">
                     {% else %}
-                <td>
+                <td class="modal-open" data-modal-open="modal22">
                     {% endif %}
 
-                    <div>
+                    <div class="dateDiv modal-open" data-modal-open="modal-date-{{day.year}}-{{day.month}}-{{day.day}}">
                         <p class="date">
                             <span class="dib">
                                 {% if month_current.month != day.month %}
@@ -116,11 +117,24 @@
                         </p>
 
                         <div class="date-form">
-                            {% for form in forms %}
+                            {% for form in forms|slice:"1:" %}
                             {{ form.as_p }}
                             {% endfor %}
                         </div>
                     </div>
+                    <div class="modal" data-modal="modal-date-{{day.year}}-{{day.month}}-{{day.day}}">
+                        <div class="modal-cover btn-close"></div>
+                        <div class="modal-inner">
+                            <div class="modal-content">
+                                <div class="modal-form">
+                                {% for form in forms|slice:":1" %}
+                                {{ form.as_p }}
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </td>
                 {% endfor %}
             </tr>
@@ -130,3 +144,10 @@
     {% csrf_token %}
 </form>
 {% endblock %}
+
+{% block extrascripts %}
+<script type="text/javascript">
+    // 日付をクリックしたら、アラートを出す
+
+</script>
+{% endblock extrascripts %}

@@ -102,7 +102,7 @@ class Task(models.Model):
 
 # タイムラインモデル
 class TimelineModel(models.Model):
-    members = models.ManyToManyField(User, related_name='relate_members_timeline')
+    members = models.ManyToManyField(User, related_name='relate_members_timeline', null=True, blank=True)
     create_user = models.ForeignKey(User, related_name='relate_user_timeline', on_delete=models.CASCADE, null=True, blank=True)
     dateData = models.DateField(default=timezone.now, blank=True)
     title = models.CharField('タイムライン名', max_length=50)

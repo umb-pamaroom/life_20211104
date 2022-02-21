@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_static_md5url',
     'apps.app',
     'apps.calendar.apps.AppConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

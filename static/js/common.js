@@ -9,9 +9,10 @@
 
  const TIMEOUT_SPEED = 500;
 
+//  modalOpenの数だけ処理を繰り返す
  for ( let i = 0; i < modalOpen.length; i++ ) {
 
-     //モーダルを下げる処理
+     //モーダルを下げる処理,this === e.currentTarget
      modalCloseAction = function ( e ) {
          targetModal = e.currentTarget.closest( '.modal' );
          targetModal.classList.add( 'is-close' );

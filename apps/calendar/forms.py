@@ -38,15 +38,19 @@ class SimpleScheduleForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('title', 'date',)
+        fields = ('title', 'date', )
         labels = {
             'title': '',
         }
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
+                'placeholder': 'タイトル'
             }),
-            'date': forms.HiddenInput,
+            'date': forms.TextInput(attrs={
+                'class': 'input-date',
+                'type': 'date',
+            }),
         }
 
     def __init__(self, *args, **kwargs):
