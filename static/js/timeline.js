@@ -123,6 +123,7 @@ document.addEventListener( "DOMContentLoaded", () => {
     taskEventListener( document.querySelectorAll( ".taskCheck" ) )
 } )
 
+
 // チェックボックスを全てリセット
 const ResetBtn = document.getElementById( "checkBoxReset" );
 ResetBtn.addEventListener( 'click', function () {

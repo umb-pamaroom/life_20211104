@@ -154,3 +154,21 @@
     margin-bottom: .2em;
   }
 }
+
+
+/*  --------------------------------------------------------------- 
+  600以下（600pxで問題ないかどうか）
+  --------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .month-table{
+    .date-wrap{
+      min-height:60px;
+    }
+    .date-task{
+      .task{
+        font-size: 10px;
+        letter-spacing: 1;
+      }
+    }
+  }
+}
