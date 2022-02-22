@@ -8,26 +8,34 @@
       font-weight: normal;
     }
   }
+  .date-wrap{
+    position: relative;
+  }
+  .date-in{
+    z-index: 30;
+  }
+  .dateDiv{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
 
-  .date-form {
-    >p {
-      margin-bottom: .2em;
+  .date-task {
+    .task {
+      margin-bottom: .5em;
+      background: var(--btn-success);
+      border: none;
+      padding: .1em .6em;
+      font-size: 13px;
+      border-radius: 3px;
+      position: relative;
+      z-index: 30;
 
       &:last-child {
         margin-bottom: 0;
-      }
-
-      >input {
-        background: var(--btn-success);
-        border: none;
-        padding: .1em .6em;
-        font-size: 13px;
-        border-radius: 3px;
-      }
-
-      label, .input-date{
-        display: none;
-      }
+      } 
     }
   }
   .modal{

@@ -38,7 +38,7 @@ class SimpleScheduleForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('title', 'date', )
+        fields = ('id','title', 'date', )
         labels = {
             'title': '',
         }

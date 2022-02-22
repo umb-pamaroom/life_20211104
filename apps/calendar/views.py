@@ -84,15 +84,18 @@ class MyCalendar(mixins.MonthCalendarMixin, mixins.WeekWithScheduleMixin, generi
         return redirect('calendar:mycalendar', year=date.year, month=date.month, day=date.day)
 
 
-class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.View):
+class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.TemplateView):
     """フォーム付きの月間カレンダーを表示するビュー"""
     template_name = 'calendar/month_with_forms.html'
     model = Task
+    context_object_name = 'tasks'
     date_field = 'date'
     form_class = SimpleScheduleForm
 
     def get(self, request, **kwargs):
         context = self.get_month_calendar()
+        # 他のモデルをテンプレートで使いたい時はここに書く
+        context['tasks'] = Task.objects.all().filter(user=self.request.user)
         return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
@@ -107,3 +110,4 @@ class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.View):
             return redirect('calendar:month_with_forms')
 
         return render(request, self.template_name, context)
+

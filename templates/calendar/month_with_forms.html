@@ -102,12 +102,14 @@
                 {% if now == day %}
                 <td class="today">
                     {% else %}
-                <td class="modal-open" data-modal-open="modal22">
+                <td>
                     {% endif %}
 
-                    <div class="dateDiv modal-open" data-modal-open="modal-date-{{day.year}}-{{day.month}}-{{day.day}}">
+                    <div class="date-wrap">
+                        <div class="date-in">
                         <p class="date">
                             <span class="dib">
+                                <!-- もし、表示の月と今日の月が合わない場合は -->
                                 {% if month_current.month != day.month %}
                                 {{ day | date:"m/d" }}
                                 {% else %}
@@ -115,12 +117,33 @@
                                 {% endif %}
                             </span>
                         </p>
-
-                        <div class="date-form">
-                            {% for form in forms|slice:"1:" %}
-                            {{ form.as_p }}
+                        <div class="date-task">
+                            {% for w in tasks %}
+                            {% if w.date == day %}
+                            <div class="task modal-open" data-modal-open="modal-task-update-{{day.year}}-{{day.month}}-{{day.day}}-{{forloop.counter}}">
+                                <p>{{ w }}</p>
+                            </div>
+                            <!-- その日付のタスクのフォームを表示 -->
+                            {% endif %}
                             {% endfor %}
+
+
+                            {% for form in forms|slice:"1:" %}
+                                <div class="modal task-modal" data-modal="modal-task-update-{{day.year}}-{{day.month}}-{{day.day}}-{{forloop.counter}}">
+                                    <div class="modal-cover btn-close"></div>
+                                    <div class="modal-inner">
+                                        <div class="modal-content">
+                                            <div class="modal-form">
+                                                {{ form.as_p }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
                         </div>
+                        </div>
+<div class="modal-open dateDiv" data-modal-open="modal-date-{{day.year}}-{{day.month}}-{{day.day}}"></div>
                     </div>
                     <div class="modal" data-modal="modal-date-{{day.year}}-{{day.month}}-{{day.day}}">
                         <div class="modal-cover btn-close"></div>
@@ -147,7 +170,16 @@
 
 {% block extrascripts %}
 <script type="text/javascript">
-    // 日付をクリックしたら、アラートを出す
+     const task = document.querySelectorAll( '.task' );
+     const taskModal = document.querySelectorAll( '.task-modal' );
+    // .taskの「data-modal-open」の値に「modal-task-update-数字」をつけていく
+    for ( let i = 0; i < task.length; i++ ) {
+     // modalをあげる
+     task[i].setAttribute("data-modal-open","modal-task-update-" + i);
+     taskModal[i].setAttribute("data-modal","modal-task-update-" + i);
+ }
+    // .task-modalにも「modal-task-update-数字」をつけていく
+
 
 </script>
 {% endblock extrascripts %}
