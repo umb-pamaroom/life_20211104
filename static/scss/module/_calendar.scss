@@ -66,7 +66,7 @@
     width: calc(100% / 7);
 
     >div {
-      padding: .6em 0 1em;
+      padding: .8em 0 1em;
       height: auto;
       min-height: 140px;
 
@@ -74,15 +74,10 @@
         display: flex;
         justify-content: center;
         font-size: 12px;
-        margin-bottom: .5em;
-
-        span {
-          height: 30px;
-          width: 30px;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        margin-bottom: .8em;
+        span{
+          display: inline-block;
+          line-height: 1;
         }
       }
     }
@@ -155,9 +150,9 @@
   .month-table{
     td{
       >div{
-        padding: 0 0 .4em;
+        padding: .3em 0 .4em;
         .date{
-          font-size: 10px;
+          font-size: 11px;
         }
       }
     }
