@@ -160,4 +160,4 @@ EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pamaroom@gmail.com'
-EMAIL_HOST_PASSWORD = 'Pamaroom1111'
+EMAIL_HOST_PASSWORD = 'illfgqlktpyzziox'
