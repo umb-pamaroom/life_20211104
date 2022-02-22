@@ -32,6 +32,10 @@
       border-radius: 3px;
       position: relative;
       z-index: 30;
+      cursor: pointer;
+      &.ok{
+        opacity: .3;
+      }
 
       &:last-child {
         margin-bottom: 0;
@@ -48,6 +52,9 @@
             &:last-child{
               margin-bottom: 0;
             }
+          }
+          textarea{
+            width: 100%;
           }
         }
       }

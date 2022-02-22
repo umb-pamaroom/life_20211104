@@ -118,28 +118,35 @@
                             </span>
                         </p>
                         <div class="date-task">
-                            {% for w in tasks %}
-                            {% if w.date == day %}
-                            <div class="task modal-open" data-modal-open="modal-task-update-{{day.year}}-{{day.month}}-{{day.day}}-{{forloop.counter}}">
-                                <p>{{ w }}</p>
+
+                        <!-- その日付のタスクを全て表示 -->
+                            {% for task in tasks %}
+                            {% if task.date == day %}
+                            <div class="task modal-open {% if task.complete %}ok{% endif %}" data-modal-open="">
+                                <p>{{ task }}</p>
                             </div>
-                            <!-- その日付のタスクのフォームを表示 -->
                             {% endif %}
                             {% endfor %}
+                        <!-- //その日付のタスクを全て表示 -->
 
 
+                        <!-- その日付のタスクのフォームを全て表示 -->
                             {% for form in forms|slice:"1:" %}
-                                <div class="modal task-modal" data-modal="modal-task-update-{{day.year}}-{{day.month}}-{{day.day}}-{{forloop.counter}}">
+                                <div class="modal task-modal" data-modal="">
                                     <div class="modal-cover btn-close"></div>
                                     <div class="modal-inner">
                                         <div class="modal-content">
                                             <div class="modal-form">
                                                 {{ form.as_p }}
                                             </div>
+                                            <div class="tc">
+                                                <button class="btn btn-flat" type="submit">更新</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
+                        <!-- //その日付のタスクのフォームを全て表示 -->
                             
                         </div>
                         </div>
@@ -151,8 +158,13 @@
                             <div class="modal-content">
                                 <div class="modal-form">
                                 {% for form in forms|slice:":1" %}
-                                {{ form.as_p }}
+                                    {{ form.title }}
+                                    {{ form.date.label_tag }}
+                                    {{ form.date }}
                                 {% endfor %}
+                                </div>
+                                <div class="tc">
+                                    <button class="btn btn-flat" type="submit">作成</button>
                                 </div>
                             </div>
                         </div>

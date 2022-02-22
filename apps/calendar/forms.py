@@ -38,9 +38,11 @@ class SimpleScheduleForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('id','title', 'date', )
+        fields = ('title', 'date','description', 'complete')
         labels = {
             'title': '',
+            'description': '説明',
+            'complete': 'ステータス',
         }
         widgets = {
             'title': forms.TextInput(attrs={
