@@ -283,6 +283,7 @@ input {
     background: var(--bg-main);
     overflow-y: auto;
     z-index: 1;
+    border-radius: 10px;
 
     img {
       width: 100%;
@@ -476,7 +477,7 @@ input[type="file"] {
     margin-bottom: 1.5em;
   }
 
-  p {
+  >p {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1.5em;
@@ -616,7 +617,7 @@ button.btn {
   }
 
   .p-memo {
-    p {
+    >p {
       padding: .6em 0;
     }
   }
@@ -631,6 +632,22 @@ button.btn {
     width: calc(100% + 64px);
     position: relative;
     right: 2em;
+  }
+  .modalContainer{
+    .modal-inner{
+      width: 84vw;
+      padding: 16px;
+      border-radius: 6px;
+      .modal-form{
+        font-size: 14px;
+        .p-memo{
+          >*{
+            padding: .8em !important;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
   }
 }
 
