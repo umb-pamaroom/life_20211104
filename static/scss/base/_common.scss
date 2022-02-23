@@ -335,7 +335,6 @@ z-index: 10000;
         opacity: 0;
         -webkit-animation: modal_inner_close .5s ease forwards;
         animation: modal_inner_close .5s ease forwards;
-
       }
     }
   }
@@ -345,7 +344,7 @@ z-index: 10000;
       opacity: 0;
     }
 
-      100% {
+      99.9% {
       opacity: 1;
       z-index: 10000;
     }
@@ -356,7 +355,7 @@ z-index: 10000;
       opacity: 0;
     }
 
-      100% {
+      99.9% {
       opacity: 1;
       z-index: 10000;
     }
@@ -365,24 +364,20 @@ z-index: 10000;
   @-webkit-keyframes modal_inner_open {
     0% {
       opacity: 0;
-      transform: translateY(-20px);
     }
 
-    100% {
+    99.9% {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 
   @keyframes modal_inner_open {
     0% {
       opacity: 0;
-      transform: translateY(-20px);
     }
 
-    100% {
+    99.9% {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 
