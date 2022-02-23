@@ -15,7 +15,6 @@
      //モーダルを下げる処理,this === e.currentTarget
      modalCloseAction = function ( e ) {
          targetModal = e.currentTarget.closest( '.modal' );
-         targetModal.classList.add( 'is-close' );
 
          setTimeout( function ( e ) {
              targetModal.classList.remove( 'is-open' );

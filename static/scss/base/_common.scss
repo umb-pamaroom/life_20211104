@@ -315,25 +315,20 @@ input {
   //modal animation
   .modal {
     &.is-open {
-      -webkit-animation: modal_open .5s ease forwards;
-      animation: modal_open .5s ease forwards;
-
-      .modal-inner {
-        -webkit-animation: modal_inner_open .5s ease forwards;
-        animation: modal_inner_open .5s ease forwards;
-      }
+      opacity: 1;
+      z-index: 10000;
     }
 
-    &.is-close {
-      -webkit-animation: modal_close .5s ease forwards;
-      animation: modal_close .5s ease forwards;
+    // &.is-close {
+    //   -webkit-animation: modal_close .5s ease forwards;
+    //   animation: modal_close .5s ease forwards;
 
-      .modal-inner {
-        -webkit-animation: modal_inner_close .5s ease forwards;
-        animation: modal_inner_close .5s ease forwards;
+    //   .modal-inner {
+    //     -webkit-animation: modal_inner_close .5s ease forwards;
+    //     animation: modal_inner_close .5s ease forwards;
 
-      }
-    }
+    //   }
+    // }
   }
 
   @-webkit-keyframes modal_open {
