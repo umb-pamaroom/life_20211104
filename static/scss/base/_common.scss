@@ -325,16 +325,16 @@ input {
       }
     }
 
-    // &.is-close {
-    //   -webkit-animation: modal_close .5s ease forwards;
-    //   animation: modal_close .5s ease forwards;
+    &.is-close {
+      -webkit-animation: modal_close .5s ease forwards;
+      animation: modal_close .5s ease forwards;
 
-    //   .modal-inner {
-    //     -webkit-animation: modal_inner_close .5s ease forwards;
-    //     animation: modal_inner_close .5s ease forwards;
+      .modal-inner {
+        -webkit-animation: modal_inner_close .5s ease forwards;
+        animation: modal_inner_close .5s ease forwards;
 
-    //   }
-    // }
+      }
+    }
   }
 
   @-webkit-keyframes modal_open {
