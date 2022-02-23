@@ -62,7 +62,7 @@
   </div>
 </div>
 
-<div class="basewrapper">
+<div class="basewrapper modalContainer">
   <div class="inner timeline">
 
     {% for item in timeline_items %}
@@ -117,22 +117,38 @@
     {% empty %}
     <div class="tc">
       <p class="mb1">タイムラインの項目がありません。</p>
-      <a class="btn btn-flat" href="{% url 'app:RoutineCreate' %}">追加する</a>
+      <button class="btn btn-flat modal-open" data-modal-open="modal-create-routine">追加する</button>
     </div>
     <script>
       document.querySelector( '.timeline' ).classList.remove( "timeline" );
-
     </script>
 
     {% endfor %}
   </div>
+  <!-- 右下の追加ボタン -->
+  <div class="right-bottom-btn modal-open" data-modal-open="modal-create-routine">
+    <button class="">＋</button>
+  </div>
+  <!-- //右下の追加ボタン -->
+
+  <div class="modal routineCreateModal" data-modal="modal-create-routine">
+    <div class="modal-cover btn-close"></div>
+    <div class="modal-inner">
+      <div class="modal-content">
+        <div class="modal-form">
+          <form class="p-memo" action="" method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <div class="tc">
+              <button class="btn btn-flat" type="submit">追加する</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- 右下の追加ボタン -->
-<div class="right-bottom-btn">
-  <a href="{% url 'app:RoutineCreate' %}">＋</a>
-</div>
-<!-- //右下の追加ボタン -->
+
 
 {% endblock %}
 {% block extrascripts %}

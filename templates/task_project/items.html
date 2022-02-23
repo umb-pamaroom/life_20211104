@@ -49,10 +49,10 @@
         <p class="title">{{ item.title }}</p>
         <a href="{% url 'app:TaskSection_Items' item.id %}">link</a>
       </div>
-      <div class="tasks">
+      <div class="section-body">
         <!-- 逆参照をしている -->
         {% for task in item.related_task_to_section.all %}
-        <div class="div-task">
+        <div class="list">
           <a href="{% url 'app:task-update' task.id %}">
             <p class="task">{{ task.title }}</p>
             <div class="time">

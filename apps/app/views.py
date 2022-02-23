@@ -378,10 +378,11 @@ class TimelineDetailView(LoginRequiredMixin, DetailView):
 
 
 # タイムラインのタイトルと、タイムラインの項目を表示
-class TimelineItemsView(LoginRequiredMixin, DetailView):
+class TimelineItemsView(LoginRequiredMixin, DetailView, CreateView):
     template_name = 'timeline/items.html'
     model = TimelineModel
     context_object_name = 'timelines'
+    form_class = RoutineCreateForm
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -389,6 +390,13 @@ class TimelineItemsView(LoginRequiredMixin, DetailView):
         queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct()
 
         return queryset
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["timeline"] = self.kwargs['pk']
+        initial["title"] = ""
+        initial["description"] = ""
+        return initial
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -396,6 +404,10 @@ class TimelineItemsView(LoginRequiredMixin, DetailView):
         # timeline_itemsコンテキストに「RoutineModel」の全てから検索して、モデルのtimeline項目がself.kwargs.pkに一致するもの
         context['timeline_items'] = RoutineModel.objects.all().filter(timeline=self.kwargs['pk']).order_by('start_time')
         return context
+
+    def get_success_url(self):
+        # 作成した項目が所属するタイムラインのページへリンク
+        return reverse_lazy('app:TimelineItems', kwargs={'pk': self.object.timeline.pk})
 
 
 class TimelineDeleteView(DeleteView):

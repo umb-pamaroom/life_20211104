@@ -24,9 +24,9 @@ span[class^="material-icons"] {
       padding: 1.2em;
       border-radius: 6px;
 
-      .tasks {
+      .section-body {
 
-        .div-task {
+        .list {
           margin-top: .8em;
 
           >a {
@@ -39,6 +39,7 @@ span[class^="material-icons"] {
     }
   }
 }
+
 
 .notable {
   display: block !important;
