@@ -315,8 +315,13 @@ input {
   //modal animation
   .modal {
     &.is-open {
-      opacity: 1;
-      z-index: 10000;
+      -webkit-animation: modal_open .5s ease forwards;
+      animation: modal_open .5s ease forwards;
+
+      .modal-inner {
+        -webkit-animation: modal_inner_open .5s ease forwards;
+        animation: modal_inner_open .5s ease forwards;
+      }
     }
 
     // &.is-close {
