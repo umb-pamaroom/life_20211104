@@ -317,8 +317,11 @@ input {
     &.is-open {
       -webkit-animation: modal_open .5s ease forwards;
       animation: modal_open .5s ease forwards;
-
+opacity: 1;
+z-index: 10000;
       .modal-inner {
+        opacity: 1;
+        z-index: 10000;
         -webkit-animation: modal_inner_open .5s ease forwards;
         animation: modal_inner_open .5s ease forwards;
       }

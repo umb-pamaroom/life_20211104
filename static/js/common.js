@@ -23,13 +23,6 @@
          }, TIMEOUT_SPEED );
      };
 
-     // グレー部分をクリックでmodalを下げる
-     const modalWrapClose = function () {
-         modalCover[ i ].addEventListener( 'click', function ( e ) {
-             modalCloseAction( e );
-         }, false );
-     };
-
      // modalをあげる
      const modalWrapOpen = function ( e ) {
          dataModalOpen = e.currentTarget.getAttribute( 'data-modal-open' );
@@ -37,7 +30,6 @@
 
              if ( modal[ b ].getAttribute( 'data-modal' ) === dataModalOpen ) {
                  modal[ b ].classList.add( 'is-open' );
-                 modalWrapClose();
                  return false;
              }
          }
