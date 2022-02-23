@@ -283,6 +283,9 @@ input {
     background: var(--bg-main);
     overflow-y: auto;
     z-index: 1;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
 
     img {
       width: 100%;
@@ -315,6 +318,8 @@ input {
   //modal animation
   .modal {
     perspective: 1000;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
     &.is-open {
       -webkit-animation: modal_open .5s ease forwards;
       animation: modal_open .5s ease forwards;
