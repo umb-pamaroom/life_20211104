@@ -137,7 +137,49 @@
       <div class="modal-content">
         <div class="modal-form">
           <form class="p-memo" action="" method="POST">{% csrf_token %}
-            {{ form.as_p }}
+            {{ form.non_field_errors }}
+            <p>
+              {{form.timeline.label_tag}}
+              {{form.timeline}}
+              {{form.timeline.errors}}
+            </p>
+            <p>
+              {{form.title.label_tag}}
+              {{form.title}}
+              {{form.title.errors}}
+            </p>
+            <p>
+              {{form.description.label_tag}}
+              {{form.description}}
+              {{form.description.errors}}
+            </p>
+            <div class="fb cl2 time">
+              <div>
+                  {{form.start_time.label_tag}}
+<p class="timeInput">
+                  {{form.start_time}}
+                  </p>
+                  {{form..start_time.errors}}
+                </div>
+                <div>
+                  {{form.end_time.label_tag}}
+                  <p class="timeInput">
+                  {{form.end_time}}
+                  </p>
+                  {{form..end_time.errors}}
+                  </div>
+            </div>
+            <p>
+              {{form.category.label_tag}}
+              {{form.category}}
+              {{form.category.errors}}
+            </p>
+            <p>
+              {{form.status.label_tag}}
+              {{form.status}}
+              {{form.status.errors}}
+            </p>
+           
             <div class="tc">
               <button class="btn btn-flat" type="submit">追加する</button>
             </div>
