@@ -7,7 +7,7 @@
  let dataModalOpen;
  let targetModal;
 
- const TIMEOUT_SPEED = 500;
+ const TIMEOUT_SPEED = 0;
 
 //  modalOpenの数だけ処理を繰り返す
  for ( let i = 0; i < modalOpen.length; i++ ) {
