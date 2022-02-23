@@ -19,15 +19,7 @@
 
          setTimeout( function ( e ) {
              targetModal.classList.remove( 'is-open' );
-             targetModal.classList.remove( 'is-close' );
          }, TIMEOUT_SPEED );
-     };
-
-     // グレー部分をクリックでmodalを下げる
-     const modalWrapClose = function () {
-         modalCover[ i ].addEventListener( 'click', function ( e ) {
-             modalCloseAction( e );
-         }, false );
      };
 
      // modalをあげる
