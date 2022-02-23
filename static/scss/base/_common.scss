@@ -314,6 +314,7 @@ input {
 
   //modal animation
   .modal {
+    perspective: 1000;
     &.is-open {
       -webkit-animation: modal_open .5s ease forwards;
       animation: modal_open .5s ease forwards;

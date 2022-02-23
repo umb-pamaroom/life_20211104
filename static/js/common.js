@@ -15,10 +15,19 @@
      //モーダルを下げる処理,this === e.currentTarget
      modalCloseAction = function ( e ) {
          targetModal = e.currentTarget.closest( '.modal' );
+         targetModal.classList.add( 'is-close' );
 
          setTimeout( function ( e ) {
              targetModal.classList.remove( 'is-open' );
+             targetModal.classList.remove( 'is-close' );
          }, TIMEOUT_SPEED );
+     };
+
+     // グレー部分をクリックでmodalを下げる
+     const modalWrapClose = function () {
+         modalCover[ i ].addEventListener( 'click', function ( e ) {
+             modalCloseAction( e );
+         }, false );
      };
 
      // modalをあげる
