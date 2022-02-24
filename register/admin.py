@@ -30,7 +30,7 @@ class MyUserAdmin(ImportExportMixin, UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {
-         'fields': ('name', 'introduction', 'theme', 'avatar')}),
+         'fields': ('name', 'introduction', 'theme','favorite_timeline', 'avatar')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -46,7 +46,7 @@ class MyUserAdmin(ImportExportMixin, UserAdmin):
     list_display = ('email', 'name', 'introduction',
                     'is_staff', 'theme', 'avatar')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email', 'name', 'introduction', 'theme', 'avatar')
+    search_fields = ('email', 'name', 'introduction', 'theme','favorite_timeline', 'avatar')
     ordering = ('email',)
     resource_class = UserResource
 

@@ -36,6 +36,82 @@
   <div class="basewrapper modalContainer">
     <div class="inner">
 
+      <div class="sec-div">
+      <h2 class="sec-h2-title">お気に入り</h2>
+      <div class="fb fbl card-wrapper project-list col3">
+        {% for timeline in favorite_timelines.all %}
+        <div class="card">
+          <a href="{% url 'app:TimelineItems' timeline.id %}" class="card-link">
+            <div class="fb card-inner">
+              <div class="top">
+                <div class="fb title-fb fbl">
+                  <span class="text-icon fb">{{ timeline.title|first }}</span>
+                  <p class="title">{{ timeline.title }}</p>
+                </div>
+                {% comment %}文字を切り詰める{% endcomment %}
+                <p class="text">{{ timeline.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+              </div>
+              <div class="bottom fb">
+                <div class="icon-list fb fbl">
+                  <!-- 最大3アカウントのみ表示 -->
+                  {% for member in timeline.members.all|slice:":3" %}
+                  <div class="account-icon">
+                    {% if member.avatar %}
+                    <img src="{{ member.avatar.url }}">
+                    {% else %}
+                    <span class="fb text-icon">
+                      {{ member.email|first|upper }}
+                    </span>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                  <p>({{ timeline.members.count }})</p>
+                </div>
+                <div class="fb">
+                  <div class="iconBox fb">
+                    <form action="{% url 'app:unfollow_timeline' timeline.id %}" method="post">
+                      <button type="submit" name="button"><span class="material-icons">
+                          grade
+                        </span>
+                      </button>
+                      {% csrf_token %}
+                    </form>
+
+                  </div>
+                  <div class="iconBox fb">
+                    <span class="material-icons modal-open" data-modal-open="modal-delete-timeline-{{timeline.id}}">
+                      delete
+                    </span>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </a>
+          <div class="modal formModal" data-modal="modal-delete-timeline-{{timeline.id}}">
+            <div class="modal-cover btn-close"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <div class="modal-form">
+                  <p>{{timeline.title}}を本当に削除しますか？</p>
+                  <div class="tc">
+                    <a class="btn btn-flat delete-btn" href="{% url 'app:delete_timeline' timeline.id %}">削除する</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="tc">
+          <p class="mb1">お気に入りのタイムラインがありません。</p>
+        </div>
+        {% endfor %}
+
+      </div>
+      </div>
+<div class="sec-div">
+      <h2 class="sec-h2-title">タイムライン</h2>
       <div class="fb fbl card-wrapper project-list col3">
         {% for timeline in timelines %}
         <div class="card">
@@ -65,10 +141,22 @@
                   {% endfor %}
                   <p>({{ timeline.members.count }})</p>
                 </div>
-                <div class="deleteBox fb">
+                <div class="fb">
+                   <div class="iconBox fb">
+                     <form action="{% url 'app:follow_timeline' timeline.id %}" method="post">
+                       <button type="submit" name="button"><span class="material-icons">
+                           star_border
+                         </span>
+                        </button>
+                       {% csrf_token %}
+                     </form>
+                     
+                   </div>
+                <div class="iconBox fb">
                     <span class="material-icons modal-open" data-modal-open="modal-delete-timeline-{{timeline.id}}">
                       delete
                     </span>
+                </div>
                 </div>
               </div>
             </div>
@@ -95,7 +183,7 @@
         {% endfor %}
 
       </div>
-
+</div>
     </div>
     
   </div>

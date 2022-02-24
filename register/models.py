@@ -4,7 +4,7 @@ from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-
+from apps.app.models import *
 
 # 選択肢用のクラス
 class Themes(models.TextChoices):
@@ -54,6 +54,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(_('name'), max_length=30, blank=True)
     introduction = models.TextField(_('introduction'), max_length=150, blank=True)
+
+    # お気に入りタイムライン
+    favorite_timeline = models.ManyToManyField(TimelineModel, related_name='favorite_timeline', verbose_name='お気に入りのタイムライン', blank=True)
 
     # プロフィール画像
     avatar = models.ImageField('プロフィール画像',upload_to='images/avatar', blank=True, null=True)

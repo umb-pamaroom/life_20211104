@@ -414,7 +414,6 @@ class TimelineDeleteView(DeleteView):
     template_name = 'timeline/delete.html'
     model = TimelineModel
     context_object_name = 'timelines'
-
     success_url = reverse_lazy('app:TimelineList')
 
 
@@ -430,6 +429,27 @@ class TimelineListView(LoginRequiredMixin, ListView):
 
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # ログインユーザがお気に入りしているもののみ表示
+        context['favorite_timelines'] = TimelineModel.objects.all().filter(favorite_timeline__in=[self.request.user])
+        return context
+
+# タイムラインお気に入り
+
+
+def followTimeline(request, timeline_id):
+    """場所をお気に入り登録する"""
+    timeline = get_object_or_404(TimelineModel, id=timeline_id)
+    request.user.favorite_timeline.add(timeline)
+    return redirect('app:TimelineList')
+
+
+def unfollowTimeline(request, timeline_id):
+    """場所をお気に入り登録する"""
+    timeline = get_object_or_404(TimelineModel, id=timeline_id)
+    request.user.favorite_timeline.remove(timeline)
+    return redirect('app:TimelineList')
 
 # list.htmlでのタイムライン削除
 

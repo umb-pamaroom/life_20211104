@@ -499,12 +499,6 @@ img {
 
 
 
-    h2 {
-        font-size: 2.1em;
-        margin-bottom: 2.2em;
-    }
-
-
     .section {
         .button {
             a {
@@ -526,16 +520,6 @@ img {
   600以下（600pxで問題ないかどうか）
   --------------------------------------------------------------- */
 @media screen and (max-width: 600px) {
-
-    h2 {
-        font-size: 1.9em;
-        margin-bottom: 2.2em;
-    }
-
-    h3 {
-        font-size: 1.3em;
-    }
-
     .ma600 {
         display: block;
     }
@@ -548,6 +532,7 @@ img {
             padding: 0 1em;
         }
     }
+    
 }
 
 
@@ -564,17 +549,6 @@ img {
     .section {
         padding: 3em 0;
     }
-
-
-    h1 {
-        font-size: 2.3em;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-
     .ma479 {
         display: block;
     }
