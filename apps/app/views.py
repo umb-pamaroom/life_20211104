@@ -431,8 +431,12 @@ class TimelineListView(LoginRequiredMixin, ListView):
         return queryset
 
 
+# list.htmlでのタイムライン削除
 
-
+def delete_timeline(request, timeline_id):
+    timeline = get_object_or_404(TimelineModel, id=timeline_id)
+    timeline.delete()
+    return redirect('app:TimelineList')
 
 """""""""""""""""""""""""""""""""""""""""""""
 

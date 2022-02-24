@@ -37,6 +37,7 @@ urlpatterns = [
     path('timeline/', views.TimelineListView.as_view(), name='TimelineList'),
     path('uncheck_task', views.uncheck_task, name="uncheck_task"),
     path('check_task', views.check_task, name="check_task"),
+    path('delete_timeline/<int:timeline_id>', views.delete_timeline, name='delete_timeline'),
 
     # タスクプロジェクト
     path('task_project/create/', views.TaskProject_CreateView.as_view(), name='TaskProject_Create'),

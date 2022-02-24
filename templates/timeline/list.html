@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="basewrapper">
+  <div class="basewrapper modalContainer">
     <div class="inner">
 
       <div class="fb fbl card-wrapper project-list col3">
@@ -49,8 +49,8 @@
                 {% comment %}文字を切り詰める{% endcomment %}
                 <p class="text">{{ timeline.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
               </div>
-              <div class="bottom">
-                <div class="icon-list fb jcfe">
+              <div class="bottom fb">
+                <div class="icon-list fb fbl">
                   <!-- 最大3アカウントのみ表示 -->
                   {% for member in timeline.members.all|slice:":3" %}
                   <div class="account-icon">
@@ -65,9 +65,27 @@
                   {% endfor %}
                   <p>({{ timeline.members.count }})</p>
                 </div>
+                <div class="deleteBox fb">
+                    <span class="material-icons modal-open" data-modal-open="modal-delete-timeline-{{timeline.id}}">
+                      delete
+                    </span>
+                </div>
               </div>
             </div>
           </a>
+          <div class="modal formModal" data-modal="modal-delete-timeline-{{timeline.id}}">
+            <div class="modal-cover btn-close"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <div class="modal-form">
+                  <p>{{timeline.title}}を本当に削除しますか？</p>
+                  <div class="tc">
+                  <a class="btn btn-flat delete-btn" href="{% url 'app:delete_timeline' timeline.id %}">削除する</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {% empty %}
         <div class="tc">

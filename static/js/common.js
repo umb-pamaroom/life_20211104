@@ -27,7 +27,7 @@
      const modalWrapOpen = function ( e ) {
          dataModalOpen = e.currentTarget.getAttribute( 'data-modal-open' );
          for ( var b = 0; b < modal.length; b++ ) {
-
+            e.preventDefault();
              if ( modal[ b ].getAttribute( 'data-modal' ) === dataModalOpen ) {
                  modal[ b ].classList.add( 'is-open' );
                  return false;

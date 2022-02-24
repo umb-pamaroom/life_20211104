@@ -54,6 +54,21 @@ span[class^="material-icons"] {
   }
 }
 
+.deleteBox{
+  position: relative;
+  z-index: 10;
+  span{
+    font-size: 22px;
+    display: inline-block;
+    line-height: 1;
+    padding: .3em;
+    border-radius: 4px;
+    &:hover{
+      background: var(--bg-main);
+    }
+  }
+}
+
 .icon-list {
   &.jcfe {
     justify-content: flex-end;
@@ -63,6 +78,17 @@ span[class^="material-icons"] {
 
       &:first-child {
         margin-left: 0;
+      }
+    }
+  }
+  &.fbl {
+    justify-content: flex-end;
+
+    >* {
+      margin-right: .3em;
+
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
@@ -256,6 +282,12 @@ input {
 
     &.is-open {
       display: flex;
+    }
+    &.formModal{
+      .modal-inner{
+        padding: 1.2em;
+        max-width: 600px;
+      }
     }
   }
 
@@ -563,6 +595,9 @@ button.btn {
 
   &.bgblack {
     background: #000;
+  }
+  &.delete-btn{
+    background: var(--bg-red);
   }
 }
 
