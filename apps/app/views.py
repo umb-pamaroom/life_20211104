@@ -425,14 +425,18 @@ class TimelineListView(LoginRequiredMixin, ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
 
-        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct().order_by('-updated_datetime', '-created_datetime')
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user]))
+        # 除外する filterの反対
+        queryset = queryset.exclude(favorite_timeline__in=[self.request.user]).distinct(
+        ).order_by('-updated_datetime', '-created_datetime')
+
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # ログインユーザがお気に入りしているもののみ表示
-        context['favorite_timelines'] = TimelineModel.objects.all().filter(favorite_timeline__in=[self.request.user])
+        context['favorite_timelines'] = TimelineModel.objects.all().filter((Q(create_user=self.request.user) | Q(members__in=[self.request.user])), favorite_timeline__in=[self.request.user]).distinct().order_by('-updated_datetime', '-created_datetime')
         return context
 
 # タイムラインお気に入り

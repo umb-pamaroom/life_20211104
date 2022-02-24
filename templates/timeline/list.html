@@ -2,41 +2,41 @@
 {% block title %}タイムライン一覧{% endblock %}
 {% block content %}
 
-  <div class="heading modalContainer">
-    <div class="fb heading-wrap">
-      <div class="heading-title">
-        <h1>タイムライン一覧</h1>
-      </div>
-      <div class="icons-menu-wrap">
-        <div class="icon-item-wrap icon-menu-modal">
-          <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
-            <i class="fas fa-ellipsis-h"></i>
-          </a>
-          <div class="modal icon-menu-modal-wrap" data-modal="menu1">
-            <div class="modal-cover btn-close"></div>
-            <div class="modal-inner">
-              <div class="modal-content">
-                <ul class="modal-ul">
-                  <li>
-                    <ul class="mt0">
-                      <li class="menu-li">
-                        <a class="menu-list" href="{% url 'app:TimelineCreate' %}">タイムラインを追加</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
+<div class="heading modalContainer">
+  <div class="fb heading-wrap">
+    <div class="heading-title">
+      <h1>タイムライン一覧</h1>
+    </div>
+    <div class="icons-menu-wrap">
+      <div class="icon-item-wrap icon-menu-modal">
+        <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+          <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+          <div class="modal-cover btn-close"></div>
+          <div class="modal-inner">
+            <div class="modal-content">
+              <ul class="modal-ul">
+                <li>
+                  <ul class="mt0">
+                    <li class="menu-li">
+                      <a class="menu-list" href="{% url 'app:TimelineCreate' %}">タイムラインを追加</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="basewrapper modalContainer">
-    <div class="inner">
+<div class="basewrapper modalContainer">
+  <div class="inner">
 
-      <div class="sec-div">
+    <div class="sec-div">
       <h2 class="sec-h2-title">お気に入り</h2>
       <div class="fb fbl card-wrapper project-list col3">
         {% for timeline in favorite_timelines.all %}
@@ -84,7 +84,7 @@
                     </span>
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </a>
@@ -109,8 +109,8 @@
         {% endfor %}
 
       </div>
-      </div>
-<div class="sec-div">
+    </div>
+    <div class="sec-div">
       <h2 class="sec-h2-title">タイムライン</h2>
       <div class="fb fbl card-wrapper project-list col3">
         {% for timeline in timelines %}
@@ -142,21 +142,21 @@
                   <p>({{ timeline.members.count }})</p>
                 </div>
                 <div class="fb">
-                   <div class="iconBox fb">
-                     <form action="{% url 'app:follow_timeline' timeline.id %}" method="post">
-                       <button type="submit" name="button"><span class="material-icons">
-                           star_border
-                         </span>
-                        </button>
-                       {% csrf_token %}
-                     </form>
-                     
-                   </div>
-                <div class="iconBox fb">
+                  <div class="iconBox fb">
+                    <form action="{% url 'app:follow_timeline' timeline.id %}" method="post">
+                      <button type="submit" name="button"><span class="material-icons">
+                          star_border
+                        </span>
+                      </button>
+                      {% csrf_token %}
+                    </form>
+
+                  </div>
+                  <div class="iconBox fb">
                     <span class="material-icons modal-open" data-modal-open="modal-delete-timeline-{{timeline.id}}">
                       delete
                     </span>
-                </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -168,7 +168,7 @@
                 <div class="modal-form">
                   <p>{{timeline.title}}を本当に削除しますか？</p>
                   <div class="tc">
-                  <a class="btn btn-flat delete-btn" href="{% url 'app:delete_timeline' timeline.id %}">削除する</a>
+                    <a class="btn btn-flat delete-btn" href="{% url 'app:delete_timeline' timeline.id %}">削除する</a>
                   </div>
                 </div>
               </div>
@@ -176,128 +176,132 @@
           </div>
         </div>
         {% empty %}
+        {% if user.favorite_timeline.all %}
+        {% else %}
         <div class="tc">
           <p class="mb1">タイムラインがありません。</p>
-          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+          <a class="btn btn-flat" href="{% url 'app:TimelineCreate' %}">追加する</a>
         </div>
+        {% endif %}
         {% endfor %}
 
       </div>
-</div>
     </div>
-    
   </div>
 
+</div>
 
-  <!-- 右下の追加ボタン -->
-  <div class="right-bottom-btn">
-    <a href="{% url 'app:TimelineCreate' %}">＋</a>
-  </div>
-  <!-- //右下の追加ボタン -->
+
+<!-- 右下の追加ボタン -->
+<div class="right-bottom-btn">
+  <a href="{% url 'app:TimelineCreate' %}">＋</a>
+</div>
+<!-- //右下の追加ボタン -->
 
 {% endblock %}
 
 {% block extrascripts %}
 
 <script type="text/javascript">
-    Vue.http.headers.common[ "X-CSRFToken" ] = "{{ csrf_token }}";
-    new Vue( {
-        el: "#starting",
-        delimiters: [ "${", "}" ],
-        data: {
-            articles: [],
-            loading: true,
-            currentArticle: {},
-            message: null,
-            newArticle: {
-                title: null,
-                description: null,
-                create_user: null
-            },
-            search_term: ""
-        },
-        // Vueインスタンスのマウント前に実行される関数
-        mounted: function () {
-            // getArticlesメソッドをマウントに設定しページが読み込まれる度に実行する
-            this.getArticles();
-        },
-        // Vueインスタンス内で実行されるすべての関数
-        methods: {
-            getArticles: function () {
-                let api_url = "/api/timeline/";
-                if ( this.search_term !== "" || this.search_term !== null ) {
-                    api_url = `/api/timeline/?search=${this.search_term}`;
-                }
-                this.loading = true;
-                this.$http
-                    .get( api_url )
-                    .then( response => {
-                        this.articles = response.data;
-                        this.loading = false;
-                    } )
-                    .catch( err => {
-                        this.loading = false;
-                        console.log( err );
-                    } );
-            },
-            getArticle: function ( id ) {
-                this.loading = true;
-                this.$http
-                    .get( `/api/timeline/${id}/` )
-                    .then( response => {
-                        this.currentArticle = response.data;
-                        $( "#editArticleModal" ).modal( "show" );
-                        this.loading = false;
-                    } )
-                    .catch( err => {
-                        this.loading = false;
-                        console.log( err );
-                    } );
-            },
-            addArticle: function () {
-                this.loading = true;
-                this.$http
-                    .post( "/api/timeline/", this.newArticle )
-                    .then( response => {
-                        this.loading = true;
-                        this.getArticles();
-                    } )
-                    .catch( err => {
-                        this.loading = true;
-                        console.log( err );
-                    } );
-            },
-            updateArticle: function () {
-                this.loading = true;
-                this.$http
-                    .put(
-                        `/api/timeline/${this.currentArticle.id}/`,
-                        this.currentArticle
-                    )
-                    .then( response => {
-                        this.loading = false;
-                        this.currentArticle = response.data;
-                        this.getArticles();
-                    } )
-                    .catch( err => {
-                        this.loading = false;
-                        console.log( err );
-                    } );
-            },
-            deleteArticle: function ( id ) {
-                this.loading = true;
-                this.$http
-                    .delete( `/api/timeline/${id}/` )
-                    .then( response => {
-                        this.loading = false;
-                        this.getArticles();
-                    } )
-                    .catch( err => {
-                        this.loading = false;
-                        console.log( err );
-                    } );
-            }
+  Vue.http.headers.common[ "X-CSRFToken" ] = "{{ csrf_token }}";
+  new Vue( {
+    el: "#starting",
+    delimiters: [ "${", "}" ],
+    data: {
+      articles: [],
+      loading: true,
+      currentArticle: {},
+      message: null,
+      newArticle: {
+        title: null,
+        description: null,
+        create_user: null
+      },
+      search_term: ""
+    },
+    // Vueインスタンスのマウント前に実行される関数
+    mounted: function () {
+      // getArticlesメソッドをマウントに設定しページが読み込まれる度に実行する
+      this.getArticles();
+    },
+    // Vueインスタンス内で実行されるすべての関数
+    methods: {
+      getArticles: function () {
+        let api_url = "/api/timeline/";
+        if ( this.search_term !== "" || this.search_term !== null ) {
+          api_url = `/api/timeline/?search=${this.search_term}`;
         }
-    } );
+        this.loading = true;
+        this.$http
+          .get( api_url )
+          .then( response => {
+            this.articles = response.data;
+            this.loading = false;
+          } )
+          .catch( err => {
+            this.loading = false;
+            console.log( err );
+          } );
+      },
+      getArticle: function ( id ) {
+        this.loading = true;
+        this.$http
+          .get( `/api/timeline/${id}/` )
+          .then( response => {
+            this.currentArticle = response.data;
+            $( "#editArticleModal" ).modal( "show" );
+            this.loading = false;
+          } )
+          .catch( err => {
+            this.loading = false;
+            console.log( err );
+          } );
+      },
+      addArticle: function () {
+        this.loading = true;
+        this.$http
+          .post( "/api/timeline/", this.newArticle )
+          .then( response => {
+            this.loading = true;
+            this.getArticles();
+          } )
+          .catch( err => {
+            this.loading = true;
+            console.log( err );
+          } );
+      },
+      updateArticle: function () {
+        this.loading = true;
+        this.$http
+          .put(
+            `/api/timeline/${this.currentArticle.id}/`,
+            this.currentArticle
+          )
+          .then( response => {
+            this.loading = false;
+            this.currentArticle = response.data;
+            this.getArticles();
+          } )
+          .catch( err => {
+            this.loading = false;
+            console.log( err );
+          } );
+      },
+      deleteArticle: function ( id ) {
+        this.loading = true;
+        this.$http
+          .delete( `/api/timeline/${id}/` )
+          .then( response => {
+            this.loading = false;
+            this.getArticles();
+          } )
+          .catch( err => {
+            this.loading = false;
+            console.log( err );
+          } );
+      }
+    }
+  } );
+
 </script>
 {% endblock extrascripts %}
