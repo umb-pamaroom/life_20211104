@@ -32,42 +32,89 @@
     </div>
   </div>
 </div>
-<div class="basewrapper">
+<div class="basewrapper modalContainer">
 
-  <!-- <div class="section-div">
-    <div class="inner">
-      <div class="h2-title-wrap">
-      <h2 class="h2-title">お気に入りプロジェクト</h2>
-      </div>
-      <div class="fb fbl card-wrapper project-list col3">
-        {% for item in TaskProject_object %}
-        <div class="card">
-          <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
-            <div class="fb card-inner">
-              <div class="top">
-                <div class="fb title-fb fbl">
-                  <span class="text-icon fb">{{ item.title|first }}</span>
-                  <p class="title">{{ item.title }}</p>
-                </div>
-                {% comment %}文字を切り詰める{% endcomment %}
-                <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
-              </div>
-              <div class="bottom">
+ <div class="section-div">
+   <div class="inner">
+     <div class="h2-title-wrap">
+       <h2 class="h2-title">お気に入り</h2>
+     </div>
+     <div class="fb fbl card-wrapper project-list col3">
+       {% for item in favorite_projects.all %}
+       <div class="card {% if item.members.count > 0 %}shared{% endif %}">
+         <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
+           <div class="fb card-inner">
+             <div class="top">
 
-              </div>
-            </div>
-          </a>
-        </div>
-        {% empty %}
-        <div class="tc">
-          <p class="mb1">タスクプロジェクトがありません。</p>
-          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
-        </div>
-        {% endfor %}
+               <div class="fb title-fb fbl">
+                 <span class="text-icon fb">{{ item.title|first }}</span>
+                 <p class="title">{{ item.title }}</p>
+               </div>
+               {% comment %}文字を切り詰める{% endcomment %}
+               <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
+             </div>
 
-      </div>
-    </div>
-  </div> -->
+             <div class="bottom fb">
+               <div class="icon-list fb fbl">
+
+                 <!-- 最大3アカウントのみ表示 -->
+                 {% for member in item.members.all|slice:":3" %}
+                 <div class="account-icon">
+                   {% if member.avatar %}
+                   <img src="{{ member.avatar.url }}">
+                   {% else %}
+                   <span class="fb text-icon">
+                     {{ member.email|first|upper }}
+                   </span>
+                   {% endif %}
+                 </div>
+                 {% endfor %}
+                 <p>({{ item.members.count }})</p>
+               </div>
+               <div class="fb">
+                 <div class="iconBox fb">
+                   <form action="{% url 'app:follow_project' item.id %}" method="post">
+                     <button type="submit" name="button"><span class="material-icons">
+                         grade
+                       </span>
+                     </button>
+                     {% csrf_token %}
+                   </form>
+
+                 </div>
+                 <div class="iconBox fb">
+                   <span class="material-icons modal-open" data-modal-open="modal-delete-prroject-{{item.id}}">
+                     delete
+                   </span>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </a>
+         <div class="modal formModal" data-modal="modal-delete-prroject-{{item.id}}">
+           <div class="modal-cover btn-close"></div>
+           <div class="modal-inner">
+             <div class="modal-content">
+               <div class="modal-form">
+                 <p>{{item.title}}を本当に削除しますか？</p>
+                 <div class="tc">
+                   <a class="btn btn-flat delete-btn" href="{% url 'app:delete_project' item.id %}">削除する</a>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       {% empty %}
+       <div class="tc">
+         <p class="mb1">タスクプロジェクトがありません。</p>
+         <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
+       </div>
+       {% endfor %}
+
+     </div>
+   </div>
+ </div>
 
   <div class="section-div">
     <div class="inner">
@@ -89,8 +136,8 @@
                 <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
               </div>
               
-              <div class="bottom">
-                <div class="icon-list fb jcfe">
+              <div class="bottom fb">
+                <div class="icon-list fb fbl">
 
                   <!-- 最大3アカウントのみ表示 -->
                   {% for member in item.members.all|slice:":3" %}
@@ -106,9 +153,39 @@
                   {% endfor %}
                   <p>({{ item.members.count }})</p>
                 </div>
+                <div class="fb">
+                  <div class="iconBox fb">
+                    <form action="{% url 'app:follow_project' item.id %}" method="post">
+                      <button type="submit" name="button"><span class="material-icons">
+                          star_border
+                        </span>
+                      </button>
+                      {% csrf_token %}
+                    </form>
+
+                  </div>
+                  <div class="iconBox fb">
+                    <span class="material-icons modal-open" data-modal-open="modal-delete-prroject-{{item.id}}">
+                      delete
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </a>
+          <div class="modal formModal" data-modal="modal-delete-prroject-{{item.id}}">
+            <div class="modal-cover btn-close"></div>
+            <div class="modal-inner">
+              <div class="modal-content">
+                <div class="modal-form">
+                  <p>{{item.title}}を本当に削除しますか？</p>
+                  <div class="tc">
+                    <a class="btn btn-flat delete-btn" href="{% url 'app:delete_project' item.id %}">削除する</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {% empty %}
         <div class="tc">
@@ -121,41 +198,30 @@
     </div>
   </div>
 
-  <!-- <div class="section-div">
-    <div class="inner">
-      <div class="h2-title-wrap">
-        <h2 class="h2-title">終了したプロジェクト</h2>
-      </div>
-      <div class="fb fbl card-wrapper project-list col3">
-        {% for item in TaskProject_object %}
-        <div class="card">
-          <a href="{% url 'app:TaskProject_Items' item.id %}" class="card-link">
-            <div class="fb card-inner">
-              <div class="top">
-                <div class="fb title-fb fbl">
-                  <span class="text-icon fb">{{ item.title|first }}</span>
-                  <p class="title">{{ item.title }}</p>
-                </div>
-                {% comment %}文字を切り詰める{% endcomment %}
-                <p class="text">{{ item.description|truncatechars_html:50|linebreaksbr|default:"説明文はありません。" }}</p>
-              </div>
-              <div class="bottom">
+   <!-- 右下の追加ボタン -->
+   <div class="right-bottom-btn modal-open" data-modal-open="modal-create-project">
+     <button class="">＋</button>
+   </div>
+   <!-- //右下の追加ボタン -->
 
-              </div>
-            </div>
-          </a>
-        </div>
-        {% empty %}
-        <div class="tc">
-          <p class="mb1">タスクプロジェクトがありません。</p>
-          <a class="btn btn-flat" href="{% url 'app:TaskProject_Create' %}">追加する</a>
-        </div>
-        {% endfor %}
+   <div class="modal routineCreateModal" data-modal="modal-create-project">
+     <div class="modal-cover btn-close"></div>
+     <div class="modal-inner">
+       <div class="modal-content">
+         <div class="modal-form">
+           <form class="p-memo" action="" method="POST">{% csrf_token %}
+             {{  form.as_p }}
+             <div class="tc">
+               <button class="btn btn-flat" type="submit">作成する</button>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
 
-      </div>
-    </div>
-  </div> -->
 </div>
+
 
 
 {% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Memo, RoutineModel, TimelineModel, Task, TaskProjectModel, TaskSectionModel
 #ListViewのインポート
 from django.views.generic.list import ListView
-from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView, FormView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 from .forms import MemoForm, RoutineCreateForm, TimelineCreateForm, PositionForm, TaskProject_CreateForm, TaskSection_CreateForm, TaskProject_UpdateForm, TaskUpdateForm, TimelineUpdateForm, TaskCreateForm
@@ -200,10 +200,33 @@ class TaskProject_DeleteView(DeleteView):
     success_url = reverse_lazy('app:TaskProject_List')
 
 
-class TaskProject_ListView(LoginRequiredMixin, ListView):
+def create_project(request):
+    if request.method == 'POST':
+        object = TaskProjectModel.objects.create(
+            title=request.POST['title'],
+            text=request.POST['text']
+        )
+        object.save()
+        return redirect('app_list')
+    else:
+        return render(request, 'app/app_create.html')
+
+
+# listviiewに作成機能を追加する場合
+# 1.FormViewを継承する
+# 2.下記を加える
+# def form_valid(self, form):
+#     obj = form.save(commit=False)
+#     obj.create_user = self.request.user
+#     obj.save()
+#     return HttpResponseRedirect(reverse('app:TaskProject_List'))
+
+# フォームを使って作成するために、「formview」も継承する
+class TaskProject_ListView(LoginRequiredMixin, ListView, FormView):
     template_name = 'task_project/list.html'
     model = TaskProjectModel
     context_object_name = 'TaskProject_object'
+    form_class = TaskProject_CreateForm
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -214,15 +237,45 @@ class TaskProject_ListView(LoginRequiredMixin, ListView):
         # メンバーと一致する
         # queryset = queryset.filter(members__in=[self.request.user]).order_by('-updated_datetime', '-created_datetime')
 
-        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user])).distinct().order_by('-updated_datetime', '-created_datetime')
+        queryset = queryset.filter(Q(create_user=self.request.user) | Q(members__in=[self.request.user]))
+
+        queryset = queryset.exclude(favorite_project__in=[self.request.user]).distinct(
+        ).order_by('-updated_datetime', '-created_datetime')
 
         return queryset
 
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # ログインユーザがお気に入りしているもののみ表示
+        context['favorite_projects'] = TaskProjectModel.objects.all().filter((Q(create_user=self.request.user) | Q(members__in=[self.request.user])), favorite_project__in=[self.request.user]).distinct().order_by('-updated_datetime', '-created_datetime')
         return context
 
+    # 作成して保存して、リダイレクトする
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.create_user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('app:TaskProject_List'))
+
+
+def follow_project(request, project_id):
+    """お気に入り登録する"""
+    project = get_object_or_404(TaskProjectModel, id=project_id)
+    request.user.favorite_project.add(project)
+    return redirect('app:TaskProject_List')
+
+
+def unfollow_project(request, project_id):
+    """お気に入りを外す"""
+    project = get_object_or_404(TaskProjectModel, id=project_id)
+    request.user.favorite_project.remove(project)
+    return redirect('app:TaskProject_List')
+
+# 削除
+def delete_project(request, project_id):
+    project = get_object_or_404(TaskProjectModel, id=project_id)
+    project.delete()
+    return redirect('app:TaskProject_List')
 
 """""""""""""""""""""""""""""""""""""""""""""
 
@@ -456,7 +509,6 @@ def unfollowTimeline(request, timeline_id):
     return redirect('app:TimelineList')
 
 # list.htmlでのタイムライン削除
-
 def delete_timeline(request, timeline_id):
     timeline = get_object_or_404(TimelineModel, id=timeline_id)
     timeline.delete()

@@ -58,6 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # お気に入りタイムライン
     favorite_timeline = models.ManyToManyField(TimelineModel, related_name='favorite_timeline', verbose_name='お気に入りのタイムライン', blank=True)
 
+    favorite_project = models.ManyToManyField(TaskProjectModel, related_name='favorite_project', verbose_name='お気に入りのプロジェクト', blank=True)
+
     # プロフィール画像
     avatar = models.ImageField('プロフィール画像',upload_to='images/avatar', blank=True, null=True)
 
