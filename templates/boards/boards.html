@@ -686,3 +686,6 @@
 <input id="hidden-transfer-cards" type="hidden" data-url="{% url 'boards:transfer_cards' id=board.id %}"></input>
 <input id="hidden-activity" type="hidden" data-url="{% url 'boards:get_board_stream' id=board.id %}"></input>
 {% endblock %}
+{% block extrascripts %}
+<script src="{% static 'js/general.js' %}"></script>
+{% endblock extrascripts %}

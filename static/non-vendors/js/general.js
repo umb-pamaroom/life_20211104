@@ -1,10 +1,4 @@
-document.querySelector( '#activitySidebarBtn' ).addEventListener( 'click', function () {
-    body.classList.add( 'activitySidebarShow' );
-} );
 
-document.querySelector( '#activitySidebarClose' ).addEventListener( 'click', function () {
-    body.classList.remove( 'activitySidebarShow' );
-} );
 
 $(document).ready(function() {
 
@@ -16,7 +10,8 @@ $(document).ready(function() {
          
          $(document).on("click", '.close-sidebar', function(){
             $('.sidebar').removeClass('open');
-         })
+         } )
+    
         // Drag and drop mechanics
         function init_drag_and_drop_mechanics(){
             $('.card-reactor').draggable({
