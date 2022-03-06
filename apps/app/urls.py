@@ -38,8 +38,8 @@ urlpatterns = [
     path('uncheck_task', views.uncheck_task, name="uncheck_task"),
     path('check_task', views.check_task, name="check_task"),
     path('delete_timeline/<int:timeline_id>', views.delete_timeline, name='delete_timeline'),
-    path('/timeline/follow/<int:timeline_id>', views.followTimeline, name='follow_timeline'),
-    path('/timeline/unfollow/<int:timeline_id>', views.unfollowTimeline, name='unfollow_timeline'),
+    path('timeline/follow/<int:timeline_id>', views.followTimeline, name='follow_timeline'),
+    path('timeline/unfollow/<int:timeline_id>', views.unfollowTimeline, name='unfollow_timeline'),
 
     # タスクプロジェクト
     path('task_project/create/', views.TaskProject_CreateView.as_view(), name='TaskProject_Create'),
@@ -49,8 +49,8 @@ urlpatterns = [
     path('task_project/update/<int:pk>', views.TaskProject_UpdateView.as_view(), name='TaskProject_Update'),
     path('task_project/list/', views.TaskProject_ListView.as_view(), name='TaskProject_List'),
     path('delete_project/<int:project_id>', views.delete_project, name='delete_project'),
-    path('/project/follow/<int:project_id>', views.follow_project, name='follow_project'),
-    path('/project/unfollow/<int:project_id>', views.unfollow_project, name='unfollow_project'),
+    path('project/follow/<int:project_id>', views.follow_project, name='follow_project'),
+    path('project/unfollow/<int:project_id>', views.unfollow_project, name='unfollow_project'),
 
     # タスクセクション
     path('task_section/create/', views.TaskSection_CreateView.as_view(), name='TaskSection_Create'),

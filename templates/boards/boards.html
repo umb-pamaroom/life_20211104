@@ -1,0 +1,688 @@
+{% extends 'app/base.html' %}
+{% load static activity_stream %}
+{% block title %}プロジェクト一覧{% endblock title %}
+{% block extracss %}
+{% include 'boards/extracss.html' %}
+{% endblock extracss %}
+{% block body_class %} body-class
+{% endblock %}
+{% block content %}
+
+<!-- アクティビティサイドバー -->
+<div class="activitySidebar" id="activitySidebar">
+  <div class="sidebar-head fb">
+    <p class="title-activity"><strong>アクティビティ</strong></p>
+    <a class="close-sidebar" id="activitySidebarClose">X</a>
+  </div>
+  <div class="sidebar-body">
+    {% for activity in activities %}
+    <div class="activity-box">
+      <div class="row activity-content">
+        <span class="b">{{activity.user}}</span>
+        {{activity.action}}
+        {{ activity|activity_stream_heading }}
+      </div>
+      <div class="row activity-footer">
+        {% if  activity.modified %}
+        {{activity.modified}}
+        {% endif %}
+
+        {% if  activity.board_name %}
+        on board {{activity.board_name}}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<!-- //アクティビティサイドバー -->
+
+
+<!-- ボードの外枠 -->
+<div class="board-wrapper">
+
+  <div class="booard-header">
+    <div class="heading modalContainer">
+      <div class="fb heading-wrap">
+        <div class="heading-title">
+          <h1>{{ board.name }}</h1>
+        </div>
+        <div class="icons-menu-wrap">
+          <div class="icon-item-wrap icon-menu-modal">
+            <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+              <i class="fas fa-ellipsis-h"></i>
+            </a>
+            <div class="modal icon-menu-modal-wrap" data-modal="menu1">
+              <div class="modal-cover btn-close"></div>
+              <div class="modal-inner">
+                <div class="modal-content">
+                  <ul class="modal-ul">
+                    <li>
+                      <ul class="mt0">
+                        <li class="menu-li">
+                          <a class="menu-list" href="">プロジェクトを追加</a>
+                        </li>
+                        <li class="menu-li">
+                          <a class="menu-list" href="">ボードを更新</a>
+                        </li>
+                        <li class="menu-li">
+                          <a class="menu-list" href="">ボードをアーカイブ</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fb modalContainer">
+      <div class="fb left-box">
+      </div>
+      <div class="right-box">
+        <div class="fb">
+          {% if owner %}
+          <div class="text-btn" id="activitySidebarBtn">アクティビティ</div>
+          <div class="text-btn modal-open" data-modal-open="member">メンバー</div>
+
+          {% else %}
+          <div class="dropdown ml-auto text-right dropdown-right">
+            <button name="MessageBoxModalAlert" class="btn btn-primary" id="btn-board-stream" data-dismiss="modal">ボードアクティビティ</button>
+            <a class="btn btn-primary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Settings
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-toggle="modal" data-target="#LeaveConfirmationModal">Leave Board</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  ボードの内容 -->
+  <div class="outer-wrap board-main-content">
+    <div class="inner-wrap board_view_sections">
+      {% for column in columns %}
+      <div class="floatbox list-box" data-value="{{ column.id }}">
+
+        <!-- カラムヘッダー -->
+        <div id="existing-label-{{column.id}}" class="existing-reactor board_column_header fb" data-value="{{ column.id }}">
+          <label data-value="{{ column.id }}" class="existing-label form-control title-column-class board_column_title" placeholder="リストを追加">{{ column.name }}</label>
+          <form id="archive-form" action="{% url 'boards:archive_column' id=board.id %}" data-url="{% url 'boards:archive_column' id=board.id %}" data-value="{{column.id}}" novalidate="">
+            <a id="archived-settings" class="list-settings"><button class="link-style list-settings" type="submit">[X]</button></a>
+          </form>
+        </div>
+        <!-- //カラムヘッダー -->
+
+
+        <form id="existing-form-{{column.id}}" class="existing-form" data-value="{{ column.id }}" action="{% url 'boards:update_column' id=board.id %}" data-url="{% url 'boards:update_column' id=board.id %}">
+          <input id="exist-list-{{column.id}}" class="form-control title-column-class" data-value="{{column.id}}" value="{{column.name}}">
+          <button name="AddColumn" type="submit" class="btn btn-success btn-add-list">更新</button>
+          <button id="close-add-list" type="button" class="btn btn-secondary close-add-list">キャンセル</button>
+        </form>
+
+        <div class="group-cards">
+          {% for card in cards %}
+          {% if card.column == column %}
+          <div id="existing-card-{{column.id}}" data-card_id={{card.id}} class="card-reactor" data-value="{{ column.id }}" data-action="{%url 'boards:get_card_detail' id=board.id %}">
+            <p class="">
+              <label data-value="{{ column.id }}" class="card-column-class non-editable-add-card">{{card.name}}</label>
+            </p>
+            <form id="archive-form" action="{% url 'boards:archive_column' id=board.id %}" data-url="{% url 'boards:archive_column' id=board.id %}" data-value="{{column.id}}" novalidate="">
+            </form>
+          </div>
+
+          <!-- Add Card -->
+
+          <form id="existing-form-{{column.id}}" class="existing-form" data-value="{{ column.id }}" action="{% url 'boards:update_column' id=board.id %}" data-url="{% url 'boards:update_column' id=board.id %}">
+            <input id="exist-list-{{column.id}}" class="form-control title-column-class" data-value="{{column.id}}" value="{{card.name}}">
+            <button name="AddColumn" type="submit" class="btn btn-success btn-add-list">Update</button>
+            <button id="close-add-list" type="button" class="btn btn-secondary close-add-list">Cancel</button>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <!-- カードを追加 -->
+        <div class="add-card-division">
+          <div class="add-card-reactor-{{column.id}}">
+            <label class="form-control title-card-class editable-add-card" data-value="{{column.id}}" placeholder="Add List">カードを追加する</label>
+          </div>
+
+          <form id="card-add-form-column-{{column.id}}" class="card-add-form-class toggle-card" action="{% url 'boards:add_card' id=board.id %}" data-url="{% url 'boards:add_card' id=board.id %}" data-value="{{column.id}}">
+            <input id="add-card-{{column.id}}" class="form-control title-column-class" placeholder="タイトルを入力してEnter">
+            <div class="fb card_add_btns btns_2">
+              <button id="close-add-card" data-value="{{column.id}}" type="button" class="btn btn-secondary close-add-card">キャンセル</button>
+              <button name="AddColumn" type="submit" class="btn btn-success btn-add-card">タスクを追加</button>
+            </div>
+          </form>
+        </div>
+        <!-- //カードを追加 -->
+
+      </div>
+      {% endfor %}
+
+
+      <!-- リストを追加 -->
+      <div class="floatbox list-box add_list_box">
+        <div class="add-input-reactor">
+          <label class="form-control title-column-class board_column_title" placeholder="Add List">リストを追加</label>
+        </div>
+        <form id="list-form" action="{% url 'boards:add_column' id=board.id %}" data-url="{% url 'boards:add_column' id=board.id %}">
+          <input id="add-list" class="form-control title-column-class" placeholder="タイトルを入力してEnter">
+          <div class="fb list_add_btns btns_2">
+            <button id="close-add-list" type="button" class="btn btn-secondary close-add-list">キャンセル</button>
+            <button name="AddColumn" type="submit" class="btn btn-success btn-add-list">リストを追加</button>
+          </div>
+        </form>
+      </div>
+      <!-- //リストを追加 -->
+
+    </div>
+  </div>
+</div>
+<!-- //ボードの外枠 -->
+
+<!-- ボードネーム更新 -->
+<div class="modal fade modal-fixed" id="EditBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ボードネーム更新</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if board_form.board_name.errors %}
+      {% for error in board_form.board_name.errors %}
+      <div class="alert alert-danger error-box-boards">
+        <strong>{{ error }}</strong>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <form name="EditModal" method="post" novalidate="">
+        {% csrf_token %}
+        <div class="modal-body">
+          {{ board_form.board_name }}
+        </div>
+        <div class="modal-footer">
+          <button name="EditModal" type="submit" class="btn btn-primary">Update Board</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- //ボードネーム更新 -->
+
+
+<!-- プロジェクトをアーカイブ -->
+<div class="modal fade modal-fixed" id="ArchiveBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">プロジェクトをアーカイブ</h5>
+      </div>
+      <form name="ArchiveBoardModal" method="post" novalidate="">
+        {% csrf_token %}
+        <div class="modal-body">
+          このボードをアーカイブしてもよろしいですか？
+        </div>
+        <div class="modal-footer">
+          <button name="ArchiveBoardModal" type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- //プロジェクトをアーカイブ -->
+
+
+<!-- セクションのアーカイブ -->
+<div class="modal fade modal-fixed" id="ArchiveColumnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">セクションのアーカイブ</h5>
+      </div>
+      <form name="ArchiveColumnModal" method="post" novalidate="">
+        {% csrf_token %}
+        <div class="modal-body">
+          Are you sure you want to archive this column?
+        </div>
+        <div class="modal-footer">
+          <button id="archived-column-yes" name="ArchiveColumnModal" type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- //セクションのアーカイブ -->
+
+
+<!-- メンバー招待 -->
+<div class="modal" data-modal="member">
+  <div class="modal-cover btn-close"></div>
+  <div class="modal-inner">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">メンバー招待</h5>
+        <button type="button" class="btn-close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form name="AddMemberModal" method="post" novalidate="">
+        {% csrf_token %}
+        <div class="modal-body">
+          <label for="" class="label-margin">メールアドレス</label>
+          {{ member_form.email }}
+          {% if member_form.email.errors %}
+          {% for error in member_form.email.errors %}
+          <div class="alert alert-danger error-box-member-invite">
+            <strong>{{ error }}</strong>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="modal-footer">
+          <button name="AddMemberModal" type="submit" class="btn btn-primary">招待する</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- //メンバー招待 -->
+
+<form name="RemoveMemberModal" method="post" novalidate="">
+
+  {% csrf_token %}
+  <!-- Inner Confirmation Modal -->
+  <div class="modal fade modal-fixed" id="RemoveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Are you sure you want to remove these?
+        </div>
+
+        <div class="modal-footer">
+          <button name="RemoveMemberModal" type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-fixed" id="RemoveMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Remove Member</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <center>
+            <div id="reactor">
+            </div>
+          </center>
+          {% for member in board_member %}
+
+          {% if member.is_confirmed and owner_instance != member.user %}
+          <div class="form-check">
+            <label class="form-check-label">
+              <fieldset id="checkArray">
+                <input name="remove_member" class="form-check-input" type="checkbox" value="{{member.id}}">
+                {{ member.user.email }}
+              </fieldset>
+            </label>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% for member in referral %}
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <fieldset id="checkArray">
+                <input name="remove_member" class="form-check-input" type="checkbox" value="{{member.board_member.id}}">
+                {% if not member.is_confirmed %}
+                {{ member.email }} (Pending)
+                {% endif %}
+
+              </fieldset>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="modal-footer">
+          <span id="btnRemove"> <button type="button" class="btn btn-secondary">Remove</button></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- leaving confirmation modal -->
+<div class="modal fade modal-fixed" id="LeaveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="LeaveConfirmationModal" method="post" novalidate="">
+
+        {% csrf_token %}
+
+        <div class="modal-body">
+          Are you sure you want to leave this group?
+        </div>
+
+        <div class="modal-footer">
+          <button name="LeaveConfirmationModal" type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Message Box Modal Alert -->
+{% if message_box %}
+<div class="modal fade modal-fixed" id="MessageBoxModalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ message_box.title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div name="MessageBoxModalAlert" novalidate="">
+        {% csrf_token %}
+
+        <div class="modal-body">
+          <div class="alert alert-success">
+            <strong>{{ message_box.message }}</strong>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button name="MessageBoxModalAlert" class="btn btn-primary" data-dismiss="modal">{{ message_box.button }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+
+<!-- Inner Confirmation Modal -->
+<div class="modal fade modal-fixed" id="RemoveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        Are you sure you want to remove these?
+      </div>
+
+      <div class="modal-footer">
+        <button name="RemoveMemberModal" type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Card Member Modal -->
+<div class="modal fade modal-fixed" id="CardMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Assigning Member</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <center>
+          <div id="reactor">
+          </div>
+        </center>
+        {% for member in board_member %}
+
+        {% if member.is_confirmed %}
+        <div class="form-check">
+          <label class="form-check-label">
+            <fieldset id="checkArray">
+              <div class="assign-division">
+                <input name="remove_member" id="assign-checkbox-{{member.user.id}}" class="form-check-input" type="checkbox" value="{{member.id}}">
+                {{ member.user.email }}
+              </div>
+            </fieldset>
+          </label>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <span id="btnAssignRemove" data-action="{% url 'boards:assign_members' id=board.id %}"> <button type="button" class="btn btn-secondary">Assign</button></span>
+        <span id="btnAssignCancel"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Due Date Modal -->
+<div class="modal fade modal-fixed" id="DueDateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Set Due Date</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form name="DueDateModal" method="post" novalidate="">
+        {% csrf_token %}
+
+        <div class="modal-body">
+          <label for="" class="label-margin">Due Date</label>
+          <input id="input-due-date" type="datetime-local">
+        </div>
+
+        <div class="modal-footer">
+          <button id="set-due-date" type="submit" class="btn btn-primary">Set Date</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- archive confirmation modal -->
+<div class="modal fade modal-fixed" id="ArchiveCardConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ArchiveCardConfirmationTitle"> Archive Card</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% csrf_token %}
+
+      <div id="" class="modal-body">
+        Do you want to archive this card?
+      </div>
+
+      <div class="modal-footer">
+        <button id="archive-card-confirmation" data-url="{% url 'boards:archive_card' id=board.id %}" type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- delete comment modal -->
+<div class="modal fade modal-fixed" id="DeleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ArchiveCardConfirmationTitle"> Delete Comment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div id="" class="modal-body">
+        このコメントを削除してもよろしいでしょうか？
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+        <button id="delete-comment-yes" data-url="{% url 'boards:delete_comment' id=board.id %}" data-to_remove="0" type="submit" class="btn btn-primary">削除</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- card modal-->
+<!-- Large modal -->
+<div class="class-details-reactor">
+  <div class="modal fade bd-example-modal-lg" id="CardModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+            <h3 id="heading-card-title" action="{% url 'boards:update_card_title' id=board.id %}" data-value="card_id" class="modal-title card-class-title"><strong>
+                <div class="reload-title">Card Title</div>
+              </strong></h3>
+            <input id="input-card-title" class="form-control card-class-title display-none" value="Card Title">
+            <button name="" id="card-button-update-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
+            <button name="" id="card-button-cancel-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Cancel</button>
+          </div>
+          <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+            <h5 class="modal-label-desc" id="exampleModalLabel">Card Description</h5>
+
+          </div>
+          <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">
+            <h5 class="modal-label-manage" id="exampleModalLabel">Manage</h5>
+          </div>
+          <div class="left-portion-of-modal col-lg-9 col-md-9 col-sm-9">
+
+            <textarea readonly id="text-id-description" class="textarea class-description" placeholder="Card Description"></textarea>
+
+            <button name="" id="card-button-add-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
+            <button name="" id="card-button-cancel-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Cancel</button>
+          </div>
+
+          <div class="right-portion-of-modal col-lg-3 col-md-3 col-sm-3">
+            <button data-toggle="modal" data-target="#CardMemberModal" name="MessageBoxModalAlert" class="btn btn-secondary card-button-invite mt-1" data-dismiss="modal">Members</button>
+            <button data-toggle="modal" data-target="#DueDateModal" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Due Date</button>
+            <button data-toggle="modal" data-target="#ArchiveCardConfirmation" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Archive</button>
+
+          </div>
+          <!-- Bottom Part -->
+          <div id="hr-after-description" class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+            <hr class="hr">
+          </div>
+          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+            <h5 class="modal-card-add-comment" id="exampleModalLabel">コメントを追加する</h5>
+            <textarea id="text-comment-area" class="textarea" placeholder="Write a comment"></textarea>
+            <button id="card-button-add-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Save</button>
+            <button id="card-button-cancel-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Cancel</button>
+
+          </div>
+          <div class="comment-reactor">
+            <!-- Comments -->
+            <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+              <hr class="hr">
+            </div>
+            <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+              <h5 class="modal-card-add-comment" id="exampleModalLabel">Comments</h5>
+            </div>
+            <!-- To Loop -->
+            <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+              <hr class="hr">
+            </div>
+            <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+
+              <p class="card-comment-user" id="exampleModalLabel"><strong>Card User</strong> (4 hours ago)</p>
+
+              <div id="DivisionComment" class="card-comments" name="" novalidate="">Ganyan Noon</div>
+              <textarea id="InputComment" class="textarea card-comments display-none">Ganyan Noon</textarea>
+
+              <button id="EditComment" class="float-left additional-option-comment link-style btn btn-warning" data-value="id_number">Edit</button>
+              <button data-toggle="modal" data-target="#DeleteCommentModal" id="DeleteComment" name="" class="float-left additional-option-comment link-style btn btn-danger" data-dismiss="modal">Delete</button>
+              <button name="" id="card-save-button" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
+              <button name="" id="card-cancel-button" class="btn btn-secondary card-button-add-description mr-2 mt-1 float-right display-none">Cancel</button>
+            </div>
+
+            <!-- Too Loop? -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Design for page elements -->
+
+<input id="hidden-card-add-values" type="hidden" value="{% url 'boards:add_card' id=board.id %}" data-url="{% url 'boards:add_card' id=board.id %}"></input>
+<input id="hidden-column-archive-values" type="hidden" value="{% url 'boards:archive_column' id=board.id %}" data-url="{% url 'boards:archive_column' id=board.id %}"></input>
+<input id="hidden-column-update-values" type="hidden" value="{% url 'boards:update_column' id=board.id %}" data-url="{% url 'boards:update_column' id=board.id %}"></input>
+<input id="hidden-column-get-board" type="hidden" value="{% url 'boards:get_board' id=board.id %}" data-url="{% url 'boards:get_board' id=board.id %}"></input>
+<input id="hidden-column-update-description" type="hidden" value="{% url 'boards:update_card_description' id=board.id %}" data-url="{% url 'boards:update_card_description' id=board.id %}"></input>
+<input id="hidden-comment-add" type="hidden" value="{% url 'boards:add_comment_card' id=board.id %}" data-url="{% url 'boards:add_comment_card' id=board.id %}"></input>
+<input id="hidden-get-card-action" type="hidden" value="{% url 'boards:get_card_detail' id=board.id %}" data-url="{% url 'boards:get_card_detail' id=board.id %}"></input>
+<input id="hidden-get-assigned-members" type="hidden" data-url="{% url 'boards:get_members' id=board.id %}"></input>
+<input id="hidden-get-due-date" type="hidden" data-url="{% url 'boards:due_date' id=board.id %}"></input>
+<input id="hidden-transfer-cards" type="hidden" data-url="{% url 'boards:transfer_cards' id=board.id %}"></input>
+<input id="hidden-activity" type="hidden" data-url="{% url 'boards:get_board_stream' id=board.id %}"></input>
+{% endblock %}

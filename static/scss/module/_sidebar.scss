@@ -1,4 +1,4 @@
-.sidebar {
+.commonSidebar {
   height: calc(100vh - 50px);
   width: 300px;
   position: fixed;
@@ -19,7 +19,7 @@
     background-color: #222d32;
     color: #fff;
 
-    .nav {
+    .commonNav {
       height: calc(100% - 50px);
       overflow-y: scroll;
       width: 100%;
@@ -75,7 +75,7 @@ body.sidebar-open-pc {
   --------------------------------------------------------------- */
 @media screen and (max-width: 960px) {
 
-  .sidebar {
+  .commonSidebar {
     display: none;
 
     &.is-pcopen {

@@ -23,4 +23,6 @@ urlpatterns = [
     path('', include('register.urls')),
     path('', include('apps.app.urls')),
     path('', include('apps.calendar.urls')),
+    path('', include('apps.activity.urls')),
+    path('', include('apps.boards.urls')),
 ]

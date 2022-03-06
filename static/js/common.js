@@ -50,16 +50,23 @@
  }
 
 const body = document.querySelector( 'body' );
-
 document.querySelector( '[data-toggle="sidebar-pc"]' ).addEventListener( 'click', function () {
     body.classList.toggle( 'sidebar-open-pc' );
-    document.querySelector( '.sidebar' ).classList.toggle( 'is-pcopen' );
+    document.querySelector( '.commonSidebar' ).classList.toggle( 'is-pcopen' );
+} );
+
+document.querySelector( '#activitySidebarBtn' ).addEventListener( 'click', function () {
+    body.classList.add( 'activitySidebarShow' );
+} );
+
+document.querySelector( '#activitySidebarClose' ).addEventListener( 'click', function () {
+    body.classList.remove( 'activitySidebarShow' );
 } );
 
 //  メニューボタン
 document.querySelector( '[data-toggle="sidebar-sp"]' ).addEventListener( 'click', function () {
     document.querySelector( '[data-toggle="sidebar-sp"]' ).classList.toggle( 'active' );
-    document.querySelector( '.sidebar' ).classList.toggle( 'is-open' );
+    document.querySelector( '.commonSidebar' ).classList.toggle( 'is-open' );
 } );
 
 let jsBtn = document.getElementsByClassName( "jsBtn" );

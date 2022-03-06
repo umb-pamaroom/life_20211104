@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Memo, RoutineModel, TimelineModel, TaskProjectModel, TaskSectionModel,Task
-
+from .models import *
 # タスクのフォーム
 
 
@@ -92,6 +91,15 @@ class TimelineUpdateForm(ModelForm):
         super().__init__(*args, **kwargs)
         # 「:」を削除
         self.label_suffix = ""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+プロジェクトのForm
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+"""""""""""""""""""""""""""""""""""""""""""""
 
 
 class TaskProject_CreateForm(ModelForm):

@@ -1,0 +1,71 @@
+<!-- プロジェクト一覧 -->
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}プロジェクト一覧{% endblock title %}
+{% block extracss %}
+{% include 'boards/extracss.html' %}
+{% endblock extracss %}
+{% block content %}
+<div class="heading modalContainer">
+	<div class="fb heading-wrap">
+		<div class="heading-title">
+			<h1>プロジェクト一覧</h1>
+		</div>
+		<div class="icons-menu-wrap">
+			<div class="icon-item-wrap icon-menu-modal">
+				<a class="modal-open icon-menu-item fb" data-modal-open="menu1">
+					<i class="fas fa-ellipsis-h"></i>
+				</a>
+				<div class="modal icon-menu-modal-wrap" data-modal="menu1">
+					<div class="modal-cover btn-close"></div>
+					<div class="modal-inner">
+						<div class="modal-content">
+							<ul class="modal-ul">
+								<li>
+									<ul class="mt0">
+										<li class="menu-li">
+											<a class="menu-list" href="}">プロジェクトを追加</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="basewrapper modalContainer">
+	<div class="section-div">
+		<div class="inner">
+			<div class="h2-title-wrap">
+				<h2 class="h2-title">プロジェクト</h2>
+			</div>
+			<div class="fb fbl card-wrapper project-list col3">
+				{% for board in boards %}
+				<div class="">
+					<a href="{% url 'boards:board' board.id %}" class="card-link">
+						<div class="fb card-inner">
+							<div class="top">
+								<div class="fb title-fb fbl">
+									<span class="text-icon fb">{{ board.board.name|first }}</span>
+									<p class="title">{{ board.board.name }}</p>
+								</div>
+								{% comment %}文字を切り詰める{% endcomment %}
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<!-- 右下の追加ボタン -->
+
+</div>
+
+
+
+{% endblock %}
