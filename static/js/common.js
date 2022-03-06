@@ -55,13 +55,7 @@ document.querySelector( '[data-toggle="sidebar-pc"]' ).addEventListener( 'click'
     document.querySelector( '.commonSidebar' ).classList.toggle( 'is-pcopen' );
 } );
 
-document.querySelector( '#activitySidebarBtn' ).addEventListener( 'click', function () {
-    body.classList.add( 'activitySidebarShow' );
-} );
 
-document.querySelector( '#activitySidebarClose' ).addEventListener( 'click', function () {
-    body.classList.remove( 'activitySidebarShow' );
-} );
 
 //  メニューボタン
 document.querySelector( '[data-toggle="sidebar-sp"]' ).addEventListener( 'click', function () {
