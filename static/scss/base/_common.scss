@@ -12,7 +12,13 @@ span[class^="material-icons"] {
   font-size: 20px;
 }
 
-
+.board-wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-right: 0;
+  position: relative;
+}
 // ボード
 .list-box{
   border-radius: 3px;
@@ -29,6 +35,13 @@ label{
   }
 }
 
+// ドラッグしている時のデザイン
+.ui-helper {
+  opacity: 0.90;
+  display: block;
+  width: 230px;
+}
+
 .board-main-content{
   display: flex;
   flex-direction: column;
@@ -37,9 +50,13 @@ label{
     display: flex;
     width: 100%;
     align-items: flex-start;
-    overflow-x: auto;
     height: calc(100vh - 182px);
     white-space: nowrap;
+    overflow-x:scroll;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
     .board_column_header{
       color: var(--text-reverse);
       font-weight: bold;

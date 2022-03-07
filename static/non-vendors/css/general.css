@@ -9,9 +9,7 @@
 
 
 
-.ui-helper {
-    opacity: 0.90;
-}
+
 .remove_list{
     list-style-type: none;
     padding: 0px;
@@ -430,7 +428,6 @@ hr.border{
 
 .outer-wrap {
     width:100%;
-    overflow: auto;
 }
 .inner-wrap {
 }

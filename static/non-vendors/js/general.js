@@ -1,16 +1,6 @@
 
 
 $(document).ready(function() {
-
-
-
-         $(document).on("click", '#btn-board-stream', function(){
-            $('.sidebar').addClass('open');
-         })
-         
-         $(document).on("click", '.close-sidebar', function(){
-            $('.sidebar').removeClass('open');
-         } )
     
         // Drag and drop mechanics
         function init_drag_and_drop_mechanics(){
@@ -964,6 +954,5 @@ $(document).ready(function() {
             init_drag_and_drop_mechanics();
             reload_board_stream(data);
         }
-
         
 });
