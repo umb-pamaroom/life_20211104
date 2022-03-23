@@ -268,7 +268,7 @@
 
 
 <!-- メンバー招待 -->
-<div class="modal" data-modal="member">
+<div class="modal{% if member_form.email.errors %} is-open{% endif %}" data-modal="member">
   <div class="modal-cover btn-close"></div>
   <div class="modal-inner">
     <div class="modal-content">
@@ -284,9 +284,11 @@
         <div class="modal-body">
           <label for="" class="label-margin">メールアドレス</label>
           {{ member_form.email }}
+
+          <!-- もし、メールアドレスに不備がある場合 -->
           {% if member_form.email.errors %}
           {% for error in member_form.email.errors %}
-          <div class="alert alert-danger error-box-member-invite">
+          <div class="error-box-member-invite">
             <strong>{{ error }}</strong>
           </div>
           {% endfor %}
