@@ -7,6 +7,7 @@
         <div class="heading-title">
             <h1>{{ month_current | date:"Y年m月" }}</h1>
         </div>
+        <p>月損益：<span id="Sum"></span>円</p>
         <div class="icons-menu-wrap">
             <div class="icon-item-wrap icon-menu-modal">
                 <a class="modal-open icon-menu-item fb" data-modal-open="menu1">
@@ -107,31 +108,31 @@
 
                     <div class="date-wrap">
                         <div class="date-in">
-                        <p class="date">
-                            <span class="dib">
-                                <!-- もし、表示の月と今日の月が合わない場合は -->
-                                {% if month_current.month != day.month %}
-                                {{ day | date:"m/d" }}
-                                {% else %}
-                                {{ day.day }}
+                            <p class="date">
+                                <span class="dib">
+                                    <!-- もし、表示の月と今日の月が合わない場合は -->
+                                    {% if month_current.month != day.month %}
+                                    {{ day | date:"m/d" }}
+                                    {% else %}
+                                    {{ day.day }}
+                                    {% endif %}
+                                </span>
+                            </p>
+                            <div class="date-task">
+
+                                <!-- その日付のタスクを全て表示 -->
+                                {% for task in tasks %}
+                                {% if task.date == day %}
+                                <div class="task modal-open {% if task.complete %}ok{% endif %}" data-modal-open="">
+                                    <p>{{ task }}</p>
+                                </div>
                                 {% endif %}
-                            </span>
-                        </p>
-                        <div class="date-task">
-
-                        <!-- その日付のタスクを全て表示 -->
-                            {% for task in tasks %}
-                            {% if task.date == day %}
-                            <div class="task modal-open {% if task.complete %}ok{% endif %}" data-modal-open="">
-                                <p>{{ task }}</p>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                        <!-- //その日付のタスクを全て表示 -->
+                                {% endfor %}
+                                <!-- //その日付のタスクを全て表示 -->
 
 
-                        <!-- その日付のタスクのフォームを全て表示 -->
-                            {% for form in forms|slice:"1:" %}
+                                <!-- その日付のタスクのフォームを全て表示 -->
+                                {% for form in forms|slice:"1:" %}
                                 <div class="modal task-modal" data-modal="">
                                     <div class="modal-cover btn-close"></div>
                                     <div class="modal-inner">
@@ -145,23 +146,23 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        <!-- //その日付のタスクのフォームを全て表示 -->
-                            
+                                {% endfor %}
+                                <!-- //その日付のタスクのフォームを全て表示 -->
+
+                            </div>
                         </div>
-                        </div>
-<div class="modal-open dateDiv" data-modal-open="modal-date-{{day.year}}-{{day.month}}-{{day.day}}"></div>
+                        <div class="modal-open dateDiv" data-modal-open="modal-date-{{day.year}}-{{day.month}}-{{day.day}}"></div>
                     </div>
                     <div class="modal" data-modal="modal-date-{{day.year}}-{{day.month}}-{{day.day}}">
                         <div class="modal-cover btn-close"></div>
                         <div class="modal-inner">
                             <div class="modal-content">
                                 <div class="modal-form">
-                                {% for form in forms|slice:":1" %}
+                                    {% for form in forms|slice:":1" %}
                                     {{ form.title }}
                                     {{ form.date.label_tag }}
                                     {{ form.date }}
-                                {% endfor %}
+                                    {% endfor %}
                                 </div>
                                 <div class="tc">
                                     <button class="btn btn-flat" type="submit">作成</button>
@@ -182,15 +183,40 @@
 
 {% block extrascripts %}
 <script type="text/javascript">
-     const task = document.querySelectorAll( '.task' );
-     const taskModal = document.querySelectorAll( '.task-modal' );
+    const task = document.querySelectorAll( '.task' );
+    const taskModal = document.querySelectorAll( '.task-modal' );
     // .taskの「data-modal-open」の値に「modal-task-update-数字」をつけていく
     for ( let i = 0; i < task.length; i++ ) {
-     // modalをあげる
-     task[i].setAttribute("data-modal-open","modal-task-update-" + i);
-     taskModal[i].setAttribute("data-modal","modal-task-update-" + i);
- }
+        // modalをあげる
+        task[ i ].setAttribute( "data-modal-open", "modal-task-update-" + i );
+        taskModal[ i ].setAttribute( "data-modal", "modal-task-update-" + i );
+    }
     // .task-modalにも「modal-task-update-数字」をつけていく
+
+    // カレンダーの予定を全て表示
+    let p = document.querySelectorAll( '.task p' );
+    let plusSum =0;
+    let minusSum =0;
+    let Sum = 0;
+    const SumP = document.getElementById("Sum");
+
+    // +から始まる文字列を抽出して、+をとり数字だけで合計を出す
+    for ( let i = 0; i < p.length; i++ ) {
+        if ( p[ i ].innerText.indexOf( '+' ) == 0 ) {
+            plusSum += parseInt(p[i].innerText);
+        }
+    }
+
+    // -から始まる文字列を抽出して、-をとり数字だけで合計を出す
+    for ( let i = 0; i < p.length; i++ ) {
+        if ( p[ i ].innerText.indexOf( '-' ) == 0 ) {
+            minusSum += parseInt(p[i].innerText);
+        }
+    }
+
+    // +の合計から、-の合計を引く
+    Sum = plusSum + minusSum ;
+    SumP.innerText = Sum.toLocaleString();
 
 
 </script>
