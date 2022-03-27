@@ -92,22 +92,27 @@ class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.TemplateView):
     date_field = 'date'
     form_class = SimpleScheduleForm
 
+    # データを取得するメソッド
     def get(self, request, **kwargs):
         context = self.get_month_calendar()
         # 他のモデルをテンプレートで使いたい時はここに書く
         context['tasks'] = Task.objects.all().filter(user=self.request.user)
         return render(request, self.template_name, context)
 
+    # データがpostで送られてきた時
     def post(self, request, **kwargs):
         context = self.get_month_calendar()
         formset = context['month_formset']
-
         if formset.is_valid():
+            
             instances = formset.save(commit=False)
             for schedule in instances:
+                # モデルはTask
                 schedule.user = request.user
                 schedule.save()
-            return redirect('calendar:month_with_forms')
+
+                # 更新した西暦の日付に戻す
+                return redirect('calendar:month_with_forms', year=schedule.date.year, month=schedule.date.month)
 
         return render(request, self.template_name, context)
 
