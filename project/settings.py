@@ -155,9 +155,9 @@ LOGIN_URL = 'register:login'
 LOGIN_REDIRECT_URL = 'app:mydiary'
 
 # メールをコンソールに表示する
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
