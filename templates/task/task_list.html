@@ -4,7 +4,7 @@
 <div class="heading">
     <div class="fb heading-wrap">
         <div class="heading-title">
-            <h1>タスク一覧</h1>
+            <h1>近日予定</h1>
         </div>
     </div>
 </div>
@@ -40,9 +40,12 @@
         <div class="task-title">
             {% if task.complete %}
             <div class="task-complete-icon"></div>
-            <i><s><a href="{% url 'app:task-update' task.id %}">{{task}}</a></s></i> {% else %}
+            <i><s><a href="{% url 'app:task-update' task.id %}">{{task}}</a></s></i>
+            {% else %}
             <div class="task-incomplete-icon"></div>
-            <a href="{% url 'app:task-update' task.id %}">{{task}}</a> {% endif %}
+            <a href="{% url 'app:task-update' task.id %}">{{task}}</a>
+            {% endif %}
+            <p class="date">{{task.due_date}}</p>
         </div>
         <div class="task-controls">
             <a class="delete-link" href="{% url 'app:task-delete' task.id %}">&#215;</a>

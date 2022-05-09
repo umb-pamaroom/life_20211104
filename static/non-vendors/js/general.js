@@ -245,33 +245,52 @@ $(document).ready(function() {
         });
 
         
-        $(document).on("click", "#card-button-cancel-title", function(){
-          $("#heading-card-title").removeClass('display-none');
-          $("#input-card-title").addClass('display-none');
-          $("#card-button-update-title").addClass('display-none');
-          $("#card-button-cancel-title").addClass('display-none');
-        });
+        // $(document).on("click", "#card-button-cancel-title", function(){
+        //   $("#heading-card-title").removeClass('display-none');
+        //   $("#input-card-title").addClass('display-none');
+        //   $("#card-button-update-title").addClass('display-none');
+        //   $("#card-button-cancel-title").addClass('display-none');
+        // });
 
-        $(document).on("click", "#card-button-update-title", function(){
-            $("#heading-card-title").removeClass('display-none');
-            $("#input-card-title").addClass('display-none');
-            $("#card-button-update-title").addClass('display-none');
-            $("#card-button-cancel-title").addClass('display-none');
+        // $(document).on("click", "#card-button-update-title", function(){
+        //     $("#heading-card-title").removeClass('display-none');
+        //     $("#input-card-title").addClass('display-none');
+        //     $("#card-button-update-title").addClass('display-none');
+        //     $("#card-button-cancel-title").addClass('display-none');
 
-            url=$('#heading-card-title').attr('action');
-            id =$('#heading-card-title').data('card_id');
-            var title=$('#input-card-title').val();
-            if (title){
+        //     // 保存している
+        //     url=$('#heading-card-title').attr('action');
+        //     id =$('#heading-card-title').data('card_id');
+        //     var title=$('#input-card-title').val();
+        //     if (title){
+        //         data = {
+        //             title : title,
+        //             card_id : id
+        //         }
+
+        //         $.post(url,data,reload_card_title,'json'), function(err){
+        //             console.log("error");
+        //         };
+        //     }
+        // } );
+    
+        // 入力があった時
+        $( document ).on( "input", "#input-card-title", function () {
+            url = $( '#heading-card-title' ).attr( 'action' );
+            id = $( '#heading-card-title' ).data( 'card_id' );
+            var title = $( '#input-card-title' ).val();
+            if ( title ) {
                 data = {
-                    title : title,
-                    card_id : id
+                    title: title,
+                    card_id: id
                 }
 
-                $.post(url,data,reload_card_title,'json'), function(err){
-                    console.log("error");
-                };
+                $.post( url, data, reload_card_title, 'json' ),
+                    function ( err ) {
+                        console.log( "error" );
+                    };
             }
-        });
+        } );
 
         $(document).on("blur", "#input-card-title", function(){
           $("#input-card-title").addClass('display-none');
@@ -675,7 +694,7 @@ $(document).ready(function() {
                  +'      <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">'
                  +'           <hr class="hr">'
                 +'       </div>'
-                 +'      <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
+                 +'      <div class="left-portion-of-header ">'
                  +'            <h5 class="modal-card-add-comment" id="exampleModalLabel">Comments</h5>'
                  +'     </div>';
             }
@@ -688,7 +707,7 @@ $(document).ready(function() {
                      +'       <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">'
                      +'            <hr class="hr">'
                      +'       </div>'
-                     +'         <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
+                     +'         <div class="left-portion-of-header ">'
 
                      +'             <p class="card-comment-user" id="exampleModalLabel"><strong>'+comments[index].fields.user+'</strong> ('+date_commented+')</p>'
                      +'             '
@@ -726,7 +745,6 @@ $(document).ready(function() {
             if(data.comments){
                 comments=JSON.parse(data.comments);
             }
-           
             card_id = cards[0].pk;
             card_name = cards[0].fields.name;
             card_description = cards[0].fields.description;
@@ -737,61 +755,51 @@ $(document).ready(function() {
             html += ' <div class="modal fade bd-example-modal-lg" id="CardModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">'
                   +'<div class="modal-dialog modal-lg">'
                    +'    <div class="modal-content">'
-                   +'       <div class="modal-header">'
-                    +'      <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
-                   +'         <h3 id="heading-card-title" data-card_id="'+card_id+'" action="'+popped_card_title_link+'" class="modal-title card-class-title"><strong><div class="reload-title">'+card_name+'</div></strong></h3>'
-                  +'          <input id="input-card-title" class="form-control card-class-title display-none" value="'+card_name+'"> '
+                + '       <div class="modal-body">'
+                +'      <div class="">' +
+                '         <h3 id="heading-card-title" data-card_id="' + card_id + '" action="' + popped_card_title_link + '" class="modal-title card-class-title"><strong><div class="reload-title">' + card_name + '</div></strong></h3>' +
+                    '          <input id="input-card-title" class="form-control card-class-title display-none noneInput" value="' + card_name + '"> '
 
-                   +'         <button name="" id="card-button-update-title"class="btn btn-secondary card-button-add-description mt-3 ml-1 display-none float-right">Update</button>'
-                   +'        <button name="" id="card-button-cancel-title"class="btn btn-secondary card-button-add-description mt-3 ml-1 display-none float-right">Cancel</button>'
-                   + '       </div>'
-                   +'      <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">'
-                   +'         <button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-                   +'           <span aria-hidden="true">&times;</span>'
-                   +'         </button>'
-                   +'       </div>'
-                   +'     </div>'
-                   +'       <div class="modal-body">'
-                   +'          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
-                   +'               <h5 class="modal-label-desc" id="exampleModalLabel">Card Description</h5>'
+                    +
+                    '      <div class="">' +
+                    '         <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+                    '           <span aria-hidden="true">&times;</span>' +
+                    '         </button>' +
+                    '       </div>' +
+                    '     </div>'
+                   +'          <div class="">'
+                   +'               <h5 class="modal-label-desc" id="exampleModalLabel">説明文</h5>'
 
                    +'        </div>'
-                    +'        <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">'
-                    +'              <h5 class="modal-label-manage" id="exampleModalLabel">Manage</h5>'
-                    +'       </div>'
-                    +'         <div class="left-portion-of-modal col-lg-9 col-md-9 col-sm-9">'
+                    +'         <div class="">'
 
-                    +'            <textarea readonly id="text-id-description" class="textarea class-description" placeholder="Card Description">'+card_description+'</textarea>'
+                    +'            <textarea id="text-id-description" class="textarea class-description" placeholder="説明文を追加してください...">'+card_description+'</textarea>'
 
-                     +'           <button name="" id="card-button-add-description"class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>'
-                    +'            <button name="" id="card-button-cancel-description"class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Cancel</button>'
+                     +'           <button name="" id="card-button-add-description"class="btn btn-secondary card-button-add-description mt-1 display-none">保存</button>'
+                    +'            <button name="" id="card-button-cancel-description"class="btn btn-secondary card-button-add-description mt-1 display-none">キャンセル</button>'
                     +'          </div>'
 
-                     +'         <div class="right-portion-of-modal col-lg-3 col-md-3 col-sm-3">'
-                     +'             <button data-toggle="modal" data-target="#CardMemberModal" id="pop-assign-members" class="btn btn-secondary card-button-invite mt-1" data-dismiss="modal">Members</button>'
-                     +'             <button data-toggle="modal" data-target="#DueDateModal" id="pop-due-date" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Due Date</button>'
-                     +'             <button  data-toggle="modal" data-target="#ArchiveCardConfirmation"  name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Archive</button>'
+                     +'         <div class="">'
+                     +'             <button data-toggle="modal" data-target="#CardMemberModal" id="pop-assign-members" class="btn btn-secondary card-button-invite mt-1" data-dismiss="modal">アサイン</button>'
+                     +'             <button data-toggle="modal" data-target="#DueDateModal" id="pop-due-date" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">日付</button>'
+                     +'             <button  data-toggle="modal" data-target="#ArchiveCardConfirmation"  name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">アーカイブ</button>'
 
                      +'         </div>'
-                      +'        <!-- Bottom Part -->'
-                     +'         <div id="hr-after-description"class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">'
-                     +'           <hr class="hr">'
-                     +'       </div>'
-                     +'       <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
+                     +'       <div class="">'
                      +'             <h5 class="modal-card-add-comment" id="exampleModalLabel">コメントを追加する</h5>'
-                     +'             <textarea id="text-comment-area" class="textarea" placeholder="Write a comment"></textarea>'
-                      +'            <button id="card-button-add-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Save</button>'
-                     +'              <button id="card-button-cancel-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Cancel</button>'
+                     +'             <textarea id="text-comment-area" class="textarea" placeholder="コメントを入力してください"></textarea>'
+                      +'            <button id="card-button-add-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 display-none">保存</button>'
+                     +'              <button id="card-button-cancel-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 display-none">キャンセル</button>'
 
                      +'      </div>'
                      +'<div class="comment-reactor"> ';
                      if(comments){
                             html += '     <!-- Comments -->'
-                         +'      <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">'
+                         +'      <div class="col-lg-12 col-md-12 col-sm-12">'
                          +'           <hr class="hr">'
                          +'       </div>'
-                          +'      <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
-                          +'            <h5 class="modal-card-add-comment" id="exampleModalLabel">Comments</h5>'
+                          +'      <div class="">'
+                          +'            <h5 class="modal-card-add-comment" id="exampleModalLabel">コメント</h5>'
                           +'     </div>';
                      }
                     
@@ -800,10 +808,10 @@ $(document).ready(function() {
                             date_commented = new Date(comments[index].fields.date_commented);
                             date_commented = formatDate(date_commented);
                             html +='      <!-- To Loop -->'
-                            +'       <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">'
+                            +'       <div class="col-lg-12 col-md-12 col-sm-12">'
                             +'            <hr class="hr">'
                              +'       </div>'
-                             +'         <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">'
+                             +'         <div class="">'
 
                              +'             <p class="card-comment-user" id="exampleModalLabel"><strong>'+comments[index].fields.user+'</strong> ('+date_commented+')</p>'
                              +'             '
@@ -829,7 +837,7 @@ $(document).ready(function() {
                             +'  </div>';
              $(".class-details-reactor").html(html);
              $("#CardModal").modal('show');
-             reload_board_stream(data);
+            reload_board_stream( data );
         }
 
         // Reloading the board
@@ -860,7 +868,7 @@ $(document).ready(function() {
                        +'<form id="archive-form" action="'+archived_popped_url+'"'
                        +' data-url="'+archived_popped_url+'" data-value="'+column_id+'" novalidate="">'
                         +'<a id="archived-settings"  class="list-settings">'
-                        +'<button class="link-style list-settings" type="submit">[X]</button></a>'
+                        +'<button class="link-style list-settings" type="submit">×</button></a>'
                         +'</form>'
                          + ' </div> '
                          + '   <form  id="existing-form-'+column_id+'" ' 

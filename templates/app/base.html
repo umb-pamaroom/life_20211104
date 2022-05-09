@@ -167,9 +167,8 @@
                                 </span><span>プロジェクト管理</span></a>
 
                             <ul class="panel">
-                                <li><a href="{% url 'app:TaskProject_List' %}"><span>プロジェクト一覧</span></a></li>
-                                <li><a href="{% url 'app:TaskProject_Create' %}"><span>プロジェクト作成</span></a></li>
-                                <li><a href="{% url 'app:tasks' %}"><span>タスク一覧</span></a></li>
+                                <li><a href="{% url 'boards:home' user.name %}"><span>プロジェクト一覧</span></a></li>
+                                <li><a href="{% url 'app:tasks' %}"><span>近日予定</span></a></li>
                                 <li><a href="{% url 'app:task-create' %}"><span>タスク作成</span></a></li>
                             </ul>
                         </li>

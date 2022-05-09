@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import TemplateView, View
 from .models import Board, BoardMember, Referral, Column, Card, CardComment, CardMember
 from apps.activity.models import Activity
@@ -22,6 +22,12 @@ from django.db.models import Q
 from apps.activity.constants import ACTIVITY_ACTION
 from register.models import *
 
+
+# 削除
+def delete__project(request, project_id):
+    project = get_object_or_404(Board, id=project_id)
+    project.delete()
+    return redirect('boards:home' , request.user.name)
 
 # プロジェクト一覧
 class IndexView(LoginRequiredMixin,TemplateView):
@@ -484,7 +490,7 @@ class GetBoardStream(LoginRequiredMixin, BoardPermissionMixIn, TemplateView):
         context = {'activities': activity}
         return render(self.request, self.template_name, context)
 
-
+# ドラッグアンドドロップでカードを移動したとき
 class TransferCard(LoginRequiredMixin, BoardPermissionMixIn, AJAXBoardMixIn, View):
     """
         This catches the drag and drop of a user

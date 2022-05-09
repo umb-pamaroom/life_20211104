@@ -12,6 +12,14 @@ span[class^="material-icons"] {
   font-size: 20px;
 }
 
+
+// ボード
+.class-details-reactor{
+  .modal-dialog{
+    background: var(--bg-main);
+  }
+}
+
 .board-wrapper{
   display: flex;
   flex-direction: column;
@@ -339,6 +347,32 @@ a {
   }
 }
 
+.board_column_header{
+  margin-bottom:10px;
+  label{
+    margin-bottom: 0;
+  }
+}
+
+.task-title{
+  .date{
+    color: var(--btn-success);
+  }
+}
+
+.list-settings{
+    z-index: 10;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 26px;
+}
+
+.modal-content{
+  background: var(--bg-main);
+}
 
 textarea,
 input {
@@ -471,10 +505,20 @@ input {
 
   }
 
+  .card-class-title{
+    & + .add-button{
+      display: flex;
+    }
+    // &.display-none + .add-button{
+    //   display: none;
+    // }
+  }
+
   .modal-content {
     position: relative;
     width: 100%;
     text-align: left;
+    pointer-events: auto;
   }
 
   .modal-content-ttl {

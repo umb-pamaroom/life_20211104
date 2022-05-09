@@ -41,6 +41,7 @@
 <!-- ボードの外枠 -->
 <div class="board-wrapper">
 
+  <!-- 共通ヘッダー -->
   <div class="booard-header">
     <div class="heading modalContainer">
       <div class="fb heading-wrap">
@@ -104,6 +105,7 @@
       </div>
     </div>
   </div>
+  <!-- //共通ヘッダー -->
 
   <!--  ボードの内容 -->
   <div class="outer-wrap board-main-content">
@@ -115,7 +117,7 @@
         <div id="existing-label-{{column.id}}" class="existing-reactor board_column_header fb" data-value="{{ column.id }}">
           <label data-value="{{ column.id }}" class="existing-label form-control title-column-class board_column_title" placeholder="リストを追加">{{ column.name }}</label>
           <form id="archive-form" action="{% url 'boards:archive_column' id=board.id %}" data-url="{% url 'boards:archive_column' id=board.id %}" data-value="{{column.id}}" novalidate="">
-            <a id="archived-settings" class="list-settings"><button class="link-style list-settings" type="submit">[X]</button></a>
+            <a id="archived-settings" class="list-settings"><button class="link-style list-settings" type="submit">×</button></a>
           </form>
         </div>
         <!-- //カラムヘッダー -->
@@ -254,7 +256,7 @@
       <form name="ArchiveColumnModal" method="post" novalidate="">
         {% csrf_token %}
         <div class="modal-body">
-          Are you sure you want to archive this column?
+          このカラムを削除してもよろしいでしょうか？
         </div>
         <div class="modal-footer">
           <button id="archived-column-yes" name="ArchiveColumnModal" type="submit" class="btn btn-primary">Yes</button>
@@ -526,12 +528,12 @@
         {% csrf_token %}
 
         <div class="modal-body">
-          <label for="" class="label-margin">Due Date</label>
+          <label for="" class="label-margin">日付</label>
           <input id="input-due-date" type="datetime-local">
         </div>
 
         <div class="modal-footer">
-          <button id="set-due-date" type="submit" class="btn btn-primary">Set Date</button>
+          <button id="set-due-date" type="submit" class="btn btn-primary">保存</button>
         </div>
       </form>
     </div>
@@ -589,19 +591,26 @@
 </div>
 
 <!-- card modal-->
+
 <!-- Large modal -->
 <div class="class-details-reactor">
   <div class="modal fade bd-example-modal-lg" id="CardModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+
+    <!-- モーダルの中身 -->
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+          <div class="col-lg-9 col-md-9 col-sm-9">
+
             <h3 id="heading-card-title" action="{% url 'boards:update_card_title' id=board.id %}" data-value="card_id" class="modal-title card-class-title"><strong>
                 <div class="reload-title">Card Title</div>
-              </strong></h3>
+              </strong>
+            </h3>
+
             <input id="input-card-title" class="form-control card-class-title display-none" value="Card Title">
-            <button name="" id="card-button-update-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
-            <button name="" id="card-button-cancel-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Cancel</button>
+            <button name="" id="card-button-update-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">保存</button>
+            <button name="" id="card-button-cancel-title" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">キャンセル</button>
           </div>
           <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -609,52 +618,55 @@
             </button>
           </div>
         </div>
+
+
+
         <div class="modal-body">
-          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
-            <h5 class="modal-label-desc" id="exampleModalLabel">Card Description</h5>
+          <div class="">
+            <h5 class="modal-label-desc" id="exampleModalLabel">説明</h5>
 
           </div>
-          <div class="right-portion-of-header col-lg-3 col-md-3 col-sm-3">
-            <h5 class="modal-label-manage" id="exampleModalLabel">Manage</h5>
+          <div class="">
+            <h5 class="modal-label-manage" id="exampleModalLabel">管理</h5>
           </div>
-          <div class="left-portion-of-modal col-lg-9 col-md-9 col-sm-9">
+          <div class=" col-lg-9 col-md-9 col-sm-9">
 
-            <textarea readonly id="text-id-description" class="textarea class-description" placeholder="Card Description"></textarea>
+            <textarea readonly id="text-id-description" class="textarea class-description" placeholder="説明"></textarea>
 
-            <button name="" id="card-button-add-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
-            <button name="" id="card-button-cancel-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Cancel</button>
+            <button name="" id="card-button-add-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">保存</button>
+            <button name="" id="card-button-cancel-description" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">キャンセル</button>
           </div>
 
-          <div class="right-portion-of-modal col-lg-3 col-md-3 col-sm-3">
+          <div class="col-lg-3 col-md-3 col-sm-3">
             <button data-toggle="modal" data-target="#CardMemberModal" name="MessageBoxModalAlert" class="btn btn-secondary card-button-invite mt-1" data-dismiss="modal">Members</button>
             <button data-toggle="modal" data-target="#DueDateModal" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Due Date</button>
             <button data-toggle="modal" data-target="#ArchiveCardConfirmation" name="MessageBoxModalAlert" class="btn btn-secondary card-button-due-date mt-1" data-dismiss="modal">Archive</button>
 
           </div>
           <!-- Bottom Part -->
-          <div id="hr-after-description" class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+          <div id="hr-after-description" class="col-lg-12 col-md-12 col-sm-12">
             <hr class="hr">
           </div>
-          <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+          <div class="col-lg-9 col-md-9 col-sm-9">
             <h5 class="modal-card-add-comment" id="exampleModalLabel">コメントを追加する</h5>
             <textarea id="text-comment-area" class="textarea" placeholder="Write a comment"></textarea>
-            <button id="card-button-add-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Save</button>
-            <button id="card-button-cancel-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 float-right display-none">Cancel</button>
+            <button id="card-button-add-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 display-none">Save</button>
+            <button id="card-button-cancel-comment" name="" class="btn btn-secondary card-button-add-comment mt-1 display-none">Cancel</button>
 
           </div>
           <div class="comment-reactor">
             <!-- Comments -->
-            <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
               <hr class="hr">
             </div>
-            <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+            <div class="col-lg-9 col-md-9 col-sm-9">
               <h5 class="modal-card-add-comment" id="exampleModalLabel">Comments</h5>
             </div>
             <!-- To Loop -->
-            <div class="left-portion-of-header col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
               <hr class="hr">
             </div>
-            <div class="left-portion-of-header col-lg-9 col-md-9 col-sm-9">
+            <div class="col-lg-9 col-md-9 col-sm-9">
 
               <p class="card-comment-user" id="exampleModalLabel"><strong>Card User</strong> (4 hours ago)</p>
 
@@ -663,8 +675,8 @@
 
               <button id="EditComment" class="float-left additional-option-comment link-style btn btn-warning" data-value="id_number">Edit</button>
               <button data-toggle="modal" data-target="#DeleteCommentModal" id="DeleteComment" name="" class="float-left additional-option-comment link-style btn btn-danger" data-dismiss="modal">Delete</button>
-              <button name="" id="card-save-button" class="btn btn-secondary card-button-add-description mt-1 float-right display-none">Save</button>
-              <button name="" id="card-cancel-button" class="btn btn-secondary card-button-add-description mr-2 mt-1 float-right display-none">Cancel</button>
+              <button name="" id="card-save-button" class="btn btn-secondary card-button-add-description mt-1 display-none">Save</button>
+              <button name="" id="card-cancel-button" class="btn btn-secondary card-button-add-description mr-2 mt-1 display-none">Cancel</button>
             </div>
 
             <!-- Too Loop? -->
@@ -672,6 +684,9 @@
         </div>
       </div>
     </div>
+
+
+
   </div>
 </div>
 <!-- Design for page elements -->

@@ -44,7 +44,7 @@
 			</div>
 			<div class="fb fbl card-wrapper project-list col3">
 				{% for board in boards %}
-				<div class="">
+				<div class="card">
 					<a href="{% url 'boards:board' board.id %}" class="card-link">
 						<div class="fb card-inner">
 							<div class="top">
@@ -54,8 +54,30 @@
 								</div>
 								{% comment %}文字を切り詰める{% endcomment %}
 							</div>
+							<div class="bottom fb">
+								<div class="fb">
+									<div class="iconBox fb">
+										<span class="material-icons modal-open" data-modal-open="modal-delete-project-{{board.id}}">
+											delete
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</a>
+					<div class="modal formModal" data-modal="modal-delete-project-{{board.id}}">
+						<div class="modal-cover btn-close"></div>
+						<div class="modal-inner">
+							<div class="modal-content">
+								<div class="modal-form">
+									<p>{{board.board.name}}を本当に削除しますか？</p>
+									<div class="tc">
+										<a class="btn btn-flat delete-btn" href="{% url 'boards:delete__project' board.board.id %}">削除する</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				{% endfor %}
 			</div>
@@ -63,6 +85,26 @@
 	</div>
 
 	<!-- 右下の追加ボタン -->
+	<div class="right-bottom-btn modal-open" data-modal-open="modal-create-project">
+		<button class="">＋</button>
+	</div>
+	<!-- //右下の追加ボタン -->
+
+	<div class="modal routineCreateModal" data-modal="modal-create-project">
+		<div class="modal-cover btn-close"></div>
+		<div class="modal-inner">
+			<div class="modal-content">
+				<div class="modal-form">
+					<form class="p-memo" action="" method="POST">{% csrf_token %}
+						{{  form.as_p }}
+						<div class="tc">
+							<button class="btn btn-flat" type="submit">作成する</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 

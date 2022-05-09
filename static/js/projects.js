@@ -5,3 +5,8 @@ document.querySelector( '#activitySidebarBtn' ).addEventListener( 'click', funct
 document.querySelector( '#activitySidebarClose' ).addEventListener( 'click', function () {
     body.classList.remove( 'activitySidebarShow' );
 } );
+
+
+// noneInputクラスがフォーカスされているとき、フォーカスされているnoneInputクラスに、showInputクラスを付与する
+
+    

@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 from .views import (IndexView, BoardView, UserValidationView,
  AddColumnView, UpdateColumnView, ArchiveColumnView, AddCardView, GetCardDetails,
  UpdateCardTitle, GetBoardDetails, UpdateCardDescription, AddCommentCard, DeleteComment,
@@ -29,4 +30,7 @@ urlpatterns = [
      path('archived/card/<int:id>', ArhiveCard.as_view(), name="archive_card"),
      path('transfer/card/<int:id>', TransferCard.as_view(), name="transfer_cards"),
      path('get/board_stream/<int:id>', GetBoardStream.as_view(), name="get_board_stream"),
+
+     # プロジェクトの削除機能
+     path('delete__project/<int:project_id>', views.delete__project, name='delete__project'),
 ]

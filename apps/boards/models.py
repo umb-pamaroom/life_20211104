@@ -77,7 +77,9 @@ class Card(models.Model):
     column = models.ForeignKey(Column, on_delete=models.CASCADE)
     position = models.IntegerField()
     due_date = models.DateTimeField(null=True)
+    date = models.DateField('日付', null=True)
     archived = models.BooleanField(default=False)
+    complete = models.BooleanField(default=False)
     activity = GenericRelation(Activity)
 
     def __str__(self):

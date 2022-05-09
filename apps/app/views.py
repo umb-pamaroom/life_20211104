@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from .models import Memo, RoutineModel, TimelineModel, Task, TaskProjectModel, TaskSectionModel
+from apps.boards.models import *
 #ListViewのインポート
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView, FormView
@@ -50,12 +51,12 @@ def uncheck_task(request):
 
 class TaskList(LoginRequiredMixin, ListView):
     template_name = 'task/task_list.html'
-    model = Task
+    model = Card
     context_object_name = 'tasks'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['tasks'] = Card.objects.all().filter(due_date__contains='0').order_by('due_date')
         context['count'] = context['tasks'].filter(complete=False).count()
 
         search_input = self.request.GET.get('search-area') or ''
@@ -70,13 +71,13 @@ class TaskList(LoginRequiredMixin, ListView):
 
 class TaskDetail(LoginRequiredMixin, DetailView):
     template_name = 'task/task.html'
-    model = Task
+    model = Card
     context_object_name = 'task'
 
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task/task_form.html'
-    model = Task
+    model = Card
     form_class = TaskCreateForm
 
     def form_valid(self, form):
@@ -89,7 +90,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'task/task_form.html'
-    model = Task
+    model = Card
     form_class = TaskUpdateForm
     
     def get_success_url(self):
@@ -99,7 +100,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
 
 class DeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'task/task_confirm_delete.html'
-    model = Task
+    model = Card
     context_object_name = 'task'
     success_url = reverse_lazy('app:tasks')
 
