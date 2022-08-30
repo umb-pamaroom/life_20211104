@@ -49,6 +49,16 @@
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <ul class="mt0">
+                      <li class="menu-li">
+                        <a target="_blank" class="menu-list" href="{% url 'app:pdf_view' timelines.pk %}">PDFで表示</a>
+                      </li>
+                      <li class="menu-li">
+                        <a target="_blank" class="menu-list" href="{% url 'app:pdf_download' timelines.pk %}">PDFでダウンロード</a>
+                      </li>
+                    </ul>
+                  </li>
                   <li class="menu-li">
                     <p><a class="menu-list" href="{% url 'app:TimelineDelete' timelines.pk %}">タイムラインを削除</a></p>
                   </li>

@@ -13,9 +13,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.db import transaction
 from django.views import View
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 import json
 
 
@@ -401,6 +404,8 @@ class TaskSection_ListView(LoginRequiredMixin, ListView):
 """""""""""""""""""""""""""""""""""""""""""""
 
 
+
+
 class TimelineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'timeline/create.html'
     model = TimelineModel
@@ -463,6 +468,121 @@ class TimelineItemsView(LoginRequiredMixin, DetailView, CreateView):
         # 作成した項目が所属するタイムラインのページへリンク
         return reverse_lazy('app:TimelineItems', kwargs={'pk': self.object.timeline.pk})
 
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("utf-8")), result,encoding='utf-8',)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
+class FooPDFView(DetailView):
+    model = TimelineModel
+    context_object_name = 'timelines'
+    template_name = 'timeline/pdf_template.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["timeline"] = self.kwargs['pk']
+        initial["title"] = ""
+        initial["description"] = ""
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # timeline_itemsコンテキストに「RoutineModel」の全てから検索して、モデルのtimeline項目がself.kwargs.pkに一致するもの
+        context['timeline_items'] = RoutineModel.objects.all().filter(
+            timeline=self.kwargs['pk']).order_by('start_time')
+        return context
+
+    def get_success_url(self):
+        # 作成した項目が所属するタイムラインのページへリンク
+        return reverse_lazy('app:TimelineItems', kwargs={'pk': self.object.timeline.pk})
+
+    def render_to_response(self, context):
+        html = get_template(self.template_name).render(self.get_context_data())
+        result = BytesIO()
+        pdf = pisa.pisaDocument(
+            BytesIO(html.encode('utf-8')),
+            result,
+            encoding='utf-8',
+        )
+
+        if not pdf.err:
+            return HttpResponse(
+                result.getvalue(),
+                content_type='application/pdf'
+            )
+
+        return HttpResponse(pdf, content_type='application/pdf')
+
+#Opens up page as PDF
+# class ViewPDF(View):
+# 	def get(self, request, *args, **kwargs):
+# 		data["address"]="tttt"
+
+# 		pdf = render_to_pdf('timeline/pdf_template.html', data)
+# 		return HttpResponse(pdf, content_type='application/pdf')
+
+
+#Automaticly downloads to PDF file
+# class DownloadPDF(View):
+# 	def get(self, request, *args, **kwargs):
+
+# 		data["address"] = "tttt"
+		
+# 		pdf = render_to_pdf('timeline/pdf_template.html', data)
+
+# 		response = HttpResponse(pdf, content_type='application/pdf')
+# 		filename = "Invoice_%s.pdf" %("1234122231")
+# 		content = "attachment; filename='%s'" %(filename)
+# 		response['Content-Disposition'] = content
+# 		return response
+
+
+class DownloadPDF(DetailView):
+    model = TimelineModel
+    context_object_name = 'timelines'
+    template_name = 'timeline/pdf_template.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["timeline"] = self.kwargs['pk']
+        initial["title"] = ""
+        initial["description"] = ""
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # timeline_itemsコンテキストに「RoutineModel」の全てから検索して、モデルのtimeline項目がself.kwargs.pkに一致するもの
+        context['timeline_items'] = RoutineModel.objects.all().filter(
+            timeline=self.kwargs['pk']).order_by('start_time')
+        return context
+
+    def render_to_response(self, context):
+        html = get_template(self.template_name).render(self.get_context_data())
+        result = BytesIO()
+        pdf = pisa.pisaDocument(
+            BytesIO(html.encode('utf-8')),
+            result,
+            encoding='utf-8',
+        )
+
+        if not pdf.err:
+            return HttpResponse(
+                result.getvalue(),
+                content_type='application/pdf'
+            )
+
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = "Invoice_%s.pdf" %("1234122231")
+        content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
+		
 
 class TimelineDeleteView(DeleteView):
     template_name = 'timeline/delete.html'

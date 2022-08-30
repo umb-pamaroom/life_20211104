@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="https://fonts.googleapis.com/earlyaccess/hannari.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Sawarabi+Mincho&family=Source+Serif+Pro:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+      html,
+      body {
+        font-family: HeiseiMin-W3;
+        ;
+      }
+
+      @page {
+        size: a4 portrait;
+        font-family: HeiseiMin-W3;
+        @frame header_frame {
+          /* Static Frame */
+          -pdf-frame-content: header_content;
+          left: 50pt;
+          width: 512pt;
+          top: 50pt;
+          height: 40pt;
+        }
+
+        @frame content_frame {
+          /* Content Frame */
+          left: 50pt;
+          width: 512pt;
+          top: 90pt;
+          height: 632pt;
+        }
+
+        @frame footer_frame {
+          /* Another static Frame */
+          -pdf-frame-content: footer_content;
+          left: 50pt;
+          width: 512pt;
+          top: 772pt;
+          height: 20pt;
+        }
+      }
+
+      .header-content {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content" style="font-weight:bold;font-size:30px;border-bottom:3px solid #000;">
+      <h3>{{timelines.title}}</h3>
+    </div>
+
+    <div style="padding-top: 30px;">
+      <div class="inner timeline">
+
+        {% for item in timeline_items %}
+        <div>
+          <!-- 真ん中のラインのアイコン -->
+          <div class="icon" style="font-weight:bold;font-size:20px;">
+            <p>{{ item.start_time }}{% if item.end_time %}〜{{ item.end_time }}{% endif %}：{{ item.title }}</p>
+          </div>
+          {% if item.description %}<div style="font-size:20px;">{{ item.description | linebreaks }}</div>{% endif %}
+        </div>
+        <!-- //アイコンと見出しのセット -->
+
+        {% empty %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </body>
+</html>

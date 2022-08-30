@@ -40,6 +40,9 @@ urlpatterns = [
     path('delete_timeline/<int:timeline_id>', views.delete_timeline, name='delete_timeline'),
     path('timeline/follow/<int:timeline_id>', views.followTimeline, name='follow_timeline'),
     path('timeline/unfollow/<int:timeline_id>', views.unfollowTimeline, name='unfollow_timeline'),
+    # path('timeline/pdf_view/', views.ViewPDF.as_view(), name="pdf_view"),
+    path('timeline/pdf_view/<int:pk>', views.FooPDFView.as_view(), name="pdf_view"),
+    path('timeline/pdf_download/<int:pk>', views.DownloadPDF.as_view(), name="pdf_download"),
 
     # タスクプロジェクト
     path('task_project/create/', views.TaskProject_CreateView.as_view(), name='TaskProject_Create'),
