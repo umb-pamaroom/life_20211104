@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 from decouple import config
 from dj_database_url import parse as dburl
@@ -29,6 +30,9 @@ SECRET_KEY = '=japbnl&5^p%b$)(d!2%n@g9zwj^6mp3&o&d+u#37j2!))ebv0'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 
 # Application definition
@@ -54,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -137,6 +142,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR + '/staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # staticをmanage.pyと同じ階層で使うときに追加
 STATICFILES_DIRS = [
@@ -163,3 +169,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pamaroom@gmail.com'
 EMAIL_HOST_PASSWORD = 'illfgqlktpyzziox'
+
+SUPERUSER_NAME = env("SUPERUSER_NAME")
+SUPERUSER_EMAIL = env("SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD")

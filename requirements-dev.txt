@@ -20,6 +20,7 @@ django-import-export==2.6.1
 django-static-md5url==0.1
 django-widget-tweaks==1.4.9
 djangorestframework==3.13.1
+django-environ
 et-xmlfile==1.1.0
 filelock==3.0.12
 Flask==1.1.2
