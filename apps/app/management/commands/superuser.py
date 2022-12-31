@@ -7,9 +7,9 @@ User = get_user_model()
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("スーパーユーザーテスト")
-        if not User.objects.filter(email=settings.SUPERUSER_EMAIL).exists():
-            User.objects.create_superuser(
-                email=settings.SUPERUSER_EMAIL,
-                password=settings.SUPERUSER_PASSWORD
-            )
-            print("スーパーユーザー作成")
+        User.objects.create_superuser(
+            email=settings.SUPERUSER_EMAIL,
+            password=settings.SUPERUSER_PASSWORD
+        )
+        print(settings.SUPERUSER_EMAIL)
+        print(settings.SUPERUSER_PASSWORD)
