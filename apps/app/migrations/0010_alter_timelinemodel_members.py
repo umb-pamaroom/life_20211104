@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='timelinemodel',
             name='members',
-            field=models.ManyToManyField(blank=True, null=True, related_name='relate_members_timeline', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(blank=True, related_name='relate_members_timeline', to=settings.AUTH_USER_MODEL),
         ),
     ]
