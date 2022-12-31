@@ -201,12 +201,6 @@ a.ui-button:active,
 .ui-widget-header .ui-icon {
 	background-image: url("images/ui-icons_444444_256x240.png");
 }
-.ui-state-hover .ui-icon,
-.ui-state-focus .ui-icon,
-.ui-button:hover .ui-icon,
-.ui-button:focus .ui-icon {
-	background-image: url("images/ui-icons_555555_256x240.png");
-}
 .ui-state-active .ui-icon,
 .ui-button:active .ui-icon {
 	background-image: url("images/ui-icons_ffffff_256x240.png");
@@ -438,6 +432,5 @@ a.ui-button:active,
 	filter: Alpha(Opacity=.3); /* support: IE8 */
 }
 .ui-widget-shadow {
-	-webkit-box-shadow: 0px 0px 5px #666666;
 	box-shadow: 0px 0px 5px #666666;
 }
