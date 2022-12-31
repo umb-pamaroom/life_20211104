@@ -375,9 +375,6 @@ hr.border{
 
 .sign-up-title{
 	font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-/*	font-family: 'HelveticaNeue';
-  	src: url('../static/non-vendors/fonts/HelveticaNeue.tff')  format("truetype"),
-       local('HelveticaNeue');*/
 	font-weight: bold;
 	margin-top: 10%;
 	margin-bottom: 0px;
@@ -387,9 +384,6 @@ hr.border{
 
 .log-in-title{
 	font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
-/*	font-family: 'HelveticaNeue';
-  	src: url('../static/non-vendors/fonts/HelveticaNeue.tff')  format("truetype"),
-       local('HelveticaNeue');*/
 	font-weight: bold;
 	margin-top: 20%;
 	margin-bottom: 0px;
