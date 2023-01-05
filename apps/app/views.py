@@ -430,6 +430,17 @@ class TimelineUpdateView(UpdateView):
         return reverse('app:TimelineList')
 
 
+# タイムラインの共有
+class TimelineShareView(UpdateView):
+    template_name = 'timeline/share.html'
+    model = TimelineModel
+    form_class = TimelineShareForm
+
+    def get_success_url(self):
+        return reverse('app:TimelineList')
+
+
+# タイムラインの削除
 class TimelineDetailView(LoginRequiredMixin, DetailView):
     template_name = 'timeline/detail.html'
     model = TimelineModel

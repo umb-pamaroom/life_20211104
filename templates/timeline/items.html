@@ -3,7 +3,6 @@
 {% load static %}
 {% load md5url %}
 
-
 {% block title %}{{ timelines.title }}{% endblock %}
 {% block content %}
 
@@ -16,9 +15,7 @@
     <div class="info fb">
       <div class="persent-box fb">
         <div class="moveBtn">
-          <span class="material-icons-outlined" id="moveBtn">
-            restart_alt
-          </span>
+          <span class="material-icons-outlined" id="moveBtn">restart_alt</span>
         </div>
         <p><span id="persentNumber"></span><span class="persent">%</span>
           <span class="mini-info">(<span id="doneChecks"></span>/<span id="ChecksAll"></span>)</span></p>
@@ -42,7 +39,7 @@
                         <a class="menu-list" href="{% url 'app:TimelineUpdate' timelines.pk %}">タイムラインを編集</a>
                       </li>
                       <li class="menu-li">
-                        <a class="menu-list" href="{% url 'app:RoutineCreate' %}">タイムラインの詳細</a>
+                        <a class="menu-list" href="{% url 'app:TimelineShare' timelines.pk %}">タイムラインを共有</a>
                       </li>
                       <li class="menu-li">
                         <p class="menu-list" id="checkBoxReset">チェックをリセット</p>

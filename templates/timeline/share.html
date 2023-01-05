@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% block title %}タイムライン共有{% endblock %}
+{% block content %}
+
+  <div class="heading">
+       <div class="fb heading-wrap">
+         <div class="heading-title">
+           <h1>タイムライン共有</h1>
+          </div>
+      </div>
+  </div>
+
+
+  <form class="p-memo" action="" method="POST">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="共有したいメールアドレスを入力して、検索結果から選択してください。">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="tc">
+      <button class="btn btn-flat" type="submit">共有する</button>
+    </div>
+  </form>
+
+  <script>
+    function myFunction() {
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("id_members");
+  li = ul.getElementsByTagName('li');
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("label")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "block";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+  </script>
+
+{% endblock %}

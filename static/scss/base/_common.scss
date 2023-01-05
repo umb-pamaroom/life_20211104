@@ -383,6 +383,33 @@ input {
   color: var(--text-main);
 }
 
+#myInput {
+  /* Add a search icon to input */
+  background-position: 10px 12px;
+  /* Position the search icon */
+  background-repeat: no-repeat;
+  /* Do not repeat the icon image */
+  width: 100%;
+  /* Full-width */
+  font-size: 16px;
+  /* Increase font-size */
+  padding: 12px 15px 12px 15px;
+  /* Add some padding */
+  border: 1px solid #ddd;
+  /* Add a grey border */
+  margin-bottom: 12px;
+  /* Add some space below the input */
+}
+
+#id_members li {
+  display: none;
+}
+
+#id_members li a:hover:not(.header) {
+  background-color: #c8e4ff;
+  /* Add a hover effect to all links, except for headers */
+}
+
 input {
   height: auto !important;
   width: 100%;
@@ -390,8 +417,10 @@ input {
   &+span {
     display: block;
   }
+  &[type="checkbox"]{
+    width: auto;
+  }
 }
-
 
   .btn {
     margin-top: 1em !important;

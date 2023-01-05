@@ -81,10 +81,25 @@ class TimelineCreateForm(ModelForm):
 class TimelineUpdateForm(ModelForm):
     class Meta:
         model = TimelineModel
-        fields = ['title', 'description', 'members']
+        fields = ['title', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 「:」を削除
+        self.label_suffix = ""
+
+
+# タイムラインの共有するフォーム
+class TimelineShareForm(ModelForm):
+    class Meta:
+        model = TimelineModel
+        fields = ['members']
 
         labels = {
-            'members': 'メンバー',
+            'members': '共有したいメンバーのメールアドレスにチェックを入れてください。',
+        }
+        widgets = {
+            'members': forms.CheckboxSelectMultiple,
         }
 
     def __init__(self, *args, **kwargs):
