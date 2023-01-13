@@ -1,4 +1,6 @@
 {% extends 'app/base.html' %}
+{% load static %}
+{% load md5url %}
 {% block title %}カレンダー{% endblock title %}
 {% block content %}
 
@@ -123,8 +125,14 @@
                                 <!-- その日付のタスクを全て表示 -->
                                 {% for task in tasks %}
                                 {% if task.date == day %}
-                                <div class="task modal-open {% if task.complete %}ok{% endif %}" data-modal-open="">
-                                    <p>{{ task }}</p>
+                                <div class="task-box {% if task.complete %}ok{% endif %}">
+                                    <p>
+                                        <label class="ECM_CheckboxInput">
+                                            <input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="{{ task.pk }}" {% if task.complete %}checked{% endif %}>
+                                            <span class="ECM_CheckboxInput-DummyInput"></span>
+                                            <span class="ECM_CheckboxInput-LabelText">
+                                                <span class="modal-open task" data-modal-open="">{{ task }}</span></span></label>
+                                    </p>
                                 </div>
                                 {% endif %}
                                 {% endfor %}
@@ -220,4 +228,5 @@
 
 
 </script>
+<script src="{% static 'js/calendar.js' %}?date={% now 'YmdGi' %}""></script>
 {% endblock extrascripts %}

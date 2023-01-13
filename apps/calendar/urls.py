@@ -36,4 +36,7 @@ urlpatterns = [
         'month_with_forms/<int:year>/<int:month>/',
         views.MonthWithFormsCalendar.as_view(), name='month_with_forms'
     ),
+
+    path('uncheck_task_calendar', views.uncheck_task_calendar, name="uncheck_task_calendar"),
+    path('check_task_calendar', views.check_task_calendar, name="check_task_calendar"),
 ]

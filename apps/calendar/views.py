@@ -1,11 +1,37 @@
 import datetime
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
+from django.urls import reverse_lazy, reverse
 from .forms import BS4ScheduleForm, SimpleScheduleForm
 from .models import Schedule
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from . import mixins
 from apps.app.models import *
+import json
 
+
+def check_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        # data["pk"]はhtmlの「data-pk」のこと
+        checkbox = Task.objects.get(pk=data["pk"])
+        checkbox.complete = True
+        checkbox.save()
+        return JsonResponse({"message": "Success"})
+
+
+def uncheck_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        checkbox = Task.objects.get(pk=data["pk"])
+        checkbox.complete = False
+        checkbox.save()
+        return JsonResponse({"message": "Success"})
+    
 
 class MonthCalendar(mixins.MonthCalendarMixin, generic.TemplateView):
     """月間カレンダーを表示するビュー"""

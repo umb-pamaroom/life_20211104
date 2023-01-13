@@ -23,16 +23,87 @@
   }
 
   .date-task {
-    .task {
+    .task-box {
       margin-bottom: .5em;
       background: var(--btn-success);
       border: none;
-      padding: .22em .5em;
+      padding: .5em .7em;
+      padding-left: 0;
       font-size: 13px;
       border-radius: 3px;
       position: relative;
       z-index: 30;
       cursor: pointer;
+
+      .ECM_CheckboxInput {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          justify-content: space-between;
+        }
+      
+        .ECM_CheckboxInput-Input {
+          margin: 0;
+          width: 0;
+          opacity: 0;
+        }
+      
+        .ECM_CheckboxInput:hover {
+          background: rgba(0, 0, 0, .05) !important;
+        }
+      
+        .ECM_CheckboxInput-Input:checked+.ECM_CheckboxInput-DummyInput {
+          background: #333333;
+        }
+      
+        .ECM_CheckboxInput-Input:checked+.ECM_CheckboxInput-DummyInput::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 40%;
+          height: 4px;
+          border-radius: 2px;
+          transform: translate(-6px, 5px) rotateZ(-135deg);
+          transform-origin: 2px 2px;
+          background: #FFFFFF;
+        }
+      
+        .ECM_CheckboxInput-Input:checked+.ECM_CheckboxInput-DummyInput::after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 76%;
+          height: 4px;
+          border-radius: 2px;
+          transform: translate(-6px, 5px) rotateZ(-45deg);
+          transform-origin: 2px 2px;
+          background: #FFFFFF;
+        }
+      
+        .ECM_CheckboxInput-DummyInput {
+          position: relative;
+          top: 0;
+          left: 0;
+          display: block;
+          width: 20px;
+          height: 20px;
+          border: solid 2px transparent;
+          background: #fff;
+          border-radius: 4px;
+        }
+      
+        .ECM_CheckboxInput-LabelText {
+          width: calc(100% - 40px);
+          display: block;
+          span{
+            display: block;
+          }
+        }
+
       &.ok{
         opacity: .3;
       }
@@ -152,7 +223,7 @@
       min-height:60px;
     }
     .date-task{
-      .task{
+      .task-box{
         font-size: 10px;
         letter-spacing: -.01em;
         padding:.1em .3em;
