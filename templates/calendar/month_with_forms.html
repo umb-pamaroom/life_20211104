@@ -134,7 +134,7 @@
                                     {% for task in tasks %}
                                     {% if task.date == day %}
                                     {% if task.deleted == False %}
-                                    <div class="task-box {% if task.complete %}ok{% endif %}" id="task-box-{{ task.pk }}">
+                                    <div class="task-box {% if task.complete %}ok{% endif %} {% if task.description %}des{% endif %}" id="task-box-{{ task.pk }}">
                                         <p>
                                             <span class="ECM_CheckboxInput">
                                             <label>

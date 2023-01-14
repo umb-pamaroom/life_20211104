@@ -59,6 +59,10 @@
       z-index: 30;
       cursor: pointer;
 
+      &.des {
+          background: #036839;
+        }
+
       .meta-box {
         display: none;
       }
