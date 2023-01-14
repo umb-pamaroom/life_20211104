@@ -14,6 +14,40 @@ User = get_user_model()
 import json
 
 
+def update_task_title(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        note = Task.objects.get(pk=data["pk"])
+        note.title = data["title"]
+        note.save()
+        return JsonResponse({"message": "Success"})
+
+
+def update_task_text(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        note = Task.objects.get(pk=data["pk"])
+        note.description = data["description"]
+        note.save()
+        return JsonResponse({"message": "Success"})
+    
+
+def update_task_date(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        note = Task.objects.get(pk=data["pk"])
+        note.date = data["date"]
+        note.save()
+        return JsonResponse({"message": "Success"})
+    
+
+
 def delete_task_calendar(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("index"))

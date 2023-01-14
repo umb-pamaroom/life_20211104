@@ -8,6 +8,84 @@ const show_task = document.querySelectorAll( "#show_task" );
 // タイムラインAJAX
 document.addEventListener( "DOMContentLoaded", () => {
 
+    // タスクを更新する
+    const editTaskModalEventListener = boxes => {
+        boxes.forEach( box => {
+            box.addEventListener( "click", () => {
+                let editNoteModal = document.querySelector( "#edit-note" );
+                editNoteModal.classList.add( "is-open" );
+
+                editNoteModal.querySelector( "#edit-note-title" ).value = box.querySelector( ".note-box-title" ).innerText;
+                editNoteModal.querySelector( "#edit-note-date" ).value = box.getAttribute( "data-date" );
+                editNoteModal.querySelector( "#edit-note-des" ).value = box.getAttribute( "data-des" );
+
+                const editTitleEventListener = e => {
+                    fetch( '/update_task_title', {
+                            method: "POST",
+                            headers: {
+                                'X-CSRFToken': csrf
+                            },
+                            body: JSON.stringify( {
+                                "pk": box.dataset.pk,
+                                "title": e.target.value
+                            } )
+                        } )
+                        .then( response => response.json() )
+                        .then( result => {
+                            if ( result[ "message" ] === "Success" ) {
+                                box.querySelector( ".note-box-title" ).innerText = e.target.value;
+                            }
+                        } )
+                }
+                editNoteModal.querySelector( "#edit-note-title" ).addEventListener( "input", editTitleEventListener );
+
+                const editNoteEventListener = e => {
+                    fetch( '/update_task_text', {
+                            method: "POST",
+                            headers: {
+                                'X-CSRFToken': csrf
+                            },
+                            body: JSON.stringify( {
+                                "pk": box.dataset.pk,
+                                "description": e.target.value
+                            } )
+                        } )
+                        .then( response => response.json() )
+                        .then( result => {
+                            if ( result[ "message" ] === "Success" ) {
+                                box.setAttribute( "data-des", e.target.value );
+                            }
+                        } )
+                }
+                editNoteModal.querySelector( "#edit-note-des" ).addEventListener( "input", editNoteEventListener );
+
+
+                const editDateEventListener = e => {
+                    fetch( '/update_task_date', {
+                            method: "POST",
+                            headers: {
+                                'X-CSRFToken': csrf
+                            },
+                            body: JSON.stringify( {
+                                "pk": box.dataset.pk,
+                                "date": e.target.value
+                            } )
+                        } )
+                        .then( response => response.json() )
+                        .then( result => {
+                            if ( result[ "message" ] === "Success" ) {
+                                box.setAttribute( "data-date", e.target.value );
+                                location.reload();
+                            }
+                        } )
+                }
+                editNoteModal.querySelector( "#edit-note-date" ).addEventListener( "input", editDateEventListener );
+
+            } )
+        } )
+    }
+    editTaskModalEventListener( document.querySelectorAll( ".ECM_CheckboxInput-LabelText" ) )
+
     // カレンダーのタスクを作成する
     const taskCreateListener = checkboxes => {
         checkboxes.forEach( checkbox => {
@@ -41,9 +119,7 @@ document.addEventListener( "DOMContentLoaded", () => {
                                 let TaskElement = document.createElement( 'div' );
                                 TaskElement.classList.add( "task-box" );
                                 TaskElement.id = `task-box-${result["pk"]}`;
-                                TaskElement.innerHTML = `<p>
-                                <label class = "ECM_CheckboxInput"><input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="${result["pk"]}"><span class="ECM_CheckboxInput-DummyInput"></span><span class="ECM_CheckboxInput-LabelText"><span class="modal-open task" data-modal-open="modal-task-update">${title}</span></span><div class="meta-box"><div class="trash-box" data-pk="${result["pk"]}"><span class="material-symbols-outlined">delete</span></div></div></label>
-                                </p>`;
+                                TaskElement.innerHTML = `<p><span class="ECM_CheckboxInput"><label><input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="${result["pk"]}" {% if task.complete %}checked{% endif %}><span class="ECM_CheckboxInput-DummyInput"></span></label><span class="ECM_CheckboxInput-LabelText" data-pk="${result["pk"]}" data-date="{{day.year}}-{% if day.month < 10 %}0{% endif %}{{day.month}}-{% if day.day < 10 %}0{% endif %}{{day.day}}" data-des="{{task.description}}"><span class="task note-box-title" data-pk="${result["pk"]}">${title}</span></span></span><div class="meta-box"><div class="trash-box" data-pk="${result["pk"]}"><span class="material-symbols-outlined">delete</span></div></div></p>`;
                                 dateTask.appendChild( TaskElement );
                                 var taskCheck = document.querySelectorAll( ".taskCheck" );
                                 taskEventListener();
@@ -62,6 +138,7 @@ document.addEventListener( "DOMContentLoaded", () => {
     }
     taskCreateListener( createBtn );
 
+    // タスクを削除する
     const trashListener = checkboxes => {
         var trash = document.querySelectorAll( ".trash-box" );
         trash.forEach( btn => {
@@ -87,7 +164,6 @@ document.addEventListener( "DOMContentLoaded", () => {
     }
     trashListener();
 
-    // タスクを削除する
 
 
     const taskEventListener = checkboxes => {
