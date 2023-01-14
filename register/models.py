@@ -63,6 +63,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     # プロフィール画像
     avatar = models.ImageField('プロフィール画像',upload_to='images/avatar', blank=True, null=True)
 
+    # カレンダーのタスク表示・非表示設定
+    done_task_calendar_show = models.BooleanField(default=False)
+
     # 選択肢用をchoicesで追加する
     theme = models.CharField(max_length=30, default="white", choices=Themes.choices)
     timeline_settings_category_show = models.CharField(max_length=30, default="show", choices=TimelineSettingsCategoryShow.choices)

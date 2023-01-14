@@ -4,6 +4,7 @@
 {% block title %}カレンダー{% endblock title %}
 {% block content %}
 
+<div class="page-container {% if user.done_task_calendar_show %}done_task_calendar_show{% endif %}">
 <div class="heading modalContainer">
     <div class="fb heading-wrap">
         <div class="heading-title">
@@ -63,6 +64,13 @@
                         <span class="material-icons">
                             search
                         </span>
+                    </div>
+                    <div class="icon-btn">
+                        <label class="ECM_CheckboxInput">
+                            <input id="show_task" type="checkbox" class="ECM_CheckboxInput-Input" data-pk="{{ user.pk }}" {% if user.done_task_calendar_show %}checked{% endif %}>
+                            <span class="ECM_CheckboxInput-DummyInput"></span>
+                        <span class="material-symbols-outlined">task</span></label>
+                        
                     </div>
                     <a class="icon-btn" href="{% url 'app:task-create' %}">
                         <span class="material-icons">
@@ -187,6 +195,7 @@
     </table>
     {% csrf_token %}
 </form>
+</div>
 {% endblock %}
 
 {% block extrascripts %}

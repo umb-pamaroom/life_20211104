@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
 from django.urls import reverse_lazy, reverse
@@ -7,6 +8,9 @@ from .models import Schedule
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from . import mixins
 from apps.app.models import *
+from django.contrib.auth.models import User
+from django.conf import settings
+User = get_user_model()
 import json
 
 
@@ -16,6 +20,7 @@ def check_task_calendar(request):
     if request.method == "POST":
         data = json.loads(request.body)
         # data["pk"]はhtmlの「data-pk」のこと
+        print(data)
         checkbox = Task.objects.get(pk=data["pk"])
         checkbox.complete = True
         checkbox.save()
@@ -27,9 +32,35 @@ def uncheck_task_calendar(request):
         return HttpResponseRedirect(reverse("index"))
     if request.method == "POST":
         data = json.loads(request.body)
+        print(data)
         checkbox = Task.objects.get(pk=data["pk"])
         checkbox.complete = False
         checkbox.save()
+        return JsonResponse({"message": "Success"})
+    
+
+def show_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        # data["pk"]はhtmlの「data-pk」のこと
+        user = User.objects.get(pk=data["pk"])
+        print(user.done_task_calendar_show)
+        user.done_task_calendar_show = True
+        user.save()
+        return JsonResponse({"message": "Success"})
+
+
+def unshow_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user = User.objects.get(pk=data["pk"])
+        print(user.done_task_calendar_show)
+        user.done_task_calendar_show = False
+        user.save()
         return JsonResponse({"message": "Success"})
     
 
