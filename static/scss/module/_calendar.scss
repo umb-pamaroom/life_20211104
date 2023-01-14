@@ -39,6 +39,15 @@
       z-index: 30;
       cursor: pointer;
 
+      .meta-box{
+        display: none;
+      }
+      &:hover{
+        .meta-box{
+          display: block;
+        }
+      }
+
       .ECM_CheckboxInput {
           display: flex;
           align-items: center;

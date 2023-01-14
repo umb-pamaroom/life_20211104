@@ -133,15 +133,23 @@
                                 <!-- その日付のタスクを全て表示 -->
                                 {% for task in tasks %}
                                 {% if task.date == day %}
-                                <div class="task-box {% if task.complete %}ok{% endif %}">
+                                {% if task.deleted == False %}
+                                <div class="task-box {% if task.complete %}ok{% endif %}" id="task-box-{{ task.pk }}">
                                     <p>
                                         <label class="ECM_CheckboxInput">
                                             <input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="{{ task.pk }}" {% if task.complete %}checked{% endif %}>
                                             <span class="ECM_CheckboxInput-DummyInput"></span>
                                             <span class="ECM_CheckboxInput-LabelText">
                                                 <span class="modal-open task" data-modal-open="">{{ task }}</span></span></label>
+                                        <div class="meta-box">
+                                            <div class="trash-box" data-pk="{{ task.pk }}">
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            </div></div>
                                     </p>
                                 </div>
+                                {% endif %}
                                 {% endif %}
                                 {% endfor %}
                                 <!-- //その日付のタスクを全て表示 -->
@@ -174,14 +182,13 @@
                         <div class="modal-inner">
                             <div class="modal-content">
                                 <div class="modal-form">
-                                    {% for form in forms|slice:":1" %}
-                                    {{ form.title }}
-                                    {{ form.date.label_tag }}
-                                    {{ form.date }}
-                                    {% endfor %}
+                                    <input type="text" class="form-control input-task-title" placeholder="タイトル" maxlength="200">
+                                    <label>日付</label>
+                                    <!-- inputのdateタイプの書式に値を合わせる -->
+                                    <input type="date" value="{{day.year}}-{% if day.month < 10 %}0{% endif %}{{day.month}}-{% if day.month < 10 %}0{% endif %}{{day.day}}" class="input-task-date">
                                 </div>
                                 <div class="tc">
-                                    <button class="btn btn-flat" type="submit">作成</button>
+                                    <div class="btn btn-flat create-calendar-task">作成</div>
                                 </div>
                             </div>
                         </div>

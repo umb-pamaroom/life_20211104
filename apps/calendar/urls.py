@@ -41,4 +41,7 @@ urlpatterns = [
     path('check_task_calendar', views.check_task_calendar, name="check_task_calendar"),
     path('unshow_task_calendar', views.unshow_task_calendar, name="unshow_task_calendar"),
     path('show_task_calendar', views.show_task_calendar, name="show_task_calendar"),
+    path('create_task_calendar', views.create_task_calendar, name="create_task_calendar"),
+    path('delete_task_calendar', views.delete_task_calendar, name="delete_task_calendar"),
+    
 ]

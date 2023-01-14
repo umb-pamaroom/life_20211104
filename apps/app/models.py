@@ -83,6 +83,7 @@ class Task(models.Model):
     end_time = models.TimeField('終了時間',  null=True, blank=True)
     date = models.DateField('日付', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

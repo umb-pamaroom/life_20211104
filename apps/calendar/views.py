@@ -9,10 +9,20 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from . import mixins
 from apps.app.models import *
 from django.contrib.auth.models import User
-from django.conf import settings
+from django.core import serializers
 User = get_user_model()
 import json
 
+
+def delete_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        note = Task.objects.get(pk=data["pk"])
+        note.deleted = True
+        note.save()
+        return JsonResponse({"message": "Success"})
 
 def check_task_calendar(request):
     if not request.user.is_authenticated:
@@ -62,6 +72,20 @@ def unshow_task_calendar(request):
         user.done_task_calendar_show = False
         user.save()
         return JsonResponse({"message": "Success"})
+    
+# AJAXでカレンダーのタスクを作成する
+def create_task_calendar(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        task = Task(title=data["title"], date=data["date"],user=request.user)
+        task.save()
+        print("タスクの作成成功")
+        print(data["date"])
+        print(task.pk)
+        # クライアントにtaskのpkを渡す
+        return JsonResponse({"message": "Success", "pk": task.pk})
     
 
 class MonthCalendar(mixins.MonthCalendarMixin, generic.TemplateView):
