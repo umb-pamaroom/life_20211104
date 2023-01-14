@@ -118,8 +118,8 @@
 
                         <div class="date-wrap">
                             <div class="date-in">
-                                <p class="date">
-                                    <span class="dib">
+                                <div class="date">
+                                    <span class="dib date-span">
                                         <!-- もし、表示の月と今日の月が合わない場合は -->
                                         {% if month_current.month != day.month %}
                                         {{ day | date:"m/d" }}
@@ -127,7 +127,15 @@
                                         {{ day.day }}
                                         {% endif %}
                                     </span>
-                                </p>
+                                    <!-- <div class="meta-box">
+                                        <div class="percent">
+                                            <span class="PercentTask"></span>%
+                                        </div>
+                                        <div class="NumTaskSummary">(<span class="DoneAllTaskCalendarNum"></span>/<span class="AllTaskCalendarNum"></span>)
+                                        </div>
+                                    </div> -->
+
+                                </div>
                                 <div class="date-task">
 
                                     <!-- その日付のタスクを全て表示 -->
@@ -137,13 +145,13 @@
                                     <div class="task-box {% if task.complete %}ok{% endif %} {% if task.description %}des{% endif %}" id="task-box-{{ task.pk }}">
                                         <p>
                                             <span class="ECM_CheckboxInput">
-                                            <label>
-                                                <input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="{{ task.pk }}" {% if task.complete %}checked{% endif %}>
-                                                <span class="ECM_CheckboxInput-DummyInput"></span>
-                                            </label>
-                                            <span class="ECM_CheckboxInput-LabelText" data-pk="{{ task.pk }}" data-date="{{day.year}}-{% if day.month < 10 %}0{% endif %}{{day.month}}-{% if day.day < 10 %}0{% endif %}{{day.day}}" data-des="{{task.description}}">
-                                                <span class="task note-box-title" data-pk="{{ task.pk }}">{{ task }}</span></span>
-                                                </span>
+                                                <label>
+                                                    <input type="checkbox" class="taskCheck ECM_CheckboxInput-Input" data-pk="{{ task.pk }}" {% if task.complete %}checked{% endif %}>
+                                                    <span class="ECM_CheckboxInput-DummyInput"></span>
+                                                </label>
+                                                <span class="ECM_CheckboxInput-LabelText" data-pk="{{ task.pk }}" data-date="{{day.year}}-{% if day.month < 10 %}0{% endif %}{{day.month}}-{% if day.day < 10 %}0{% endif %}{{day.day}}" data-des="{{task.description}}">
+                                                    <span class="task note-box-title" data-pk="{{ task.pk }}">{{ task }}</span></span>
+                                            </span>
                                             <div class="meta-box">
                                                 <div class="trash-box" data-pk="{{ task.pk }}">
                                                     <span class="material-symbols-outlined">

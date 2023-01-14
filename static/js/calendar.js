@@ -8,6 +8,27 @@ const show_task = document.querySelectorAll( "#show_task" );
 // タイムラインAJAX
 document.addEventListener( "DOMContentLoaded", () => {
 
+    // タスクの数を表示する
+    // const TaskNumEventListener = boxes => {
+    //     boxes.forEach( box =>
+    //     {
+    //         // 全てのタスク
+    //         let taskNum = box.querySelectorAll( ".task-box" );
+    //         let taskOkNum = box.querySelectorAll( ".task-box.ok" );
+
+    //         let AllTaskCalendarNum = box.querySelector( ".AllTaskCalendarNum" )
+    //         let DoneAllTaskCalendarNum = box.querySelector( ".DoneAllTaskCalendarNum" );
+    //         let PercentTask = box.querySelector( ".PercentTask" );
+    //         let per = Math.round(taskOkNum.length / taskNum.length * 100);
+    //         if ( taskNum.length == 0 ) { per = 100; }
+
+    //         AllTaskCalendarNum.innerHTML = taskNum.length;
+    //         DoneAllTaskCalendarNum.innerHTML = taskOkNum.length;
+    //         PercentTask.innerHTML = per;
+    //     } )
+    // }
+    // TaskNumEventListener( document.querySelectorAll( ".date-in" ) )
+
     // タスクを更新する
     const editTaskModalEventListener = boxes => {
         boxes.forEach( box => {
@@ -57,9 +78,7 @@ document.addEventListener( "DOMContentLoaded", () => {
                             }
                             if ( e.target.value == "" ) {
                                 box.closest( ".task-box" ).classList.remove( "des" );
-                            }
-                            else
-                            {
+                            } else {
                                 box.closest( ".task-box" ).classList.add( "des" );
                             }
                         } )
