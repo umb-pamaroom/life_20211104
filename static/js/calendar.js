@@ -55,6 +55,13 @@ document.addEventListener( "DOMContentLoaded", () => {
                             if ( result[ "message" ] === "Success" ) {
                                 box.setAttribute( "data-des", e.target.value );
                             }
+                            if ( e.target.value == "" ) {
+                                box.closest( ".task-box" ).classList.remove( "des" );
+                            }
+                            else
+                            {
+                                box.closest( ".task-box" ).classList.add( "des" );
+                            }
                         } )
                 }
                 editNoteModal.querySelector( "#edit-note-des" ).addEventListener( "input", editNoteEventListener );
