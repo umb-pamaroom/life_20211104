@@ -29,19 +29,31 @@ document.addEventListener( "DOMContentLoaded", () => {
     // }
     // TaskNumEventListener( document.querySelectorAll( ".date-in" ) )
 
-    // タスクを更新する
+    // タスクを更新する（タスクのタイトルをクリックした時発動）
     const editTaskModalEventListener = boxes => {
         boxes.forEach( box => {
-            box.addEventListener( "click", () => {
+            box.addEventListener( "click", () =>
+            {
+                // 更新用のモーダルを表示させる
                 let editNoteModal = document.querySelector( "#edit-note" );
                 editNoteModal.classList.add( "is-open" );
 
+                // 更新するデータをフォームに入力させる
                 editNoteModal.querySelector( "#edit-note-title" ).value = box.querySelector( ".note-box-title" ).innerText;
-                editNoteModal.querySelector( "#edit-note-date" ).value = box.getAttribute( "data-date" );
-                editNoteModal.querySelector( "#edit-note-des" ).value = box.getAttribute( "data-des" );
+                editNoteModal.querySelector( "#edit-note-title" ).setAttribute( "data-tasktitle", box.dataset.pk );
 
-                const editTitleEventListener = e => {
-                    fetch( '/update_task_title', {
+                editNoteModal.querySelector( "#edit-note-date" ).value = box.getAttribute( "data-date" );
+                editNoteModal.querySelector( "#edit-note-date" ).setAttribute( "data-taskdate", box.dataset.pk );
+
+                editNoteModal.querySelector( "#edit-note-des" ).value = box.getAttribute( "data-des" );
+                editNoteModal.querySelector( "#edit-note-des" ).setAttribute( "data-taskdes", box.dataset.pk );
+
+
+                const editTitleEventListener = e =>
+                {
+                    if ( editNoteModal.querySelector( "#edit-note-title" ).dataset.tasktitle == box.dataset.pk )
+                    {
+                        fetch( '/update_task_title', {
                             method: "POST",
                             headers: {
                                 'X-CSRFToken': csrf
@@ -51,17 +63,23 @@ document.addEventListener( "DOMContentLoaded", () => {
                                 "title": e.target.value
                             } )
                         } )
-                        .then( response => response.json() )
-                        .then( result => {
-                            if ( result[ "message" ] === "Success" ) {
-                                box.querySelector( ".note-box-title" ).innerText = e.target.value;
-                            }
-                        } )
+                            .then( response => response.json() )
+                            .then( result =>
+                            {
+                                if ( result["message"] === "Success" )
+                                {
+                                    box.querySelector( ".note-box-title" ).innerText = e.target.value;
+                                }
+                            } )
+                    }
                 }
                 editNoteModal.querySelector( "#edit-note-title" ).addEventListener( "input", editTitleEventListener );
 
-                const editNoteEventListener = e => {
-                    fetch( '/update_task_text', {
+                const editNoteEventListener = e =>
+                {
+                    if ( editNoteModal.querySelector( "#edit-note-date" ).dataset.taskdate == box.dataset.pk )
+                    {
+                        fetch( '/update_task_text', {
                             method: "POST",
                             headers: {
                                 'X-CSRFToken': csrf
@@ -71,23 +89,31 @@ document.addEventListener( "DOMContentLoaded", () => {
                                 "description": e.target.value
                             } )
                         } )
-                        .then( response => response.json() )
-                        .then( result => {
-                            if ( result[ "message" ] === "Success" ) {
-                                box.setAttribute( "data-des", e.target.value );
-                            }
-                            if ( e.target.value == "" ) {
-                                box.closest( ".task-box" ).classList.remove( "des" );
-                            } else {
-                                box.closest( ".task-box" ).classList.add( "des" );
-                            }
-                        } )
+                            .then( response => response.json() )
+                            .then( result =>
+                            {
+                                if ( result["message"] === "Success" )
+                                {
+                                    box.setAttribute( "data-des", e.target.value );
+                                }
+                                if ( e.target.value == "" )
+                                {
+                                    box.closest( ".task-box" ).classList.remove( "des" );
+                                } else
+                                {
+                                    box.closest( ".task-box" ).classList.add( "des" );
+                                }
+                            } )
+                    }
                 }
                 editNoteModal.querySelector( "#edit-note-des" ).addEventListener( "input", editNoteEventListener );
 
 
-                const editDateEventListener = e => {
-                    fetch( '/update_task_date', {
+                const editDateEventListener = e =>
+                {
+                    if ( editNoteModal.querySelector( "#edit-note-des" ).dataset.taskdes == box.dataset.pk )
+                    {
+                        fetch( '/update_task_date', {
                             method: "POST",
                             headers: {
                                 'X-CSRFToken': csrf
@@ -97,13 +123,16 @@ document.addEventListener( "DOMContentLoaded", () => {
                                 "date": e.target.value
                             } )
                         } )
-                        .then( response => response.json() )
-                        .then( result => {
-                            if ( result[ "message" ] === "Success" ) {
-                                box.setAttribute( "data-date", e.target.value );
-                                location.reload();
-                            }
-                        } )
+                            .then( response => response.json() )
+                            .then( result =>
+                            {
+                                if ( result["message"] === "Success" )
+                                {
+                                    box.setAttribute( "data-date", e.target.value );
+                                    location.reload();
+                                }
+                            } )
+                    }
                 }
                 editNoteModal.querySelector( "#edit-note-date" ).addEventListener( "input", editDateEventListener );
 

@@ -22,6 +22,8 @@ def update_task_title(request):
         note = Task.objects.get(pk=data["pk"])
         note.title = data["title"]
         note.save()
+        print("下記のタスクのタイトルを更新しました")
+        print(data["pk"])
         return JsonResponse({"message": "Success"})
 
 
